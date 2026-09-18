@@ -2,144 +2,164 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PoultryTrack — Sistem Analisis Operasional & Kasir Lapak Ayam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f1523">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>PoultryTrack — Kasir & Antrean Ayam Pasar</title>
     
+    <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260918_01">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=20260918_mobile_01">
 </head>
 <body>
 
-    <header class="top-bar">
-        <div class="brand-title">
-            <span>🐔 PoultryTrack</span>
-            <span class="badge-tag">Pasar Tradisional Retail Engine</span>
+    <!-- Header HP -->
+    <header class="app-header">
+        <div class="header-brand">
+            <span>🐔</span>
+            <span>PoultryTrack</span>
         </div>
-        <div style="font-size: 0.78rem; color: var(--text-muted);">
-            Periode Data: 90 Hari Terakhir (1.937 Transaksi)
-        </div>
+        <div class="market-badge" id="headerDateBadge">Pasar Pagi</div>
     </header>
 
-    <main class="container">
-        <!-- KPI Row -->
-        <section class="kpi-row">
-            <div class="kpi-card">
-                <span class="kpi-label">Total Omzet Penjualan</span>
-                <div class="kpi-value" id="totalOmzetDisplay">Rp 1,26 Miliar</div>
-                <span class="kpi-sub">Karkas Daging & Potongan</span>
+    <!-- TAB 1: KASIR CEPAT (TIMBANGAN & TRANSAKSI) -->
+    <main id="tab-kasir" class="tab-view active">
+        <!-- Display Timbangan & Total -->
+        <div class="weight-display-screen">
+            <div class="weight-left">
+                <span class="weight-unit">Berat Timbangan</span>
+                <div class="weight-val"><span id="displayWeight">2.0</span> <span style="font-size: 1.2rem; color: var(--text-muted);">kg</span></div>
             </div>
-            <div class="kpi-card">
-                <span class="kpi-label">Estimasi Laba Kotor</span>
-                <div class="kpi-value" id="totalLabaDisplay" style="color: var(--accent-emerald);">Rp 253,7 Juta</div>
-                <span class="kpi-sub">Margin Kotor Bersih: ~20,02%</span>
+            <div class="price-right">
+                <span class="weight-unit">Total Bayar</span>
+                <div class="total-rp" id="displayTotal">Rp 70.000</div>
             </div>
-            <div class="kpi-card">
-                <span class="kpi-label">Rata-rata Rendemen Karkas</span>
-                <div class="kpi-value" id="rataRendemenDisplay" style="color: var(--accent-blue);">73,47%</div>
-                <span class="kpi-sub">Susut Bobot Darah/Bulu: 26,53%</span>
-            </div>
-            <div class="kpi-card">
-                <span class="kpi-label">Total Piutang Belum Lunas</span>
-                <div class="kpi-value" id="totalPiutangDisplay" style="color: var(--accent-rose);">Rp 742,1 Juta</div>
-                <span class="kpi-sub">Buku Bon Langganan Warung</span>
-            </div>
-        </section>
+        </div>
 
-        <!-- Charts Split -->
-        <section class="grid-split">
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Tren Omzet & Laba Kotor Harian (14 Hari Terakhir)</span>
-                    <span class="badge-tag">Juta Rupiah</span>
-                </div>
-                <div class="panel-body">
-                    <div class="chart-box">
-                        <canvas id="trendChart"></canvas>
-                    </div>
-                </div>
+        <!-- Tombol Cepat Timbangan (Kerap Digunakan di Meja Lapak) -->
+        <div class="card-box">
+            <span class="card-title">Tombol Cepat Bobot / Ekor</span>
+            <div class="preset-grid">
+                <button type="button" class="btn-preset" data-weight="1.5">1 Ekor Kecil (1.5 kg)</button>
+                <button type="button" class="btn-preset selected" data-weight="2.0">1 Ekor Sedang (2.0 kg)</button>
+                <button type="button" class="btn-preset" data-weight="2.5">1 Ekor Besar (2.5 kg)</button>
+                <button type="button" class="btn-preset" data-weight="5.0">5.0 kg</button>
+                <button type="button" class="btn-preset" data-weight="10.0">10.0 kg</button>
+                <button type="button" class="btn-preset" data-weight="20.0">20.0 kg</button>
             </div>
+        </div>
 
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Kontribusi Laba per Jenis Potongan</span>
-                    <span class="badge-tag">Breakdown</span>
-                </div>
-                <div class="panel-body">
-                    <div class="chart-box">
-                        <canvas id="cutsChart"></canvas>
-                    </div>
-                </div>
+        <!-- Spesifikasi Potongan Karkas -->
+        <div class="card-box">
+            <span class="card-title">Jenis Potongan Ayam</span>
+            <div class="cut-selector">
+                <button type="button" class="btn-cut selected" data-cut="Utuh / Bersih" data-price="35000">Karkas Utuh (Rp35rb)</button>
+                <button type="button" class="btn-cut" data-cut="Potong 4" data-price="35000">Potong 4 (Rp35rb)</button>
+                <button type="button" class="btn-cut" data-cut="Potong 8" data-price="36500">Potong 8 (Rp36.5rb)</button>
+                <button type="button" class="btn-cut" data-cut="Potong 12" data-price="36500">Potong 12 (Rp36.5rb)</button>
+                <button type="button" class="btn-cut" data-cut="Fillet Dada" data-price="48000">Fillet Dada (Rp48rb)</button>
+                <button type="button" class="btn-cut" data-cut="Ati Ampela / Ceker" data-price="25000">Jeroan / Ceker (Rp25rb)</button>
             </div>
-        </section>
+        </div>
 
-        <!-- Interactive Calculator & Receivables Ledger -->
-        <section class="grid-split">
-            <!-- Fast Carcass & Margin Calculator -->
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Kalkulator Cepat Susut Bobot & Margin Karkas</span>
-                    <span class="badge-tag">Simulator Lapak</span>
-                </div>
-                <div class="panel-body">
-                    <div class="sim-grid">
-                        <div class="input-group">
-                            <label class="input-label">Berat Ayam Hidup (kg):</label>
-                            <input type="number" id="inputLiveWeight" class="input-field" value="20.0" step="0.5">
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">Harga Beli Supplier (/kg):</label>
-                            <input type="number" id="inputLiveCost" class="input-field" value="22000" step="500">
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">Harga Jual Karkas (/kg):</label>
-                            <input type="number" id="inputPriceCarcass" class="input-field" value="35000" step="500">
-                        </div>
-                    </div>
-
-                    <div class="calc-output-box">
-                        <div class="out-item">
-                            <span class="out-title">Estimasi Karkas Bersih (73%):</span>
-                            <span class="out-num" id="calcCarcassKg" style="color: var(--accent-blue);">14.6 kg</span>
-                        </div>
-                        <div class="out-item">
-                            <span class="out-title">Estimasi Laba Kotor:</span>
-                            <span class="out-num" id="calcProfitRp" style="color: var(--accent-emerald);">Rp 71.000</span>
-                        </div>
-                        <div class="out-item">
-                            <span class="out-title">Margin Laba:</span>
-                            <span class="out-num" id="calcMarginPct">13.9%</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- Pembeli & Status Pembayaran -->
+        <div class="card-box">
+            <span class="card-title">Nama Pelanggan & Metode Bayar</span>
+            <input type="text" id="custNameInput" class="form-input" placeholder="Eceran Umum / Nama Warung" value="Eceran Umum">
+            
+            <div style="display: flex; gap: 8px;">
+                <button type="button" id="btnPayCash" class="btn-preset selected" style="flex: 1;">💵 Tunai / QRIS</button>
+                <button type="button" id="btnPayTempo" class="btn-preset" style="flex: 1;">📝 Catat Bon (Tempo)</button>
             </div>
+        </div>
 
-            <!-- Receivables Table -->
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Daftar Tagihan Piutang Langganan (Buku Bon)</span>
-                    <span class="badge-tag">Jatuh Tempo</span>
-                </div>
-                <div class="panel-body" style="padding: 0; max-height: 280px; overflow-y: auto;">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Nama Pelanggan</th>
-                                <th>Jumlah Bon</th>
-                                <th>Total Piutang</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bonTableBody">
-                            <!-- Populated via JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+        <!-- Tombol Simpan Transaksi -->
+        <button type="button" id="btnSaveTransaction" class="btn-primary-action">
+            <span>Simpan Transaksi</span>
+            <span>✓</span>
+        </button>
     </main>
 
-    <script src="app.js?v=20260918_01"></script>
+    <!-- TAB 2: ANTREAN POTONG (UNTUK JURU POTONG SUBUH) -->
+    <section id="tab-antrean" class="tab-view">
+        <div class="card-box">
+            <span class="card-title">Papan Antrean Pemotongan Subuh</span>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">Daftar pesanan langganan yang harus dipotong & dibungkus.</p>
+        </div>
+
+        <div id="queueListContainer" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Rendered by JS -->
+        </div>
+    </section>
+
+    <!-- TAB 3: BUKU BON (PIUTANG LANGGANAN) -->
+    <section id="tab-bon" class="tab-view">
+        <div class="card-box">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="card-title">Buku Bon Langganan</span>
+                <span id="totalBonBadge" style="font-family: var(--font-mono); font-weight: 700; color: var(--brand-rose); font-size: 0.85rem;">Rp 0</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">Daftar piutang tempo warung makan & katering yang belum disetor.</p>
+        </div>
+
+        <div id="bonListContainer" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Rendered by JS -->
+        </div>
+    </section>
+
+    <!-- TAB 4: REKAP HARIAN (TUTUP BUKU SIANG) -->
+    <section id="tab-rekap" class="tab-view">
+        <div class="card-box">
+            <span class="card-title">Rekapitulasi Tutup Kasir Hari Ini</span>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 6px;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                    <span style="color: var(--text-muted);">Total Ayam Terjual:</span>
+                    <strong id="rekapTotalKg" style="font-family: var(--font-mono);">0.0 kg</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                    <span style="color: var(--text-muted);">Uang Masuk (Tunai):</span>
+                    <strong id="rekapCashRp" style="font-family: var(--font-mono); color: var(--brand-emerald);">Rp 0</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                    <span style="color: var(--text-muted);">Bon Belum Dibayar:</span>
+                    <strong id="rekapBonRp" style="font-family: var(--font-mono); color: var(--brand-rose);">Rp 0</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 1rem; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+                    <span>Total Omzet Kotor:</span>
+                    <strong id="rekapTotalRevenue" style="font-family: var(--font-mono); color: var(--brand-blue);">Rp 0</strong>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" id="btnResetDay" class="btn-preset" style="color: var(--brand-rose); border-color: rgba(244, 63, 94, 0.3);">
+            Mulai Hari Baru (Reset Kasir)
+        </button>
+    </section>
+
+    <!-- Bottom Navigation Bar (Khusus HP) -->
+    <nav class="bottom-nav">
+        <button type="button" class="nav-item active" data-tab="tab-kasir">
+            <span class="nav-icon">⚖️</span>
+            <span>Kasir</span>
+        </button>
+        <button type="button" class="nav-item" data-tab="tab-antrean">
+            <span class="nav-icon">🔪</span>
+            <span>Antrean</span>
+        </button>
+        <button type="button" class="nav-item" data-tab="tab-bon">
+            <span class="nav-icon">📖</span>
+            <span>Buku Bon</span>
+        </button>
+        <button type="button" class="nav-item" data-tab="tab-rekap">
+            <span class="nav-icon">📊</span>
+            <span>Rekap</span>
+        </button>
+    </nav>
+
+    <script src="app.js?v=20260918_mobile_01"></script>
 </body>
 </html>

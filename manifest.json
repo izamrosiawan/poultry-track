@@ -1,0 +1,16 @@
+﻿{
+  "short_name": "PoultryTrack",
+  "name": "PoultryTrack - Kasir & Lapak Ayam",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐔</text></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#090d14",
+  "theme_color": "#0f1523",
+  "display": "standalone",
+  "orientation": "portrait"
+}
