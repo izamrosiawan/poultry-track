@@ -1,176 +1,208 @@
-﻿// PoultryTrack Mobile PWA Engine
+﻿// PoultryTrack Touch Controller & Tactile Engine
 
-let state = {
-    currentWeight: 2.0,
-    currentCut: "Utuh / Bersih",
-    currentPricePerKg: 35000,
+const store = {
+    weight: 2.0,
+    cut: "Karkas Utuh",
+    pricePerKg: 35000,
     paymentMethod: "Tunai",
     transactions: [],
     queue: [
-        { id: 1, customer: "Warung Padang Roda Jaya", count: 15, cut: "Potong 4", time: "04:30 WIB", status: "Sedang Dikerjakan" },
-        { id: 2, customer: "Depot Mie Pangsit 88", count: 8, cut: "Fillet Dada", time: "05:00 WIB", status: "Antre" },
-        { id: 3, customer: "Katering Berkah Ibu", count: 20, cut: "Potong 8", time: "05:30 WIB", status: "Antre" },
-        { id: 4, customer: "Bakso Mas Mul", count: 12, cut: "Giling / Kasar", time: "06:00 WIB", status: "Antre" }
+        { id: 1, customer: "Warung Padang Roda Jaya", chickens: 15, cut: "Potong 4", time: "04:30 WIB", status: "Dikerjakan" },
+        { id: 2, customer: "Depot Mie Pangsit 88", chickens: 8, cut: "Fillet Dada", time: "05:00 WIB", status: "Antre" },
+        { id: 3, customer: "Katering Berkah Ibu", chickens: 20, cut: "Potong 8", time: "05:30 WIB", status: "Antre" },
+        { id: 4, customer: "Bakso Mas Mul", chickens: 12, cut: "Campur / Giling", time: "06:00 WIB", status: "Antre" }
     ]
 };
 
-// LocalStorage Persistence
-const STORAGE_KEY = "POULTRY_TRACK_TRANSACTIONS_V1";
+// Web Audio Synthetic Tactile Click (Low latency feedback)
+let audioCtx = null;
+function playTouchClick(freq = 800, duration = 0.03) {
+    try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+    } catch (e) {
+        // Fallback gracefully on devices blocking Web Audio
+    }
+}
+
+const STORAGE_KEY = "POULTRY_TRACK_DATA_V2";
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadLocalTransactions();
-    initBottomNav();
-    initPresets();
-    initCutSelector();
+    loadTransactions();
+    initClock();
+    initNavigation();
+    initKeypad();
+    initCuts();
     initPaymentToggle();
-    initSaveButton();
-    updateDisplay();
-    renderQueue();
-    renderBon();
-    renderRekap();
+    initSubmitButton();
+    renderAll();
 });
 
-function loadLocalTransactions() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
+function initClock() {
+    function tick() {
+        const now = new Date();
+        const str = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')} WIB`;
+        const el = document.getElementById("headerClock");
+        if (el) el.textContent = str;
+    }
+    tick();
+    setInterval(tick, 10000);
+}
+
+function loadTransactions() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
         try {
-            state.transactions = JSON.parse(saved);
+            store.transactions = JSON.parse(raw);
         } catch (e) {
-            state.transactions = [];
+            store.transactions = [];
         }
     }
 }
 
-function saveLocalTransactions() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.transactions));
+function persist() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(store.transactions));
 }
 
-// 1. Bottom Navigation Tabs
-function initBottomNav() {
-    const tabs = document.querySelectorAll(".nav-item");
+function initNavigation() {
+    const tabs = document.querySelectorAll(".dock-tab");
     tabs.forEach(tab => {
         tab.addEventListener("click", () => {
+            playTouchClick(600, 0.02);
             tabs.forEach(t => t.classList.remove("active"));
             tab.classList.add("active");
 
-            const targetId = tab.dataset.tab;
+            const target = tab.dataset.target;
             document.querySelectorAll(".tab-view").forEach(v => v.classList.remove("active"));
-            document.getElementById(targetId).classList.add("active");
+            document.getElementById(target).classList.add("active");
 
-            if (targetId === "tab-bon") renderBon();
-            if (targetId === "tab-rekap") renderRekap();
-            if (targetId === "tab-antrean") renderQueue();
+            if (target === "view-bon") renderDebt();
+            if (target === "view-rekap") renderRekap();
+            if (target === "view-antrean") renderQueue();
         });
     });
 }
 
-// 2. Presets Timbangan
-function initPresets() {
-    const buttons = document.querySelectorAll(".btn-preset[data-weight]");
-    buttons.forEach(btn => {
+function initKeypad() {
+    const keys = document.querySelectorAll(".btn-key[data-weight]");
+    keys.forEach(k => {
+        k.addEventListener("click", () => {
+            playTouchClick(750, 0.025);
+            keys.forEach(key => key.classList.remove("active"));
+            k.classList.add("active");
+            store.weight = parseFloat(k.dataset.weight);
+            updateScaleDisplay();
+        });
+    });
+}
+
+function initCuts() {
+    const cutButtons = document.querySelectorAll(".btn-cut-option");
+    cutButtons.forEach(btn => {
         btn.addEventListener("click", () => {
-            buttons.forEach(b => b.classList.remove("selected"));
-            btn.classList.add("selected");
-            state.currentWeight = parseFloat(btn.dataset.weight);
-            updateDisplay();
+            playTouchClick(900, 0.025);
+            cutButtons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            store.cut = btn.dataset.cut;
+            store.pricePerKg = parseInt(btn.dataset.price, 10);
+            document.getElementById("cutRateDisplay").textContent = `Rp${store.pricePerKg.toLocaleString("id-ID")}/kg`;
+            updateScaleDisplay();
         });
     });
 }
 
-// 3. Cut Selector
-function initCutSelector() {
-    const buttons = document.querySelectorAll(".btn-cut");
-    buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            buttons.forEach(b => b.classList.remove("selected"));
-            btn.classList.add("selected");
-            state.currentCut = btn.dataset.cut;
-            state.currentPricePerKg = parseInt(btn.dataset.price, 10);
-            updateDisplay();
-        });
-    });
-}
-
-// 4. Payment Toggle
 function initPaymentToggle() {
-    const btnCash = document.getElementById("btnPayCash");
-    const btnTempo = document.getElementById("btnPayTempo");
+    const btnCash = document.getElementById("toggleCash");
+    const btnTempo = document.getElementById("toggleTempo");
 
     btnCash.addEventListener("click", () => {
-        btnCash.classList.add("selected");
-        btnTempo.classList.remove("selected");
-        state.paymentMethod = "Tunai";
+        playTouchClick(700, 0.025);
+        btnCash.className = "btn-payment selected-cash";
+        btnTempo.className = "btn-payment";
+        store.paymentMethod = "Tunai";
     });
 
     btnTempo.addEventListener("click", () => {
-        btnTempo.classList.add("selected");
-        btnCash.classList.remove("selected");
-        state.paymentMethod = "Tempo";
+        playTouchClick(500, 0.025);
+        btnTempo.className = "btn-payment selected-tempo";
+        btnCash.className = "btn-payment";
+        store.paymentMethod = "Tempo";
     });
 }
 
-// 5. Update Screen Display
-function updateDisplay() {
-    const total = Math.round(state.currentWeight * state.currentPricePerKg);
-    document.getElementById("displayWeight").textContent = state.currentWeight.toFixed(1);
-    document.getElementById("displayTotal").textContent = `Rp ${total.toLocaleString("id-ID")}`;
+function updateScaleDisplay() {
+    const total = Math.round(store.weight * store.pricePerKg);
+    document.getElementById("valWeight").textContent = store.weight.toFixed(1);
+    document.getElementById("valTotal").textContent = `Rp ${total.toLocaleString("id-ID")}`;
 }
 
-// 6. Save Transaction
-function initSaveButton() {
-    document.getElementById("btnSaveTransaction").addEventListener("click", () => {
-        const custName = document.getElementById("custNameInput").value.trim() || "Eceran Umum";
-        const totalRp = Math.round(state.currentWeight * state.currentPricePerKg);
+function initSubmitButton() {
+    const btn = document.getElementById("btnSubmit");
+    btn.addEventListener("click", () => {
+        playTouchClick(1100, 0.05);
+        const nameInput = document.getElementById("inputCustomer");
+        const customer = nameInput.value.trim() || "Eceran Umum";
+        const total = Math.round(store.weight * store.pricePerKg);
         const now = new Date();
 
         const tx = {
             id: "TRX-" + Date.now(),
             time: `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`,
-            customer: custName,
-            weight: state.currentWeight,
-            cut: state.currentCut,
-            pricePerKg: state.currentPricePerKg,
-            totalRp: totalRp,
-            payment: state.paymentMethod,
-            status: state.paymentMethod === "Tunai" ? "Lunas" : "Belum Lunas"
+            customer: customer,
+            weight: store.weight,
+            cut: store.cut,
+            pricePerKg: store.pricePerKg,
+            total: total,
+            payment: store.paymentMethod,
+            status: store.paymentMethod === "Tunai" ? "Lunas" : "Belum Lunas"
         };
 
-        state.transactions.unshift(tx);
-        saveLocalTransactions();
+        store.transactions.unshift(tx);
+        persist();
 
-        // Visual Feedback
-        const btn = document.getElementById("btnSaveTransaction");
-        const originalText = btn.innerHTML;
-        btn.innerHTML = "<span>Tersimpan!</span> <span>✓</span>";
-        btn.style.background = "#059669";
+        // Tactile Success Feedback
+        const originalContent = btn.innerHTML;
+        btn.innerHTML = "<span>✓ Tersimpan!</span>";
+        btn.style.backgroundColor = "#059669";
 
         setTimeout(() => {
-            btn.innerHTML = originalText;
-            btn.style.background = "var(--brand-emerald)";
-        }, 1200);
+            btn.innerHTML = originalContent;
+            btn.style.backgroundColor = "var(--accent-emerald)";
+        }, 800);
 
-        // Reset customer name to default if not empty
-        document.getElementById("custNameInput").value = "Eceran Umum";
+        nameInput.value = "Eceran Umum";
+        renderRekap();
     });
 }
 
-// 7. Render Antrean Juru Potong
 function renderQueue() {
-    const container = document.getElementById("queueListContainer");
+    const container = document.getElementById("queueContainer");
     container.innerHTML = "";
 
-    state.queue.forEach(item => {
+    store.queue.forEach(item => {
         const div = document.createElement("div");
-        div.className = "item-card";
+        div.className = "card-item-row";
         div.innerHTML = `
-            <div class="item-left">
-                <div class="item-name">${item.customer}</div>
-                <div class="item-detail">🍗 <strong>${item.count} Ekor</strong> — Potongan: <span style="color: var(--brand-blue);">${item.cut}</span></div>
-                <div class="item-detail" style="color: var(--text-muted);">Jadwal Ambil: ${item.time}</div>
+            <div>
+                <div style="font-weight: 700; font-size: 0.95rem;">${item.customer}</div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px;">
+                    🍗 <strong>${item.chickens} Ekor</strong> • Potongan: <span style="color: var(--accent-blue);">${item.cut}</span>
+                </div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Jadwal Ambil: ${item.time}</div>
             </div>
             <div>
-                <button type="button" class="btn-preset" style="padding: 6px 10px; font-size: 0.75rem;" onclick="markQueueDone(${item.id})">
-                    ${item.status === 'Sedang Dikerjakan' ? 'Selesai ➔' : 'Siap'}
+                <button type="button" class="btn-mini-settle" onclick="markDone(${item.id})">
+                    ${item.status === 'Dikerjakan' ? 'Selesai ➔' : 'Siap'}
                 </button>
             </div>
         `;
@@ -178,90 +210,91 @@ function renderQueue() {
     });
 }
 
-window.markQueueDone = function(id) {
-    state.queue = state.queue.filter(q => q.id !== id);
+window.markDone = function(id) {
+    playTouchClick(900, 0.03);
+    store.queue = store.queue.filter(q => q.id !== id);
     renderQueue();
 };
 
-// 8. Render Buku Bon
-function renderBon() {
-    const container = document.getElementById("bonListContainer");
+function renderDebt() {
+    const container = document.getElementById("debtContainer");
     container.innerHTML = "";
 
-    // Group bon by customer
-    const bonTxs = state.transactions.filter(t => t.status === "Belum Lunas");
-    
-    // Add default dummy bon if empty for illustration
-    if (bonTxs.length === 0) {
-        container.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 24px;">Tidak ada catatan bon hari ini. Transaksi lunas semua! 🎉</div>`;
-        document.getElementById("totalBonBadge").textContent = "Rp 0";
+    const unpaid = store.transactions.filter(t => t.status === "Belum Lunas");
+    let totalDebt = 0;
+
+    if (unpaid.length === 0) {
+        container.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 28px;">Semua bon sudah lunas. Tidak ada tagihan tertunda! 🎉</div>`;
+        document.getElementById("badgeTotalDebt").textContent = "Rp 0";
         return;
     }
 
-    let totalBon = 0;
-    bonTxs.forEach(t => {
-        totalBon += t.totalRp;
+    unpaid.forEach(t => {
+        totalDebt += t.total;
         const div = document.createElement("div");
-        div.className = "item-card";
+        div.className = "card-item-row";
         div.innerHTML = `
-            <div class="item-left">
-                <div class="item-name">${t.customer}</div>
-                <div class="item-detail">${t.time} WIB • ${t.weight.toFixed(1)} kg (${t.cut})</div>
+            <div>
+                <div style="font-weight: 700; font-size: 0.92rem;">${t.customer}</div>
+                <div style="font-size: 0.76rem; color: var(--text-secondary);">${t.time} WIB • ${t.weight.toFixed(1)} kg (${t.cut})</div>
             </div>
             <div style="text-align: right;">
-                <div style="font-family: var(--font-mono); font-weight: 700; color: var(--brand-rose); font-size: 0.95rem;">
-                    Rp ${t.totalRp.toLocaleString("id-ID")}
+                <div style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-rose); font-size: 0.96rem;">
+                    Rp ${t.total.toLocaleString("id-ID")}
                 </div>
-                <button type="button" class="btn-preset" style="padding: 4px 8px; font-size: 0.7rem; margin-top: 4px;" onclick="payOffBon('${t.id}')">
-                    Lunaskan
-                </button>
+                <button type="button" class="btn-mini-settle" onclick="settleDebt('${t.id}')">Lunaskan</button>
             </div>
         `;
         container.appendChild(div);
     });
 
-    document.getElementById("totalBonBadge").textContent = `Total: Rp ${totalBon.toLocaleString("id-ID")}`;
+    document.getElementById("badgeTotalDebt").textContent = `Rp ${totalDebt.toLocaleString("id-ID")}`;
 }
 
-window.payOffBon = function(id) {
-    const found = state.transactions.find(t => t.id === id);
-    if (found) {
-        found.status = "Lunas";
-        saveLocalTransactions();
-        renderBon();
+window.settleDebt = function(id) {
+    playTouchClick(1000, 0.04);
+    const item = store.transactions.find(t => t.id === id);
+    if (item) {
+        item.status = "Lunas";
+        persist();
+        renderDebt();
         renderRekap();
     }
 };
 
-// 9. Render Rekap Kasir
 function renderRekap() {
-    let totalKg = 0;
-    let cashRp = 0;
-    let bonRp = 0;
+    let kg = 0;
+    let cash = 0;
+    let debt = 0;
 
-    state.transactions.forEach(t => {
-        totalKg += t.weight;
+    store.transactions.forEach(t => {
+        kg += t.weight;
         if (t.status === "Lunas") {
-            cashRp += t.totalRp;
+            cash += t.total;
         } else {
-            bonRp += t.totalRp;
+            debt += t.total;
         }
     });
 
-    const totalRev = cashRp + bonRp;
-
-    document.getElementById("rekapTotalKg").textContent = `${totalKg.toFixed(1)} kg`;
-    document.getElementById("rekapCashRp").textContent = `Rp ${cashRp.toLocaleString("id-ID")}`;
-    document.getElementById("rekapBonRp").textContent = `Rp ${bonRp.toLocaleString("id-ID")}`;
-    document.getElementById("rekapTotalRevenue").textContent = `Rp ${totalRev.toLocaleString("id-ID")}`;
+    document.getElementById("statTotalKg").textContent = `${kg.toFixed(1)} kg`;
+    document.getElementById("statCashRp").textContent = `Rp ${cash.toLocaleString("id-ID")}`;
+    document.getElementById("statDebtRp").textContent = `Rp ${debt.toLocaleString("id-ID")}`;
+    document.getElementById("statTotalRev").textContent = `Rp ${(cash + debt).toLocaleString("id-ID")}`;
 }
 
-// Reset Day
-document.getElementById("btnResetDay").addEventListener("click", () => {
-    if (confirm("Mulai hari baru? Transaksi hari ini akan diarsipkan.")) {
-        state.transactions = [];
-        saveLocalTransactions();
-        renderBon();
+document.getElementById("btnArchiveDay").addEventListener("click", () => {
+    if (confirm("Mulai sesi hari baru? Semua transaksi hari ini akan diarsipkan.")) {
+        playTouchClick(400, 0.05);
+        store.transactions = [];
+        persist();
+        renderDebt();
         renderRekap();
     }
 });
+
+function renderAll() {
+    updateScaleDisplay();
+    renderQueue();
+    renderDebt();
+    renderRekap();
+}

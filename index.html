@@ -6,160 +6,219 @@
     <meta name="theme-color" content="#0f1523">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>PoultryTrack — Kasir & Antrean Ayam Pasar</title>
+    <title>PoultryTrack — Kasir & Lapak Ayam Pasar</title>
     
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260918_mobile_01">
+    <link rel="stylesheet" href="style.css?v=20260918_touch_v2">
 </head>
 <body>
 
-    <!-- Header HP -->
+    <!-- Header Touch Terminal -->
     <header class="app-header">
-        <div class="header-brand">
-            <span>🐔</span>
-            <span>PoultryTrack</span>
+        <div class="brand-wrapper">
+            <div class="brand-icon">🐔</div>
+            <div>
+                <div class="brand-title">PoultryTrack</div>
+                <div style="font-size: 0.68rem; color: var(--text-muted);">Sistem Kasir Pasar Tradisional</div>
+            </div>
         </div>
-        <div class="market-badge" id="headerDateBadge">Pasar Pagi</div>
+        <div class="header-status">
+            <span class="pulse-dot"></span>
+            <span id="headerClock">04:30 WIB</span>
+        </div>
     </header>
 
-    <!-- TAB 1: KASIR CEPAT (TIMBANGAN & TRANSAKSI) -->
-    <main id="tab-kasir" class="tab-view active">
-        <!-- Display Timbangan & Total -->
-        <div class="weight-display-screen">
-            <div class="weight-left">
-                <span class="weight-unit">Berat Timbangan</span>
-                <div class="weight-val"><span id="displayWeight">2.0</span> <span style="font-size: 1.2rem; color: var(--text-muted);">kg</span></div>
+    <!-- VIEW 1: KASIR & TIMBANGAN CEPAT -->
+    <main id="view-kasir" class="tab-view active">
+        <!-- Display Timbangan Digital -->
+        <div class="terminal-screen">
+            <div class="screen-col-left">
+                <span class="screen-label">Timbangan Karkas</span>
+                <div class="screen-value-weight"><span id="valWeight">2.0</span> <span>kg</span></div>
             </div>
-            <div class="price-right">
-                <span class="weight-unit">Total Bayar</span>
-                <div class="total-rp" id="displayTotal">Rp 70.000</div>
+            <div class="screen-col-right">
+                <span class="screen-label">Total Tagihan</span>
+                <div class="screen-value-price" id="valTotal">Rp 70.000</div>
             </div>
         </div>
 
-        <!-- Tombol Cepat Timbangan (Kerap Digunakan di Meja Lapak) -->
-        <div class="card-box">
-            <span class="card-title">Tombol Cepat Bobot / Ekor</span>
-            <div class="preset-grid">
-                <button type="button" class="btn-preset" data-weight="1.5">1 Ekor Kecil (1.5 kg)</button>
-                <button type="button" class="btn-preset selected" data-weight="2.0">1 Ekor Sedang (2.0 kg)</button>
-                <button type="button" class="btn-preset" data-weight="2.5">1 Ekor Besar (2.5 kg)</button>
-                <button type="button" class="btn-preset" data-weight="5.0">5.0 kg</button>
-                <button type="button" class="btn-preset" data-weight="10.0">10.0 kg</button>
-                <button type="button" class="btn-preset" data-weight="20.0">20.0 kg</button>
+        <!-- Presets Keypad Cepat -->
+        <div class="panel-card">
+            <div class="panel-header-line">
+                <span class="panel-title">Preset Timbangan Cepat</span>
+                <span class="panel-hint">Sentuh Langsung</span>
+            </div>
+            <div class="keypad-grid">
+                <button type="button" class="btn-key" data-weight="1.5">
+                    <span>1 Ekor</span>
+                    <span class="key-sub">1.5 kg</span>
+                </button>
+                <button type="button" class="btn-key active" data-weight="2.0">
+                    <span>1 Ekor</span>
+                    <span class="key-sub">2.0 kg</span>
+                </button>
+                <button type="button" class="btn-key" data-weight="2.5">
+                    <span>1 Ekor</span>
+                    <span class="key-sub">2.5 kg</span>
+                </button>
+                <button type="button" class="btn-key" data-weight="5.0">
+                    <span>5.0 kg</span>
+                    <span class="key-sub">~2.5 Ekor</span>
+                </button>
+                <button type="button" class="btn-key" data-weight="10.0">
+                    <span>10.0 kg</span>
+                    <span class="key-sub">~5 Ekor</span>
+                </button>
+                <button type="button" class="btn-key" data-weight="20.0">
+                    <span>20.0 kg</span>
+                    <span class="key-sub">~10 Ekor</span>
+                </button>
             </div>
         </div>
 
         <!-- Spesifikasi Potongan Karkas -->
-        <div class="card-box">
-            <span class="card-title">Jenis Potongan Ayam</span>
-            <div class="cut-selector">
-                <button type="button" class="btn-cut selected" data-cut="Utuh / Bersih" data-price="35000">Karkas Utuh (Rp35rb)</button>
-                <button type="button" class="btn-cut" data-cut="Potong 4" data-price="35000">Potong 4 (Rp35rb)</button>
-                <button type="button" class="btn-cut" data-cut="Potong 8" data-price="36500">Potong 8 (Rp36.5rb)</button>
-                <button type="button" class="btn-cut" data-cut="Potong 12" data-price="36500">Potong 12 (Rp36.5rb)</button>
-                <button type="button" class="btn-cut" data-cut="Fillet Dada" data-price="48000">Fillet Dada (Rp48rb)</button>
-                <button type="button" class="btn-cut" data-cut="Ati Ampela / Ceker" data-price="25000">Jeroan / Ceker (Rp25rb)</button>
+        <div class="panel-card">
+            <div class="panel-header-line">
+                <span class="panel-title">Spesifikasi Potongan</span>
+                <span class="panel-hint" id="cutRateDisplay">Rp35.000/kg</span>
+            </div>
+            <div class="cuts-grid">
+                <button type="button" class="btn-cut-option active" data-cut="Karkas Utuh" data-price="35000">
+                    <span>Karkas Utuh</span>
+                    <span class="cut-rate">35k</span>
+                </button>
+                <button type="button" class="btn-cut-option" data-cut="Potong 4" data-price="35000">
+                    <span>Potong 4</span>
+                    <span class="cut-rate">35k</span>
+                </button>
+                <button type="button" class="btn-cut-option" data-cut="Potong 8" data-price="36500">
+                    <span>Potong 8</span>
+                    <span class="cut-rate">36.5k</span>
+                </button>
+                <button type="button" class="btn-cut-option" data-cut="Potong 12" data-price="36500">
+                    <span>Potong 12</span>
+                    <span class="cut-rate">36.5k</span>
+                </button>
+                <button type="button" class="btn-cut-option" data-cut="Fillet Dada" data-price="48000">
+                    <span>Fillet Dada</span>
+                    <span class="cut-rate">48k</span>
+                </button>
+                <button type="button" class="btn-cut-option" data-cut="Jeroan / Ceker" data-price="25000">
+                    <span>Ati / Ceker</span>
+                    <span class="cut-rate">25k</span>
+                </button>
             </div>
         </div>
 
-        <!-- Pembeli & Status Pembayaran -->
-        <div class="card-box">
-            <span class="card-title">Nama Pelanggan & Metode Bayar</span>
-            <input type="text" id="custNameInput" class="form-input" placeholder="Eceran Umum / Nama Warung" value="Eceran Umum">
+        <!-- Pembeli & Metode Pembayaran -->
+        <div class="panel-card">
+            <div class="panel-header-line">
+                <span class="panel-title">Pelanggan & Pembayaran</span>
+            </div>
+            <input type="text" id="inputCustomer" class="input-customer" placeholder="Nama Warung / Pembeli" value="Eceran Umum">
             
-            <div style="display: flex; gap: 8px;">
-                <button type="button" id="btnPayCash" class="btn-preset selected" style="flex: 1;">💵 Tunai / QRIS</button>
-                <button type="button" id="btnPayTempo" class="btn-preset" style="flex: 1;">📝 Catat Bon (Tempo)</button>
+            <div class="payment-toggle-bar">
+                <button type="button" id="toggleCash" class="btn-payment selected-cash">
+                    <span>💵 Tunai / QRIS</span>
+                </button>
+                <button type="button" id="toggleTempo" class="btn-payment">
+                    <span>📝 Catat Bon (Tempo)</span>
+                </button>
             </div>
         </div>
 
-        <!-- Tombol Simpan Transaksi -->
-        <button type="button" id="btnSaveTransaction" class="btn-primary-action">
-            <span>Simpan Transaksi</span>
-            <span>✓</span>
+        <!-- Tombol Eksekusi Transaksi -->
+        <button type="button" id="btnSubmit" class="btn-submit-order">
+            <span>Simpan Transaksi Kasir</span>
+            <span style="font-size: 1.2rem;">➔</span>
         </button>
     </main>
 
-    <!-- TAB 2: ANTREAN POTONG (UNTUK JURU POTONG SUBUH) -->
-    <section id="tab-antrean" class="tab-view">
-        <div class="card-box">
-            <span class="card-title">Papan Antrean Pemotongan Subuh</span>
-            <p style="font-size: 0.8rem; color: var(--text-secondary);">Daftar pesanan langganan yang harus dipotong & dibungkus.</p>
-        </div>
-
-        <div id="queueListContainer" style="display: flex; flex-direction: column; gap: 10px;">
-            <!-- Rendered by JS -->
-        </div>
-    </section>
-
-    <!-- TAB 3: BUKU BON (PIUTANG LANGGANAN) -->
-    <section id="tab-bon" class="tab-view">
-        <div class="card-box">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="card-title">Buku Bon Langganan</span>
-                <span id="totalBonBadge" style="font-family: var(--font-mono); font-weight: 700; color: var(--brand-rose); font-size: 0.85rem;">Rp 0</span>
+    <!-- VIEW 2: ANTREAN JURU POTONG SUBUH -->
+    <section id="view-antrean" class="tab-view">
+        <div class="panel-card">
+            <div class="panel-header-line">
+                <span class="panel-title">Antrean Potong Subuh (03.00 - 06.00)</span>
             </div>
-            <p style="font-size: 0.8rem; color: var(--text-secondary);">Daftar piutang tempo warung makan & katering yang belum disetor.</p>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">Daftar pesanan langganan yang harus dipotong & dibungkus juru potong.</p>
         </div>
 
-        <div id="bonListContainer" style="display: flex; flex-direction: column; gap: 10px;">
+        <div id="queueContainer" style="display: flex; flex-direction: column; gap: 10px;">
             <!-- Rendered by JS -->
         </div>
     </section>
 
-    <!-- TAB 4: REKAP HARIAN (TUTUP BUKU SIANG) -->
-    <section id="tab-rekap" class="tab-view">
-        <div class="card-box">
-            <span class="card-title">Rekapitulasi Tutup Kasir Hari Ini</span>
-            
-            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 6px;">
-                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
-                    <span style="color: var(--text-muted);">Total Ayam Terjual:</span>
-                    <strong id="rekapTotalKg" style="font-family: var(--font-mono);">0.0 kg</strong>
+    <!-- VIEW 3: BUKU BON (PIUTANG LANGGANAN) -->
+    <section id="view-bon" class="tab-view">
+        <div class="panel-card">
+            <div class="panel-header-line">
+                <span class="panel-title">Buku Bon Piutang Langganan</span>
+                <span id="badgeTotalDebt" class="panel-hint" style="color: var(--accent-rose); font-size: 0.85rem; font-weight: 700;">Rp 0</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">Daftar tagihan warung makan yang mengambil karkas tempo.</p>
+        </div>
+
+        <div id="debtContainer" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Rendered by JS -->
+        </div>
+    </section>
+
+    <!-- VIEW 4: REKAPITULASI HARIAN -->
+    <section id="view-rekap" class="tab-view">
+        <div class="panel-card">
+            <div class="panel-header-line">
+                <span class="panel-title">Rekapitulasi Kasir Harian</span>
+                <span class="panel-hint">Tutup Buku</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+                    <span style="color: var(--text-muted);">Total Daging Terjual:</span>
+                    <strong id="statTotalKg" style="font-family: var(--font-mono);">0.0 kg</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
-                    <span style="color: var(--text-muted);">Uang Masuk (Tunai):</span>
-                    <strong id="rekapCashRp" style="font-family: var(--font-mono); color: var(--brand-emerald);">Rp 0</strong>
+                <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+                    <span style="color: var(--text-muted);">Uang Masuk Tunai:</span>
+                    <strong id="statCashRp" style="font-family: var(--font-mono); color: var(--accent-emerald);">Rp 0</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
-                    <span style="color: var(--text-muted);">Bon Belum Dibayar:</span>
-                    <strong id="rekapBonRp" style="font-family: var(--font-mono); color: var(--brand-rose);">Rp 0</strong>
+                <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+                    <span style="color: var(--text-muted);">Piutang Bon Hari Ini:</span>
+                    <strong id="statDebtRp" style="font-family: var(--font-mono); color: var(--accent-rose);">Rp 0</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 1rem; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+                <div style="display: flex; justify-content: space-between; font-size: 1.05rem; border-top: 1px solid var(--border-subtle); padding-top: 12px;">
                     <span>Total Omzet Kotor:</span>
-                    <strong id="rekapTotalRevenue" style="font-family: var(--font-mono); color: var(--brand-blue);">Rp 0</strong>
+                    <strong id="statTotalRev" style="font-family: var(--font-mono); color: var(--accent-blue);">Rp 0</strong>
                 </div>
             </div>
         </div>
 
-        <button type="button" id="btnResetDay" class="btn-preset" style="color: var(--brand-rose); border-color: rgba(244, 63, 94, 0.3);">
-            Mulai Hari Baru (Reset Kasir)
+        <button type="button" id="btnArchiveDay" class="btn-key" style="color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.3); min-height: 48px;">
+            Mulai Hari Baru (Arsipkan Transaksi)
         </button>
     </section>
 
-    <!-- Bottom Navigation Bar (Khusus HP) -->
-    <nav class="bottom-nav">
-        <button type="button" class="nav-item active" data-tab="tab-kasir">
-            <span class="nav-icon">⚖️</span>
+    <!-- Bottom Navigation Dock -->
+    <nav class="bottom-dock">
+        <button type="button" class="dock-tab active" data-target="view-kasir">
+            <span class="dock-icon">⚖️</span>
             <span>Kasir</span>
         </button>
-        <button type="button" class="nav-item" data-tab="tab-antrean">
-            <span class="nav-icon">🔪</span>
+        <button type="button" class="dock-tab" data-target="view-antrean">
+            <span class="dock-icon">🔪</span>
             <span>Antrean</span>
         </button>
-        <button type="button" class="nav-item" data-tab="tab-bon">
-            <span class="nav-icon">📖</span>
+        <button type="button" class="dock-tab" data-target="view-bon">
+            <span class="dock-icon">📖</span>
             <span>Buku Bon</span>
         </button>
-        <button type="button" class="nav-item" data-tab="tab-rekap">
-            <span class="nav-icon">📊</span>
+        <button type="button" class="dock-tab" data-target="view-rekap">
+            <span class="dock-icon">📊</span>
             <span>Rekap</span>
         </button>
     </nav>
 
-    <script src="app.js?v=20260918_mobile_01"></script>
+    <script src="app.js?v=20260918_touch_v2"></script>
 </body>
 </html>
