@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoultryTrack — Sistem Analisis Operasional & Kasir Lapak Ayam</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=20260918_01">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="brand-title">
+            <span>🐔 PoultryTrack</span>
+            <span class="badge-tag">Pasar Tradisional Retail Engine</span>
+        </div>
+        <div style="font-size: 0.78rem; color: var(--text-muted);">
+            Periode Data: 90 Hari Terakhir (1.937 Transaksi)
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- KPI Row -->
+        <section class="kpi-row">
+            <div class="kpi-card">
+                <span class="kpi-label">Total Omzet Penjualan</span>
+                <div class="kpi-value" id="totalOmzetDisplay">Rp 1,26 Miliar</div>
+                <span class="kpi-sub">Karkas Daging & Potongan</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Estimasi Laba Kotor</span>
+                <div class="kpi-value" id="totalLabaDisplay" style="color: var(--accent-emerald);">Rp 253,7 Juta</div>
+                <span class="kpi-sub">Margin Kotor Bersih: ~20,02%</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Rata-rata Rendemen Karkas</span>
+                <div class="kpi-value" id="rataRendemenDisplay" style="color: var(--accent-blue);">73,47%</div>
+                <span class="kpi-sub">Susut Bobot Darah/Bulu: 26,53%</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Total Piutang Belum Lunas</span>
+                <div class="kpi-value" id="totalPiutangDisplay" style="color: var(--accent-rose);">Rp 742,1 Juta</div>
+                <span class="kpi-sub">Buku Bon Langganan Warung</span>
+            </div>
+        </section>
+
+        <!-- Charts Split -->
+        <section class="grid-split">
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">Tren Omzet & Laba Kotor Harian (14 Hari Terakhir)</span>
+                    <span class="badge-tag">Juta Rupiah</span>
+                </div>
+                <div class="panel-body">
+                    <div class="chart-box">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">Kontribusi Laba per Jenis Potongan</span>
+                    <span class="badge-tag">Breakdown</span>
+                </div>
+                <div class="panel-body">
+                    <div class="chart-box">
+                        <canvas id="cutsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Calculator & Receivables Ledger -->
+        <section class="grid-split">
+            <!-- Fast Carcass & Margin Calculator -->
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">Kalkulator Cepat Susut Bobot & Margin Karkas</span>
+                    <span class="badge-tag">Simulator Lapak</span>
+                </div>
+                <div class="panel-body">
+                    <div class="sim-grid">
+                        <div class="input-group">
+                            <label class="input-label">Berat Ayam Hidup (kg):</label>
+                            <input type="number" id="inputLiveWeight" class="input-field" value="20.0" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Harga Beli Supplier (/kg):</label>
+                            <input type="number" id="inputLiveCost" class="input-field" value="22000" step="500">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Harga Jual Karkas (/kg):</label>
+                            <input type="number" id="inputPriceCarcass" class="input-field" value="35000" step="500">
+                        </div>
+                    </div>
+
+                    <div class="calc-output-box">
+                        <div class="out-item">
+                            <span class="out-title">Estimasi Karkas Bersih (73%):</span>
+                            <span class="out-num" id="calcCarcassKg" style="color: var(--accent-blue);">14.6 kg</span>
+                        </div>
+                        <div class="out-item">
+                            <span class="out-title">Estimasi Laba Kotor:</span>
+                            <span class="out-num" id="calcProfitRp" style="color: var(--accent-emerald);">Rp 71.000</span>
+                        </div>
+                        <div class="out-item">
+                            <span class="out-title">Margin Laba:</span>
+                            <span class="out-num" id="calcMarginPct">13.9%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Receivables Table -->
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">Daftar Tagihan Piutang Langganan (Buku Bon)</span>
+                    <span class="badge-tag">Jatuh Tempo</span>
+                </div>
+                <div class="panel-body" style="padding: 0; max-height: 280px; overflow-y: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nama Pelanggan</th>
+                                <th>Jumlah Bon</th>
+                                <th>Total Piutang</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bonTableBody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js?v=20260918_01"></script>
+</body>
+</html>

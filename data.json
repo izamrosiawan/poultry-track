@@ -1,0 +1,135 @@
+{
+  "total_omzet": 1267636702,
+  "total_laba": 253773420,
+  "total_piutang": 915065872,
+  "rata_rendemen": 73.47,
+  "daily_trend": {
+    "dates": [
+      "2026-08-16",
+      "2026-08-17",
+      "2026-08-18",
+      "2026-08-19",
+      "2026-08-20",
+      "2026-08-21",
+      "2026-08-22",
+      "2026-08-23",
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-29"
+    ],
+    "omzet": [
+      19381423,
+      15030574,
+      12129105,
+      12721180,
+      14697928,
+      9147244,
+      21774988,
+      18489697,
+      8174578,
+      12270989,
+      10049380,
+      14486944,
+      10145310,
+      15981718
+    ],
+    "laba": [
+      4283045,
+      3893735,
+      2077085,
+      2827120,
+      3728509,
+      1813544,
+      5317009,
+      3221479,
+      1763998,
+      2589229,
+      1943481,
+      2604526,
+      1661452,
+      3109741
+    ],
+    "rendemen": [
+      73.61,
+      73.78,
+      73.97,
+      72.87,
+      73.6,
+      73.5,
+      73.8,
+      73.79,
+      74.73,
+      73.52,
+      73.45,
+      73.44,
+      73.01,
+      73.41
+    ]
+  },
+  "cuts": {
+    "labels": [
+      "Campur",
+      "Fillet Dada",
+      "Karkas Utuh",
+      "Potong 12",
+      "Potong 4",
+      "Potong 8"
+    ],
+    "omzet": [
+      103300044,
+      240082063,
+      235186339,
+      163400267,
+      237066883,
+      288601106
+    ],
+    "laba": [
+      14839372,
+      90214785,
+      33506209,
+      29096005,
+      33789537,
+      52327512
+    ]
+  },
+  "bon_receivables": [
+    {
+      "customer_name": "Warung Padang Roda Jaya",
+      "piutang": 172245197,
+      "jumlah_bon": 154
+    },
+    {
+      "customer_name": "Pecel Lele & Ayam Lamongan Cak Har",
+      "piutang": 144269440,
+      "jumlah_bon": 131
+    },
+    {
+      "customer_name": "Bakso Solo Mas Mul",
+      "piutang": 131755617,
+      "jumlah_bon": 123
+    },
+    {
+      "customer_name": "Depot Mie Pangsit 88",
+      "piutang": 122983765,
+      "jumlah_bon": 118
+    },
+    {
+      "customer_name": "Katering Berkah Ibu",
+      "piutang": 117558375,
+      "jumlah_bon": 111
+    },
+    {
+      "customer_name": "Warung Nasi Sunda Ibu Imas",
+      "piutang": 116837835,
+      "jumlah_bon": 103
+    },
+    {
+      "customer_name": "Ayam Geprek Sambal Bawang",
+      "piutang": 109415643,
+      "jumlah_bon": 98
+    }
+  ]
+}
