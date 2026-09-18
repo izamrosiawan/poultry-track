@@ -1,27 +1,29 @@
-﻿# PoultryTrack Design System (DESIGN.md)
+# PoultryTrack Design System (DESIGN.md)
 
 ## 1. Visual Theme & Atmosphere
-- **Archetype**: Field-Worker Touch Operating System / Wet-Market Point-of-Sale (Linear-Clean meets Apple Touch ergonomics).
-- **Environment**: Extreme damp conditions (meja lapak pasar basah, percikan air, jari berminyak/basah, pencahayaan subuh remang).
-- **Tone**: Ultra-legible, zero-distraction, high-contrast, physical button feel.
-- **Surface**: Deep obsidian slate (`#070a0f` to `#0f1523`), razor-sharp 1px border (`#1c2638`), solid tactile cards.
+- **Archetype**: Industrial Field-Worker Terminal POS (wet-market touch workstation).
+- **Environment**: Meja lapak pasar tradisional, percikan air/minyak, jari basah/bersarung tangan, pencahayaan subuh remang.
+- **Tone**: Pragmatis, high-contrast, zero-distraction, authentic hardware tactile feel.
+- **Surface**: Pure monochrome slate-graphite (`#0b0e14`, `#131822`, `#1a2230`), razor-sharp 1px structural borders (`#232d40`), solid physical press states.
 
-## 2. Color Palette & Roles
-- **Canvas / Background**: `#070a0f`
-- **Surface Card**: `#0f1523`
-- **Elevated Button / Key**: `#151e30`
-- **Borders**: `#1c2638` (default), `#283852` (active/selected)
-- **Primary Accent / Money**: `#10b981` (Vibrant Emerald)
-- **Secondary Accent / Action**: `#38bdf8` (High-contrast Sky Blue)
-- **Warning / Alert (Bon/Unpaid)**: `#f43f5e` (Rose Crimson)
-- **Text Primary**: `#ffffff` (High contrast)
-- **Text Secondary**: `#94a3b8`
+## 2. Color Palette & Roles (Anti-Rainbow Palette)
+- **Canvas / Background**: `#0b0e14`
+- **Surface Panel**: `#131822`
+- **Elevated Key / Card**: `#1a2230`
+- **Hover / Active State**: `#232f45`
+- **Borders**: `#232d40` (subtle), `#344460` (focused/selected)
+- **Primary Accent (Action / Submit)**: `#10b981` (Muted Industrial Emerald)
+- **Warning / Unpaid Bon**: `#f43f5e` (Crimson - strictly for overdue ledger debt)
+- **Text Primary**: `#f1f5f9` (High contrast readability)
+- **Text Secondary**: `#94a3b8` (Muted metadata)
+- **Text Muted**: `#64748b` (Labels and hints)
 
 ## 3. Typography & Numerical Formatting
-- **Font Display / Body**: System Sans (`-apple-system`, BlinkMacSystemFont, "Segoe UI", Roboto) for instant mobile rendering.
-- **Monospace Tabular**: `JetBrains Mono`, SFMono-Regular, monospace strictly for weights (`kg`), money (`Rp`), and timestamps.
+- **Display / Body UI**: Native System Sans (`-apple-system`, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto) with natural sentence casing. No decorative uppercase screaming.
+- **Tabular Figures**: `JetBrains Mono`, SFMono-Regular, monospace strictly for weights (`kg`), prices (`Rp`), timestamps, and numeric counters with `font-variant-numeric: tabular-nums`.
 
-## 4. Touch & Interaction Ergonomics (Emil Kowalski Motion Laws)
-- **Minimum Touch Target**: 48px x 48px to prevent miss-clicks with wet/gloved hands.
-- **Micro-haptics / Active Feedback**: `scale(0.96)` with `cubic-bezier(0.16, 1, 0.3, 1)` and `120ms` duration.
-- **Audio Feedback**: Optional high-frequency synthetic click (`Web Audio API oscillator`) when tapping keypad to confirm input without looking at the screen.
+## 4. Hardware Tactile Touch Ergonomics
+- **Minimum Touch Target**: 48px - 56px height to ensure zero missed taps with wet fingers.
+- **Physical Bevel Effect**: Subtle 1px inner top border highlight (`rgba(255, 255, 255, 0.05)`) mimicking physical membrane keypad buttons.
+- **Micro-haptics & Motion**: `scale(0.97)` active press state, cubic-bezier(0.16, 1, 0.3, 1), 120ms duration. Zero sluggish ease-in animations.
+- **Synthetic Audio**: Low-latency synthetic click generated via Web Audio API oscillator for instant audio confirmation in noisy market conditions.
