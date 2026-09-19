@@ -1,288 +1,695 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#0b0e14">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>PoultryTrack — Terminal Kasir Lapak Ayam</title>
-    
-    <link rel="manifest" href="manifest.json">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260918_v3">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PoultryTrack &bull; Analisis Ekonometrika Rendemen & Risiko Kredit Lapak Unggas</title>
+  <meta name="description" content="Studi kuantitatif rendemen karkas ayam potong, optimalisasi margin laba kotor spesifikasi potongan, dan pemodelan stres likuiditas piutang warung langganan pada 1.937 transaksi pasar tradisional.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Lucide Icons & Chart.js -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Terminal Top Header -->
-    <header class="app-header">
-        <div class="brand-wrapper">
-            <div class="brand-icon-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 3v18"></path>
-                    <path d="m5 8 14-2"></path>
-                    <path d="M6 17a4 4 0 0 0 7 2"></path>
-                    <circle cx="18" cy="16" r="3"></circle>
-                    <path d="m21 19-3-3"></path>
-                </svg>
+  <!-- Floating Navigation Bar -->
+  <header class="nav-wrapper">
+    <nav class="floating-nav">
+      <a href="#" class="nav-brand">
+        <div class="brand-icon">
+          <i data-lucide="activity" style="width: 15px; height: 15px;"></i>
+        </div>
+        <div class="brand-title">POULTRY<span>TRACK</span></div>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#hero-chapter" class="nav-link active">Ikhtisar</a></li>
+        <li><a href="#pillars-chapter" class="nav-link">4 Pilar Lapak</a></li>
+        <li><a href="#pos-terminal-chapter" class="nav-link">Terminal Kasir</a></li>
+        <li><a href="#simulator-chapter" class="nav-link">Lab Stress-Test</a></li>
+        <li><a href="#matrix-chapter" class="nav-link">Buku Bon</a></li>
+        <li><a href="#analytics-chapter" class="nav-link">Studio Analitik</a></li>
+        <li><a href="#research-chapter" class="nav-link">Metodologi</a></li>
+      </ul>
+
+      <div class="nav-right-actions">
+        <a href="#pos-terminal-chapter" class="nav-pos-pill" title="Buka Terminal Kasir Layar Sentuh">
+          <i data-lucide="smartphone" style="width: 13px; height: 13px;"></i>
+          <span>Buka Kasir</span>
+        </a>
+        <a href="notebook.ipynb" class="nav-action-btn" target="_blank" title="Buka Master Jupyter Notebook">
+          <i data-lucide="file-code" style="width: 14px; height: 14px;"></i>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- CHAPTER 1: HERO SECTION -->
+  <section class="hero-chapter" id="hero-chapter">
+    <canvas id="hero-canvas"></canvas>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot"></span>
+        <span>RISET EMPIRIS PASAR TRADISIONAL &bull; 1.937 TRANSAKSI</span>
+      </div>
+
+      <h1 class="hero-h1">
+        Analisis Rendemen Karkas <br>
+        <span class="hero-highlight">& Risiko Kredit Piutang Warung</span>
+      </h1>
+
+      <p class="hero-subtext">
+        Pembedahan kuantitatif efisiensi konversi karkas ayam potong, disparitas margin laba antar jenis potongan, dan mitigasi eksposur gagal bayar buku bon warung makan langganan.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#pos-terminal-chapter" class="btn-island-primary">
+          <span>Jalankan Terminal Kasir Lapak</span>
+          <div class="btn-island-icon-pod">
+            <i data-lucide="arrow-down" style="width: 14px; height: 14px;"></i>
+          </div>
+        </a>
+        <a href="#simulator-chapter" class="btn-island-secondary">
+          <span>Uji Sensitivitas Margin</span>
+          <div class="btn-island-icon-pod-subtle">
+            <i data-lucide="sliders" style="width: 14px; height: 14px;"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Telemetry Hero Deck -->
+      <div class="double-bezel-hero-deck">
+        <div class="hero-deck-core">
+          <div class="telemetry-col">
+            <span class="telemetry-num">1.937 Tx</span>
+            <span class="telemetry-desc">Total Transaksi Terekam</span>
+          </div>
+          <div class="telemetry-col">
+            <span class="telemetry-num">73.47%</span>
+            <span class="telemetry-desc">Rerata Rendemen Karkas</span>
+          </div>
+          <div class="telemetry-col">
+            <span class="telemetry-num">Rp 1.26 M</span>
+            <span class="telemetry-desc">Akumulasi Omzet Kotor</span>
+          </div>
+          <div class="telemetry-col">
+            <span class="telemetry-num">Rp 915 Juta</span>
+            <span class="telemetry-desc">Eksposur Piutang Bon (72.1%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Stream Ticker Bar -->
+  <div class="stream-ticker-section">
+    <div class="stream-ticker-track">
+      <span class="ticker-item"><span class="ticker-dot"></span> KARKAS UTUH: Rp 35.000/kg &bull; STATUS: VOLUME TERTINGGI</span>
+      <span class="ticker-item"><span class="ticker-dot" style="background: #059669;"></span> FILLET DADA: Rp 48.000/kg &bull; MARGIN TERTINGGI: 37.6%</span>
+      <span class="ticker-item"><span class="ticker-dot"></span> POTONG 8: Rp 36.500/kg &bull; FAVORIT KATERING & WARTEG</span>
+      <span class="ticker-item"><span class="ticker-dot" style="background: #d97706;"></span> JEROAN & CEKER: Rp 25.000/kg &bull; STATUS: ROTASI CEPAT</span>
+      <span class="ticker-item"><span class="ticker-dot"></span> BENCHMARK RENDEMEN: 72% - 75% &bull; KINERJA: OPTIMAL (73.47%)</span>
+      <span class="ticker-item"><span class="ticker-dot"></span> KARKAS UTUH: Rp 35.000/kg &bull; STATUS: VOLUME TERTINGGI</span>
+      <span class="ticker-item"><span class="ticker-dot" style="background: #059669;"></span> FILLET DADA: Rp 48.000/kg &bull; MARGIN TERTINGGI: 37.6%</span>
+      <span class="ticker-item"><span class="ticker-dot"></span> POTONG 8: Rp 36.500/kg &bull; FAVORIT KATERING & WARTEG</span>
+      <span class="ticker-item"><span class="ticker-dot" style="background: #d97706;"></span> JEROAN & CEKER: Rp 25.000/kg &bull; STATUS: ROTASI CEPAT</span>
+      <span class="ticker-item"><span class="ticker-dot"></span> BENCHMARK RENDEMEN: 72% - 75% &bull; KINERJA: OPTIMAL (73.47%)</span>
+    </div>
+  </div>
+
+  <!-- CHAPTER 2: THE 4 PILLARS -->
+  <section class="chapter-section" id="pillars-chapter">
+    <div class="chapter-heading-box">
+      <span class="chapter-eyebrow">Dinamika Ekonomi Lapak</span>
+      <h2 class="chapter-title">4 Pilar Operasional Perdagangan Ayam Potong</h2>
+      <p class="chapter-desc">
+        Parameter fundamental penentu efisiensi konversi karkas, diversifikasi margin nilai tambah, dan stabilitas likuiditas arus kas harian di pasar tradisional.
+      </p>
+    </div>
+
+    <div class="asymmetric-bento-grid">
+      <div class="double-bezel-card bento-col-8">
+        <div class="bezel-core-box">
+          <div>
+            <div class="bezel-top-row">
+              <div class="bezel-icon-pod"><i data-lucide="scale"></i></div>
+              <span class="bezel-badge">Efisiensi Karkas</span>
+            </div>
+            <h3 class="bezel-h3">Konversi Rendemen & Susut Pemotongan</h3>
+            <p class="bezel-p">
+              Rasio rendemen karkas mengukur persentase bobot daging bersih yang dapat dijual setelah proses pemotongan, penirisan darah, pencabutan bulu, dan pengeluaran jeroan. Deviasi 2% pada rendemen dapat memangkas laba bersih harian hingga 15%.
+            </p>
+          </div>
+          <div class="bezel-bottom-meta">
+            <span class="meta-label">Benchmark Lapak:</span>
+            <span class="meta-val">73.47% (Susut Standar: 26.53%)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="double-bezel-card bento-col-4">
+        <div class="bezel-core-box">
+          <div>
+            <div class="bezel-top-row">
+              <div class="bezel-icon-pod"><i data-lucide="pie-chart"></i></div>
+              <span class="bezel-badge">Margin Spesifikasi</span>
+            </div>
+            <h3 class="bezel-h3">Segmentasi Margin Potongan</h3>
+            <p class="bezel-p">
+              Spesifikasi Fillet Dada menghasilkan margin kotor tertinggi (37.6%), sementara Karkas Utuh dan Potong 4 mengamankan perputaran volume harian tercepat.
+            </p>
+          </div>
+          <div class="bezel-bottom-meta">
+            <span class="meta-label">Margin Tertinggi:</span>
+            <span class="meta-val">Fillet Dada (Rp 48.000/kg)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="double-bezel-card bento-col-4">
+        <div class="bezel-core-box">
+          <div>
+            <div class="bezel-top-row">
+              <div class="bezel-icon-pod"><i data-lucide="clock"></i></div>
+              <span class="bezel-badge">Distribusi Subuh</span>
+            </div>
+            <h3 class="bezel-h3">Jendela Waktu Kritis Subuh</h3>
+            <p class="bezel-p">
+              Sebanyak 78% volume pesanan karkas diserahterimakan pada subuh (03.00 - 06.00 WIB) sebelum dapur warung makan, warteg, dan katering memulai masak.
+            </p>
+          </div>
+          <div class="bezel-bottom-meta">
+            <span class="meta-label">Jam Sibuk:</span>
+            <span class="meta-val">03.00 - 06.00 WIB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="double-bezel-card bento-col-8">
+        <div class="bezel-core-box">
+          <div>
+            <div class="bezel-top-row">
+              <div class="bezel-icon-pod"><i data-lucide="book-open"></i></div>
+              <span class="bezel-badge">Eksposur Kredit</span>
+            </div>
+            <h3 class="bezel-h3">Manajemen Risiko Piutang Warung (Buku Bon)</h3>
+            <p class="bezel-p">
+              Sistem penjualan tempo (3 s.d. 7 hari) merupakan praktik lazim dalam mempertahankan langganan warung makan. Namun, piutang tertahan yang mencapai 72.1% dari total omzet membutuhkan kontrol ketat terhadap batas kredit per warung untuk mencegah gagal bayar.
+            </p>
+          </div>
+          <div class="bezel-bottom-meta">
+            <span class="meta-label">Total Piutang Berjalan:</span>
+            <span class="meta-val">Rp 915.065.872 (7 Warung Utama)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 3: LIVE POS TERMINAL WORKSTATION -->
+  <section class="chapter-section" id="pos-terminal-chapter" style="background: rgba(15, 23, 42, 0.02);">
+    <div class="chapter-heading-box">
+      <span class="chapter-eyebrow">Aplikasi Lapak Terintegrasi</span>
+      <h2 class="chapter-title">Terminal Kasir & Manajemen Lapak Pasar</h2>
+      <p class="chapter-desc">
+        Aplikasi operasional meja lapak berbasis sentuh. Coba input transaksi timbangan, pantau antrean juru potong subuh, dan periksa rekapitulasi tutup buku secara real-time.
+      </p>
+    </div>
+
+    <!-- POS Terminal Chassis -->
+    <div class="pos-workstation-chassis">
+      <!-- POS Top Bar -->
+      <div class="pos-chassis-header">
+        <div class="pos-chassis-brand">
+          <div class="pos-pulse-led"></div>
+          <span class="pos-station-name">TERMINAL LAPAK #01 &bull; PASAR TRADISIONAL</span>
+        </div>
+        <div class="pos-chassis-clock" id="posHeaderClock">04:30 WIB</div>
+      </div>
+
+      <!-- POS Tab Navigation -->
+      <div class="pos-nav-switcher">
+        <button type="button" class="pos-tab-btn active" data-target="pos-view-scale">
+          <i data-lucide="scale" style="width: 15px; height: 15px;"></i>
+          <span>Kasir Timbangan</span>
+        </button>
+        <button type="button" class="pos-tab-btn" data-target="pos-view-queue">
+          <i data-lucide="clipboard-list" style="width: 15px; height: 15px;"></i>
+          <span>Antrean Potong (<span id="posBadgeQueue">4</span>)</span>
+        </button>
+        <button type="button" class="pos-tab-btn" data-target="pos-view-debt">
+          <i data-lucide="book" style="width: 15px; height: 15px;"></i>
+          <span>Buku Bon Aktif</span>
+        </button>
+        <button type="button" class="pos-tab-btn" data-target="pos-view-rekap">
+          <i data-lucide="bar-chart-2" style="width: 15px; height: 15px;"></i>
+          <span>Tutup Buku Hari Ini</span>
+        </button>
+      </div>
+
+      <!-- VIEW 1: KASIR TIMBANGAN -->
+      <div class="pos-tab-content active" id="pos-view-scale">
+        <div class="pos-grid-layout">
+          <!-- Left: Big Scale Display & Buttons -->
+          <div class="pos-scale-col">
+            <div class="pos-screen-box">
+              <div class="pos-screen-left">
+                <span class="pos-screen-label">BOBOT TIMBANGAN</span>
+                <div class="pos-screen-val-weight">
+                  <span id="posValWeight">2.00</span> <small>KG</small>
+                </div>
+              </div>
+              <div class="pos-screen-right">
+                <span class="pos-screen-label">TOTAL BAYAR</span>
+                <div class="pos-screen-val-price" id="posValTotal">Rp 70.000</div>
+              </div>
+            </div>
+
+            <!-- Fast Weight Keypad -->
+            <div class="pos-control-card">
+              <div class="pos-card-header">
+                <span>Preset Bobot Cepat</span>
+                <span class="pos-card-hint">Sekali Sentuh</span>
+              </div>
+              <div class="pos-keypad-grid">
+                <button type="button" class="btn-pos-key" data-weight="1.5">
+                  <span class="key-main">1.5 kg</span>
+                  <span class="key-hint">~1 Ekor Kecil</span>
+                </button>
+                <button type="button" class="btn-pos-key active" data-weight="2.0">
+                  <span class="key-main">2.0 kg</span>
+                  <span class="key-hint">~1 Ekor Standar</span>
+                </button>
+                <button type="button" class="btn-pos-key" data-weight="2.5">
+                  <span class="key-main">2.5 kg</span>
+                  <span class="key-hint">~1 Ekor Jumbo</span>
+                </button>
+                <button type="button" class="btn-pos-key" data-weight="5.0">
+                  <span class="key-main">5.0 kg</span>
+                  <span class="key-hint">~2.5 Ekor</span>
+                </button>
+                <button type="button" class="btn-pos-key" data-weight="10.0">
+                  <span class="key-main">10.0 kg</span>
+                  <span class="key-hint">~5 Ekor Warung</span>
+                </button>
+                <button type="button" class="btn-pos-key" data-weight="20.0">
+                  <span class="key-main">20.0 kg</span>
+                  <span class="key-hint">~10 Ekor Katering</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Cuts, Customer & Payment -->
+          <div class="pos-action-col">
+            <div class="pos-control-card">
+              <div class="pos-card-header">
+                <span>Pilih Spesifikasi Potongan</span>
+                <span class="pos-card-hint" id="posCutRateHint">Rp 35.000 / kg</span>
+              </div>
+              <div class="pos-cuts-grid">
+                <button type="button" class="btn-pos-cut active" data-cut="Karkas Utuh" data-price="35000">
+                  <span>Karkas Utuh</span>
+                  <span class="cut-subprice">35k</span>
+                </button>
+                <button type="button" class="btn-pos-cut" data-cut="Potong 4" data-price="35000">
+                  <span>Potong 4</span>
+                  <span class="cut-subprice">35k</span>
+                </button>
+                <button type="button" class="btn-pos-cut" data-cut="Potong 8" data-price="36500">
+                  <span>Potong 8</span>
+                  <span class="cut-subprice">36.5k</span>
+                </button>
+                <button type="button" class="btn-pos-cut" data-cut="Potong 12" data-price="36500">
+                  <span>Potong 12</span>
+                  <span class="cut-subprice">36.5k</span>
+                </button>
+                <button type="button" class="btn-pos-cut" data-cut="Fillet Dada" data-price="48000">
+                  <span>Fillet Dada</span>
+                  <span class="cut-subprice">48k</span>
+                </button>
+                <button type="button" class="btn-pos-cut" data-cut="Jeroan / Ceker" data-price="25000">
+                  <span>Ati / Ceker</span>
+                  <span class="cut-subprice">25k</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="pos-control-card">
+              <div class="pos-card-header">
+                <span>Pelanggan & Metode Bayar</span>
+              </div>
+              <input type="text" id="posInputCustomer" class="pos-input-text" placeholder="Nama Pelanggan / Warung" value="Eceran Umum">
+              
+              <div class="pos-payment-toggle-grid">
+                <button type="button" id="posToggleCash" class="btn-pos-payment selected-cash">
+                  <span>Tunai / QRIS</span>
+                </button>
+                <button type="button" id="posToggleTempo" class="btn-pos-payment">
+                  <span>Catat Bon (Tempo)</span>
+                </button>
+              </div>
+            </div>
+
+            <button type="button" id="posBtnSubmit" class="btn-pos-submit">
+              <span>Simpan Transaksi Kasir</span>
+              <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: ANTREAN JURU POTONG -->
+      <div class="pos-tab-content" id="pos-view-queue">
+        <div class="pos-control-card">
+          <div class="pos-card-header">
+            <span>Daftar Antrean Pemotongan Subuh (03.00 - 06.00 WIB)</span>
+            <span class="pos-card-hint" id="posQueueCounterBadge">4 Pesanan Aktif</span>
+          </div>
+          <div id="posQueueContainer" class="pos-list-container">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: BUKU BON (PIUTANG TEMPO) -->
+      <div class="pos-tab-content" id="pos-view-debt">
+        <div class="pos-control-card">
+          <div class="pos-card-header">
+            <span>Buku Bon Tagihan Berjalan</span>
+            <span class="pos-card-hint text-rose" id="posBadgeTotalDebt">Rp 0</span>
+          </div>
+          <div id="posDebtContainer" class="pos-list-container">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 4: REKAPITULASI HARIAN -->
+      <div class="pos-tab-content" id="pos-view-rekap">
+        <div class="pos-control-card">
+          <div class="pos-card-header">
+            <span>Rekapitulasi Sesi Operasional Kasir</span>
+            <span class="pos-card-hint">Tutup Buku</span>
+          </div>
+          <div class="pos-rekap-stat-grid">
+            <div class="rekap-stat-box">
+              <span class="rekap-stat-label">Total Daging Terjual</span>
+              <span class="rekap-stat-val" id="posStatTotalKg">0.00 kg</span>
+            </div>
+            <div class="rekap-stat-box">
+              <span class="rekap-stat-label">Kas Tunai Masuk</span>
+              <span class="rekap-stat-val text-emerald" id="posStatCashRp">Rp 0</span>
+            </div>
+            <div class="rekap-stat-box">
+              <span class="rekap-stat-label">Piutang Bon Baru</span>
+              <span class="rekap-stat-val text-rose" id="posStatDebtRp">Rp 0</span>
+            </div>
+            <div class="rekap-stat-box">
+              <span class="rekap-stat-label">Total Omzet Sesi Ini</span>
+              <span class="rekap-stat-val" id="posStatTotalRev">Rp 0</span>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+            <button type="button" id="posBtnArchiveDay" class="btn-pos-secondary-danger">
+              <i data-lucide="archive" style="width: 14px; height: 14px;"></i>
+              <span>Mulai Sesi Hari Baru (Arsipkan)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 4: STRESS-TEST LAB -->
+  <section class="chapter-section" id="simulator-chapter">
+    <div class="chapter-heading-box">
+      <span class="chapter-eyebrow">Simulasi Sensitivitas</span>
+      <h2 class="chapter-title">Lab Stress-Test Rendemen & Laba Kotor</h2>
+      <p class="chapter-desc">
+        Uji sensitivitas laba kotor lapak terhadap kenaikan harga beli ayam hidup dari peternak, fluktuasi rasio rendemen, dan volume pesanan karkas secara interaktif.
+      </p>
+    </div>
+
+    <div class="simulator-layout">
+      <div class="double-bezel-card">
+        <div class="bezel-core-box">
+          <div>
+            <div class="bezel-top-row">
+              <span style="font-weight: 700; font-size: 1rem;">Parameter Operasional & Biaya</span>
+              <span class="bezel-badge">Interactive Engine</span>
+            </div>
+
+            <div class="scenario-pills">
+              <button class="pill-btn active" onclick="setPreset('baseline')">Skenario Normal</button>
+              <button class="pill-btn" onclick="setPreset('harganaik')">Ayam Hidup Naik (+15%)</button>
+              <button class="pill-btn" onclick="setPreset('rendementurun')">Rendemen Turun (70%)</button>
+              <button class="pill-btn" onclick="setPreset('katering')">Order Jumbo Katering (50 kg)</button>
+            </div>
+
+            <div class="slider-unit-group">
+              <div class="slider-top-label">
+                <span>Bobot Ayam Hidup (Live Weight)</span>
+                <span id="val-live-weight" style="font-family: var(--font-mono); color: var(--color-primary);">20.0 kg</span>
+              </div>
+              <input type="range" min="5" max="100" step="1" value="20" class="slider-core" id="sim-live-weight">
+            </div>
+
+            <div class="slider-unit-group">
+              <div class="slider-top-label">
+                <span>Rasio Rendemen Karkas (%)</span>
+                <span id="val-yield-pct" style="font-family: var(--font-mono); color: var(--color-primary);">73.5%</span>
+              </div>
+              <input type="range" min="65" max="80" step="0.5" value="73.5" class="slider-core" id="sim-yield-pct">
+            </div>
+
+            <div class="slider-unit-group">
+              <div class="slider-top-label">
+                <span>Harga Beli Ayam Hidup (HPP / kg)</span>
+                <span id="val-cost-live" style="font-family: var(--font-mono); color: var(--color-primary);">Rp 22.000 / kg</span>
+              </div>
+              <input type="range" min="18000" max="30000" step="500" value="22000" class="slider-core" id="sim-cost-live">
+            </div>
+
+            <div class="slider-unit-group">
+              <div class="slider-top-label">
+                <span>Harga Jual Karkas Bersih (Rp / kg)</span>
+                <span id="val-sell-price" style="font-family: var(--font-mono); color: var(--color-primary);">Rp 36.500 / kg</span>
+              </div>
+              <input type="range" min="30000" max="50000" step="500" value="36500" class="slider-core" id="sim-sell-price">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="double-bezel-card">
+        <div class="bezel-core-box" style="text-align: center;">
+          <div>
+            <div class="bezel-top-row">
+              <span style="font-weight: 700; font-size: 1rem;">Kesehatan Operasional & Margin</span>
+              <span class="badge-status badge-aman" id="sim-status-badge">Optimal</span>
+            </div>
+
+            <div class="gauge-wrapper">
+              <div class="circular-gauge" id="sim-gauge">
+                <div class="gauge-inner-val">
+                  <div class="gauge-score" id="sim-score-val">74</div>
+                  <div class="gauge-label">RENDEMEN</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;" id="sim-headline">
+              OPERASIONAL EFISIEN & MENGUNTUNGKAN
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.5rem;" id="sim-desc">
+              Rasio rendemen berada pada rentang ideal. Spread margin kotor mampu menutup biaya operasional es, tenaga juru potong, dan plastik karkas.
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; border-top: 1px solid var(--border-core); padding-top: 1.25rem;">
+            <div>
+              <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);">EST. OMZET</div>
+              <div style="font-size: 1.1rem; font-weight: 800; font-family: var(--font-mono); color: var(--color-primary);" id="sim-revenue-val">Rp 536.550</div>
             </div>
             <div>
-                <div class="brand-title">PoultryTrack</div>
-                <div class="brand-sub">Terminal Kasir & Timbangan Lapak</div>
+              <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);">LABA KOTOR</div>
+              <div style="font-size: 1.1rem; font-weight: 800; font-family: var(--font-mono);" id="sim-profit-val">Rp 96.550</div>
             </div>
+            <div>
+              <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);">MARGIN KOTOR</div>
+              <div style="font-size: 1.1rem; font-weight: 800; font-family: var(--font-mono); color: var(--color-warning);" id="sim-margin-val">18.0%</div>
+            </div>
+          </div>
         </div>
-        <div class="header-status-badge">
-            <span class="status-indicator"></span>
-            <span id="headerClock">04:30 WIB</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 5: CREDIT RISK MATRIX -->
+  <section class="chapter-section" id="matrix-chapter" style="background: rgba(15, 23, 42, 0.02);">
+    <div class="chapter-heading-box">
+      <span class="chapter-eyebrow">Manajemen Risiko Kredit</span>
+      <h2 class="chapter-title">Buku Bon Piutang Langganan Warung</h2>
+      <p class="chapter-desc">
+        Monitoring eksposur saldo piutang berjalan mitra warung makan. Klik baris tabel untuk menelaah histori transaksi dan rekomendasi pembatasan plafon.
+      </p>
+    </div>
+
+    <div class="asymmetric-bento-grid">
+      <div class="double-bezel-card bento-col-8">
+        <div class="bezel-core-box" style="padding: 1.5rem;">
+          <table class="custom-table" id="bon-table">
+            <thead>
+              <tr>
+                <th>Nama Pelanggan</th>
+                <th>Total Piutang</th>
+                <th>Jumlah Bon</th>
+                <th>Status Risiko</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populated by app.js -->
+            </tbody>
+          </table>
         </div>
-    </header>
+      </div>
 
-    <!-- VIEW 1: KASIR & TIMBANGAN CEPAT -->
-    <main id="view-kasir" class="tab-view active">
-        <!-- Digital Scale Display Screen -->
-        <div class="terminal-screen" aria-label="Layar Timbangan Digital">
-            <div class="screen-col-left">
-                <span class="screen-label">Berat Timbangan</span>
-                <div class="screen-value-weight">
-                    <span id="valWeight">2.00</span><span class="unit">kg</span>
-                </div>
+      <div class="double-bezel-card bento-col-4">
+        <div class="bezel-core-box">
+          <div>
+            <div class="bezel-top-row">
+              <span class="bezel-h3" id="detail-cust-name" style="margin-bottom: 0;">Warung Padang Roda Jaya</span>
+              <span class="badge-status badge-siaga" id="detail-cust-badge">Perhatian</span>
             </div>
-            <div class="screen-col-right">
-                <span class="screen-label">Total Pembayaran</span>
-                <div class="screen-value-price" id="valTotal">Rp 70.000</div>
+
+            <div style="margin: 1.25rem 0;">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase; margin-bottom: 0.35rem;">Profil Eksposur:</div>
+              <p style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); line-height: 1.4;" id="detail-prov-driver">
+                Mengambil karkas setiap subuh dengan akumulasi 154 lembar bon aktif.
+              </p>
             </div>
+
+            <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-shell); border-left: 4px solid var(--color-primary); padding: 1.15rem; border-radius: 12px; margin-bottom: 1.5rem;">
+              <div style="font-size: 0.75rem; color: var(--color-primary); font-weight: 700; font-family: var(--font-mono); text-transform: uppercase; margin-bottom: 0.4rem;">Rekomendasi Penagihan:</div>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;" id="detail-prov-action">
+                Terapkan batas plafon piutang maksimal Rp 175 Juta dan wajibkan cicilan harian minimum 30% dari omzet penjualan hari sebelumnya.
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div style="background: var(--bg-surface-elevated); padding: 0.85rem; border-radius: 10px;">
+                <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);">TOTAL PIUTANG</div>
+                <div style="font-size: 1.2rem; font-weight: 800; font-family: var(--font-mono);" id="detail-cust-debt">Rp 172.2M</div>
+              </div>
+              <div style="background: var(--bg-surface-elevated); padding: 0.85rem; border-radius: 10px;">
+                <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);">BON AKTIF</div>
+                <div style="font-size: 1.2rem; font-weight: 800; font-family: var(--font-mono); color: var(--color-danger);" id="detail-cust-count">154 Bon</div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Presets Keypad -->
-        <section class="panel-card">
-            <div class="panel-header-line">
-                <span class="panel-title">Preset Cepat Timbangan</span>
-                <span class="panel-hint">Satuan Standar</span>
-            </div>
-            <div class="keypad-grid">
-                <button type="button" class="btn-key" data-weight="1.5">
-                    <span class="key-main">1.50 kg</span>
-                    <span class="key-sub">1 ekor kecil</span>
-                </button>
-                <button type="button" class="btn-key active" data-weight="2.0">
-                    <span class="key-main">2.00 kg</span>
-                    <span class="key-sub">1 ekor standar</span>
-                </button>
-                <button type="button" class="btn-key" data-weight="2.5">
-                    <span class="key-main">2.50 kg</span>
-                    <span class="key-sub">1 ekor besar</span>
-                </button>
-                <button type="button" class="btn-key" data-weight="5.0">
-                    <span class="key-main">5.00 kg</span>
-                    <span class="key-sub">~2-3 ekor</span>
-                </button>
-                <button type="button" class="btn-key" data-weight="10.0">
-                    <span class="key-main">10.00 kg</span>
-                    <span class="key-sub">Paket warung</span>
-                </button>
-                <button type="button" class="btn-key" data-weight="20.0">
-                    <span class="key-main">20.00 kg</span>
-                    <span class="key-sub">Katering besar</span>
-                </button>
-            </div>
-        </section>
+  <!-- CHAPTER 6: DATA ANALYTICS STUDIO -->
+  <section class="chapter-section" id="analytics-chapter">
+    <div class="chapter-heading-box">
+      <span class="chapter-eyebrow">Visualisasi Kinerja Finansial</span>
+      <h2 class="chapter-title">Studio Analitik Omzet, Potongan & Rendemen</h2>
+      <p class="chapter-desc">
+        Pembedahan dinamika omzet harian, distribusi volume potongan karkas, dan sebaran kestabilan rendemen karkas.
+      </p>
+    </div>
 
-        <!-- Spesifikasi Potongan Karkas -->
-        <section class="panel-card">
-            <div class="panel-header-line">
-                <span class="panel-title">Spesifikasi Potongan</span>
-                <span class="panel-hint" id="cutRateDisplay">Rp 35.000 / kg</span>
-            </div>
-            <div class="cuts-grid">
-                <button type="button" class="btn-cut-option active" data-cut="Karkas Utuh" data-price="35000">
-                    <span class="cut-name">Karkas Utuh</span>
-                    <span class="cut-rate">Rp 35k</span>
-                </button>
-                <button type="button" class="btn-cut-option" data-cut="Potong 4" data-price="35000">
-                    <span class="cut-name">Potong 4</span>
-                    <span class="cut-rate">Rp 35k</span>
-                </button>
-                <button type="button" class="btn-cut-option" data-cut="Potong 8" data-price="36500">
-                    <span class="cut-name">Potong 8</span>
-                    <span class="cut-rate">Rp 36.5k</span>
-                </button>
-                <button type="button" class="btn-cut-option" data-cut="Potong 12" data-price="36500">
-                    <span class="cut-name">Potong 12</span>
-                    <span class="cut-rate">Rp 36.5k</span>
-                </button>
-                <button type="button" class="btn-cut-option" data-cut="Fillet Dada" data-price="48000">
-                    <span class="cut-name">Fillet Dada</span>
-                    <span class="cut-rate">Rp 48k</span>
-                </button>
-                <button type="button" class="btn-cut-option" data-cut="Jeroan / Ceker" data-price="25000">
-                    <span class="cut-name">Jeroan & Ceker</span>
-                    <span class="cut-rate">Rp 25k</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- Pelanggan & Metode Pembayaran -->
-        <section class="panel-card">
-            <div class="panel-header-line">
-                <span class="panel-title">Nama Pembeli</span>
-                <span class="panel-hint">Tekan untuk ganti</span>
-            </div>
-            <input type="text" id="inputCustomer" class="input-customer" placeholder="Nama Warung / Pembeli" value="Eceran Umum">
-            
-            <div class="payment-toggle-bar">
-                <button type="button" id="toggleCash" class="btn-payment selected-cash">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect width="20" height="12" x="2" y="6" rx="2"></rect>
-                        <circle cx="12" cy="12" r="2"></circle>
-                        <path d="M6 12h.01M18 12h.01"></path>
-                    </svg>
-                    <span>Tunai / QRIS</span>
-                </button>
-                <button type="button" id="toggleTempo" class="btn-payment">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"></path>
-                    </svg>
-                    <span>Catat Bon (Tempo)</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- Tombol Simpan Transaksi -->
-        <button type="button" id="btnSubmit" class="btn-submit-order">
-            <span>Simpan Transaksi Kasir</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-            </svg>
-        </button>
-    </main>
-
-    <!-- VIEW 2: ANTREAN JURU POTONG SUBUH -->
-    <section id="view-antrean" class="tab-view">
-        <div class="panel-card">
-            <div class="panel-header-line">
-                <span class="panel-title">Antrean Juru Potong Subuh</span>
-                <span class="panel-hint" id="queueBadgeCount">4 Pesanan Aktif</span>
-            </div>
-            <p class="panel-desc">Daftar pesanan langganan yang harus dipotong & dibungkus juru potong (03.00 - 06.00 WIB).</p>
+    <div class="double-bezel-card">
+      <div class="bezel-core-box">
+        <div class="chart-filter-bar">
+          <button class="chart-pill active" onclick="switchChartMode('revenue', this)">Tren Omzet & Laba Harian</button>
+          <button class="chart-pill" onclick="switchChartMode('cuts', this)">Komposisi Omzet per Potongan</button>
+          <button class="chart-pill" onclick="switchChartMode('yield', this)">Fluktuasi Rasio Rendemen</button>
         </div>
 
-        <div id="queueContainer" class="list-container">
-            <!-- Rendered by JS -->
+        <div style="height: 420px; width: 100%;">
+          <canvas id="mainAnalyticsChart"></canvas>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- VIEW 3: BUKU BON (PIUTANG LANGGANAN) -->
-    <section id="view-bon" class="tab-view">
-        <div class="panel-card">
-            <div class="panel-header-line">
-                <span class="panel-title">Buku Bon Piutang Langganan</span>
-                <span id="badgeTotalDebt" class="panel-hint text-rose">Rp 0</span>
-            </div>
-            <p class="panel-desc">Daftar tagihan warung makan yang mengambil karkas dengan sistem tempo harian.</p>
+  <!-- CHAPTER 7: MATHEMATICAL RIGOR -->
+  <section class="chapter-section" id="research-chapter" style="background: rgba(15, 23, 42, 0.02);">
+    <div class="chapter-heading-box">
+      <span class="chapter-eyebrow">Formulasi Kuantitatif</span>
+      <h2 class="chapter-title">Landasan Matematis & Logika Operasional</h2>
+      <p class="chapter-desc">
+        Struktur matematis penentuan rasio rendemen karkas, fungsi margin kotor, dan pembobotan risiko kredit piutang.
+      </p>
+    </div>
+
+    <div class="math-card">
+      <div id="math-eq" style="font-size: 1.35rem; overflow-x: auto;">
+        $$\text{Yield}_{i} = \frac{W_{\text{carcass}, i}}{W_{\text{live}, i}} \times 100\%, \quad \pi_{\text{gross}, i} = (W_{\text{carcass}, i} \cdot P_{\text{sell}}) - (W_{\text{live}, i} \cdot C_{\text{live}})$$
+      </div>
+    </div>
+
+    <div class="asymmetric-bento-grid" style="margin-top: 2rem;">
+      <div class="double-bezel-card bento-col-6">
+        <div class="bezel-core-box">
+          <div class="bezel-top-row">
+            <h3 class="bezel-h3" style="margin: 0;">1. Persamaan Efisiensi Karkas</h3>
+            <span class="bezel-badge">Standardized</span>
+          </div>
+          <ul style="padding-left: 1.25rem; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8;">
+            <li><strong>$W_{\text{live}, i}$</strong>: Bobot fisik ayam hidup yang dibeli dari peternak/broker.</li>
+            <li><strong>$W_{\text{carcass}, i}$</strong>: Bobot karkas siap konsumsi (tanpa bulu, darah, jeroan).</li>
+            <li><strong>Susut Bobot</strong>: $\Delta W_i = W_{\text{live}, i} - W_{\text{carcass}, i}$ (rerata 26.53%).</li>
+          </ul>
         </div>
+      </div>
 
-        <div id="debtContainer" class="list-container">
-            <!-- Rendered by JS -->
+      <div class="double-bezel-card bento-col-6">
+        <div class="bezel-core-box">
+          <div class="bezel-top-row">
+            <h3 class="bezel-h3" style="margin: 0;">2. Ekspektasi Kerugian Piutang</h3>
+            <span class="bezel-badge">Credit Loss</span>
+          </div>
+          <ul style="padding-left: 1.25rem; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8;">
+            <li><strong>$E(\text{Loss})$</strong>: $\sum_{j=1}^M \text{Piutang}_j \times P(\text{Default}_j)$.</li>
+            <li><strong>Tenor Tempo</strong>: Pelunasan 3 s.d. 7 hari sesuai jadwal setoran warung.</li>
+            <li><strong>Mitigasi</strong>: Penahanan pasokan karkas jika akumulasi bon melampaui plafon risiko.</li>
+          </ul>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- VIEW 4: REKAPITULASI HARIAN -->
-    <section id="view-rekap" class="tab-view">
-        <div class="panel-card">
-            <div class="panel-header-line">
-                <span class="panel-title">Rekapitulasi Kasir Harian</span>
-                <span class="panel-hint">Tutup Buku Sesi</span>
-            </div>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p><strong>PoultryTrack</strong> &bull; Analisis Ekonometrika Rendemen & Risiko Kredit Lapak Unggas</p>
+      <p style="margin-top: 0.4rem; color: var(--text-muted); font-size: 0.84rem;">
+        Dikembangkan dengan Python, Pandas, Matplotlib, SciPy, Chart.js &amp; KaTeX &bull; 
+        <a href="notebook.ipynb" style="color: var(--color-primary); font-weight: 600; text-decoration: none;" target="_blank">Buka Master Jupyter Notebook</a>
+      </p>
+    </div>
+  </footer>
 
-            <div class="rekap-metrics-list">
-                <div class="rekap-row">
-                    <span class="rekap-label">Total Volume Daging:</span>
-                    <strong id="statTotalKg" class="tabular-stat">0.00 kg</strong>
-                </div>
-                <div class="rekap-row">
-                    <span class="rekap-label">Uang Masuk Tunai:</span>
-                    <strong id="statCashRp" class="tabular-stat text-emerald">Rp 0</strong>
-                </div>
-                <div class="rekap-row">
-                    <span class="rekap-label">Piutang Bon Hari Ini:</span>
-                    <strong id="statDebtRp" class="tabular-stat text-rose">Rp 0</strong>
-                </div>
-                <div class="rekap-row total-divider">
-                    <span class="rekap-label-total">Total Omzet Kasir:</span>
-                    <strong id="statTotalRev" class="tabular-stat-total">Rp 0</strong>
-                </div>
-            </div>
-        </div>
-
-        <!-- Historical Benchmark Card from data.json -->
-        <div class="panel-card" id="historyBenchmarkCard">
-            <div class="panel-header-line">
-                <span class="panel-title">Historis Agregat Toko (Bulan Lalu)</span>
-                <span class="panel-hint">Rendemen: 73.5%</span>
-            </div>
-            <div class="rekap-metrics-list">
-                <div class="rekap-row">
-                    <span class="rekap-label">Total Omzet Bulan Lalu:</span>
-                    <strong class="tabular-stat">Rp 1.267.636.702</strong>
-                </div>
-                <div class="rekap-row">
-                    <span class="rekap-label">Total Laba Bersih:</span>
-                    <strong class="tabular-stat text-emerald">Rp 253.773.420</strong>
-                </div>
-                <div class="rekap-row">
-                    <span class="rekap-label">Akumulasi Piutang Tertahan:</span>
-                    <strong class="tabular-stat text-rose">Rp 915.065.872</strong>
-                </div>
-            </div>
-        </div>
-
-        <button type="button" id="btnArchiveDay" class="btn-outline-danger">
-            Mulai Sesi Hari Baru (Arsipkan Transaksi)
-        </button>
-    </section>
-
-    <!-- Bottom Navigation Dock -->
-    <nav class="bottom-dock" aria-label="Navigasi Bawah">
-        <button type="button" class="dock-tab active" data-target="view-kasir">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 3v18"></path>
-                <path d="m5 8 14-2"></path>
-                <path d="M6 17a4 4 0 0 0 7 2"></path>
-                <circle cx="18" cy="16" r="3"></circle>
-                <path d="m21 19-3-3"></path>
-            </svg>
-            <span>Kasir</span>
-        </button>
-        <button type="button" class="dock-tab" data-target="view-antrean">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-            <span>Antrean</span>
-        </button>
-        <button type="button" class="dock-tab" data-target="view-bon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
-                <path d="M6 6h10M6 10h10M6 14h6"></path>
-            </svg>
-            <span>Buku Bon</span>
-        </button>
-        <button type="button" class="dock-tab" data-target="view-rekap">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="20" x2="18" y2="10"></line>
-                <line x1="12" y1="20" x2="12" y2="4"></line>
-                <line x1="6" y1="20" x2="6" y2="14"></line>
-            </svg>
-            <span>Rekap</span>
-        </button>
-    </nav>
-
-    <script src="app.js?v=20260918_v3"></script>
+  <script src="app.js"></script>
 </body>
 </html>

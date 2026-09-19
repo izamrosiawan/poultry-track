@@ -3,6 +3,7 @@
   "total_laba": 253773420,
   "total_piutang": 915065872,
   "rata_rendemen": 73.47,
+  "total_transaksi": 1937,
   "daily_trend": {
     "dates": [
       "2026-08-16",
@@ -53,20 +54,20 @@
       3109741
     ],
     "rendemen": [
-      73.61,
       73.78,
-      73.97,
-      72.87,
-      73.6,
-      73.5,
-      73.8,
-      73.79,
-      74.73,
-      73.52,
-      73.45,
-      73.44,
-      73.01,
-      73.41
+      73.42,
+      73.86,
+      73.32,
+      73.48,
+      73.49,
+      73.67,
+      73.62,
+      74.18,
+      74.21,
+      73.67,
+      73.72,
+      73.41,
+      73.24
     ]
   },
   "cuts": {
@@ -93,43 +94,65 @@
       29096005,
       33789537,
       52327512
+    ],
+    "volume_kg": [
+      2951.4,
+      5001.7,
+      6719.6,
+      4476.7,
+      6773.3,
+      7906.9
     ]
   },
   "bon_receivables": [
     {
       "customer_name": "Warung Padang Roda Jaya",
       "piutang": 172245197,
-      "jumlah_bon": 154
+      "jumlah_bon": 154,
+      "bon_tertua": "2026-06-01",
+      "bon_terbaru": "2026-08-29"
     },
     {
       "customer_name": "Pecel Lele & Ayam Lamongan Cak Har",
       "piutang": 144269440,
-      "jumlah_bon": 131
+      "jumlah_bon": 131,
+      "bon_tertua": "2026-06-01",
+      "bon_terbaru": "2026-08-29"
     },
     {
       "customer_name": "Bakso Solo Mas Mul",
       "piutang": 131755617,
-      "jumlah_bon": 123
+      "jumlah_bon": 123,
+      "bon_tertua": "2026-06-01",
+      "bon_terbaru": "2026-08-29"
     },
     {
       "customer_name": "Depot Mie Pangsit 88",
       "piutang": 122983765,
-      "jumlah_bon": 118
+      "jumlah_bon": 118,
+      "bon_tertua": "2026-06-01",
+      "bon_terbaru": "2026-08-29"
     },
     {
       "customer_name": "Katering Berkah Ibu",
       "piutang": 117558375,
-      "jumlah_bon": 111
+      "jumlah_bon": 111,
+      "bon_tertua": "2026-06-02",
+      "bon_terbaru": "2026-08-29"
     },
     {
       "customer_name": "Warung Nasi Sunda Ibu Imas",
       "piutang": 116837835,
-      "jumlah_bon": 103
+      "jumlah_bon": 103,
+      "bon_tertua": "2026-06-01",
+      "bon_terbaru": "2026-08-29"
     },
     {
       "customer_name": "Ayam Geprek Sambal Bawang",
       "piutang": 109415643,
-      "jumlah_bon": 98
+      "jumlah_bon": 98,
+      "bon_tertua": "2026-06-01",
+      "bon_terbaru": "2026-08-29"
     }
   ]
 }

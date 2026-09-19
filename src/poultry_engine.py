@@ -1,4 +1,4 @@
-﻿"""
+"""
 poultry_engine.py
 Core calculation engine for poultry retail operations and carcass yield analytics.
 """
