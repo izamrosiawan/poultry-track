@@ -1,158 +1,33 @@
 {
-  "total_omzet": 1267636702,
-  "total_laba": 253773420,
-  "total_piutang": 915065872,
-  "rata_rendemen": 73.47,
-  "total_transaksi": 1937,
-  "daily_trend": {
-    "dates": [
-      "2026-08-16",
-      "2026-08-17",
-      "2026-08-18",
-      "2026-08-19",
-      "2026-08-20",
-      "2026-08-21",
-      "2026-08-22",
-      "2026-08-23",
-      "2026-08-24",
-      "2026-08-25",
-      "2026-08-26",
-      "2026-08-27",
-      "2026-08-28",
-      "2026-08-29"
-    ],
-    "omzet": [
-      19381423,
-      15030574,
-      12129105,
-      12721180,
-      14697928,
-      9147244,
-      21774988,
-      18489697,
-      8174578,
-      12270989,
-      10049380,
-      14486944,
-      10145310,
-      15981718
-    ],
-    "laba": [
-      4283045,
-      3893735,
-      2077085,
-      2827120,
-      3728509,
-      1813544,
-      5317009,
-      3221479,
-      1763998,
-      2589229,
-      1943481,
-      2604526,
-      1661452,
-      3109741
-    ],
-    "rendemen": [
-      73.78,
-      73.42,
-      73.86,
-      73.32,
-      73.48,
-      73.49,
-      73.67,
-      73.62,
-      74.18,
-      74.21,
-      73.67,
-      73.72,
-      73.41,
-      73.24
-    ]
-  },
-  "cuts": {
-    "labels": [
-      "Campur",
-      "Fillet Dada",
-      "Karkas Utuh",
-      "Potong 12",
-      "Potong 4",
-      "Potong 8"
-    ],
-    "omzet": [
-      103300044,
-      240082063,
-      235186339,
-      163400267,
-      237066883,
-      288601106
-    ],
-    "laba": [
-      14839372,
-      90214785,
-      33506209,
-      29096005,
-      33789537,
-      52327512
-    ],
-    "volume_kg": [
-      2951.4,
-      5001.7,
-      6719.6,
-      4476.7,
-      6773.3,
-      7906.9
-    ]
-  },
-  "bon_receivables": [
-    {
-      "customer_name": "Warung Padang Roda Jaya",
-      "piutang": 172245197,
-      "jumlah_bon": 154,
-      "bon_tertua": "2026-06-01",
-      "bon_terbaru": "2026-08-29"
-    },
-    {
-      "customer_name": "Pecel Lele & Ayam Lamongan Cak Har",
-      "piutang": 144269440,
-      "jumlah_bon": 131,
-      "bon_tertua": "2026-06-01",
-      "bon_terbaru": "2026-08-29"
-    },
-    {
-      "customer_name": "Bakso Solo Mas Mul",
-      "piutang": 131755617,
-      "jumlah_bon": 123,
-      "bon_tertua": "2026-06-01",
-      "bon_terbaru": "2026-08-29"
-    },
-    {
-      "customer_name": "Depot Mie Pangsit 88",
-      "piutang": 122983765,
-      "jumlah_bon": 118,
-      "bon_tertua": "2026-06-01",
-      "bon_terbaru": "2026-08-29"
-    },
-    {
-      "customer_name": "Katering Berkah Ibu",
-      "piutang": 117558375,
-      "jumlah_bon": 111,
-      "bon_tertua": "2026-06-02",
-      "bon_terbaru": "2026-08-29"
-    },
-    {
-      "customer_name": "Warung Nasi Sunda Ibu Imas",
-      "piutang": 116837835,
-      "jumlah_bon": 103,
-      "bon_tertua": "2026-06-01",
-      "bon_terbaru": "2026-08-29"
-    },
-    {
-      "customer_name": "Ayam Geprek Sambal Bawang",
-      "piutang": 109415643,
-      "jumlah_bon": 98,
-      "bon_tertua": "2026-06-01",
-      "bon_terbaru": "2026-08-29"
-    }
+  "customers": [
+    { "id": "C01", "code": "AL", "name": "Bu Aliyah", "phone": "081234567801", "defaultCut": "Dada fillet, paha & sayap", "balance": 1622000, "note": "Katering / Resto, ambil subuh rutin" },
+    { "id": "C02", "code": "War", "name": "Warung Bu Warsiti", "phone": "081234567802", "defaultCut": "Potong campur + ceker", "balance": 560000, "note": "Warung makan lalapan, ambil 04.30" },
+    { "id": "C03", "code": "K", "name": "Pak Kusno", "phone": "081234567803", "defaultCut": "Fillet dada giling", "balance": 400000, "note": "Depot bakso, cicil subuh rutin" },
+    { "id": "C04", "code": "J", "name": "Bu Jamilah", "phone": "081234567804", "defaultCut": "Potong 4 bagian", "balance": 340000, "note": "Warung nasi barokah, cicil subuh" },
+    { "id": "C05", "code": "M", "name": "Mas Munir", "phone": "081234567805", "defaultCut": "Potong 8 bagian", "balance": 237000, "note": "Penyetan kaki lima malam" },
+    { "id": "C06", "code": "S", "name": "Bu Siti", "phone": "081234567806", "defaultCut": "Potong 8 + jeroan", "balance": 380000, "note": "Warung rames campur" },
+    { "id": "C07", "code": "R", "name": "Bu Rahma", "phone": "081234567807", "defaultCut": "Ayam suwir sedang", "balance": 240000, "note": "Soto lamongan" },
+    { "id": "C08", "code": "B", "name": "Bu Budi", "phone": "081234567808", "defaultCut": "2 ekor + 4 kg fillet dada", "balance": 272000, "note": "Katering nasi kotak" },
+    { "id": "C09", "code": "YA", "name": "Bu Yanti", "phone": "081234567809", "defaultCut": "Karkas utuh ukuran besar", "balance": 505000, "note": "Rumah makan Padang, cicil 25rb" },
+    { "id": "C10", "code": "ATUL", "name": "Bu Atul", "phone": "081234567810", "defaultCut": "Potong 8 bagian", "balance": 150000, "note": "Warung serba ada" },
+    { "id": "C11", "code": "SPI", "name": "Pak Ismail", "phone": "081234567811", "defaultCut": "Potong sup + ceker", "balance": 170000, "note": "Soto ayam Barokah, cicil 10rb" },
+    { "id": "C12", "code": "Mic", "name": "Bu Mieke", "phone": "081234567812", "defaultCut": "Potong 8 bagian", "balance": 0, "note": "Langganan tunai pas ambil" },
+    { "id": "C99", "code": "ECR", "name": "Pembeli Pasar (Eceran)", "phone": "-", "defaultCut": "Potong bebas & campur", "balance": 0, "note": "Beli eceran langsung bayar meja" }
+  ],
+  "cuts": [
+    { "id": "cut-1", "name": "Karkas Utuh", "price": 32000 },
+    { "id": "cut-2", "name": "Potong 4", "price": 32000 },
+    { "id": "cut-3", "name": "Potong 8", "price": 32000 },
+    { "id": "cut-4", "name": "Potong 12", "price": 32000 },
+    { "id": "cut-5", "name": "Fillet Dada", "price": 34000 },
+    { "id": "cut-6", "name": "Fillet Paha", "price": 34000 },
+    { "id": "cut-7", "name": "Sayap", "price": 31000 },
+    { "id": "cut-8", "name": "Ceker & Kepala", "price": 22000 },
+    { "id": "cut-9", "name": "Ati Ampela (Set)", "price": 3000 }
+  ],
+  "recentSupplies": [
+    { "id": "SP-01", "date": "2026-09-25", "invoice": "25-09-26", "supplier": "UD. CHEYLOO FARM", "chickens": 30, "weight": 71.9, "pricePerKg": 26000, "total": 1869400, "payment": "Tunai" },
+    { "id": "SP-02", "date": "2026-09-26", "invoice": "26-09-26", "supplier": "UD. CHEYLOO FARM", "chickens": 30, "weight": 73.3, "pricePerKg": 25500, "total": 1869150, "payment": "Tunai" },
+    { "id": "SP-03", "date": "2026-09-27", "invoice": "27-09-26", "supplier": "UD. CHEYLOO FARM", "chickens": 29, "weight": 76.9, "pricePerKg": 25500, "total": 1960950, "payment": "Tunai" }
   ]
 }
