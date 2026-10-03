@@ -1,43 +1,44 @@
 /* ==========================================================================
-   PoultryTrack Design System - Style Guide TaniDirect (IMK Bab 4)
-   Clean, Humanized, High-Readability Light UI for Traditional Market Terminal
+   PoultryTrack Clean POS & Debt Ledger System
+   Professional, Humanized, Clean Light UI (Zero AI-Slop, Zero Emojis)
    ========================================================================== */
 
 :root {
-  --bg-app: #f4f6f8;
-  --bg-card: #ffffff;
-  --bg-surface: #f8fafc;
+  --bg-app: #f8fafc;
+  --bg-surface: #ffffff;
   --bg-subtle: #f1f5f9;
+  --bg-input: #ffffff;
 
   --border-light: #e2e8f0;
-  --border-card: #cbd5e1;
+  --border-subtle: #cbd5e1;
   --border-focus: #10b981;
 
-  --text-main: #0f172a;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
   --text-muted: #64748b;
-  --text-sub: #94a3b8;
+  --text-light: #94a3b8;
 
-  --color-primary: #059669; /* Emerald Green Segar TaniDirect */
-  --color-primary-dark: #047857;
-  --color-primary-light: #ecfdf5;
+  --color-primary: #059669; /* Emerald Green Segar */
+  --color-primary-hover: #047857;
+  --color-primary-subtle: #ecfdf5;
   --color-primary-border: #a7f3d0;
 
-  --color-danger: #e11d48; /* Rose Crimson */
-  --color-danger-light: #ffe4e6;
-  --color-danger-border: #fecdd3;
+  --color-danger: #dc2626; /* Crimson Red */
+  --color-danger-subtle: #fef2f2;
+  --color-danger-border: #fecaca;
 
-  --color-warning: #d97706; /* Amber */
-  --color-warning-light: #fef3c7;
-
-  --color-info: #0284c7; /* Sky Blue */
-  --color-info-light: #e0f2fe;
+  --color-info: #0284c7;
+  --color-info-subtle: #f0f9ff;
 
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
 }
 
 * {
@@ -49,7 +50,7 @@
 
 body {
   background-color: var(--bg-app);
-  color: var(--text-main);
+  color: var(--text-primary);
   font-family: var(--font-sans);
   line-height: 1.5;
   font-size: 14px;
@@ -62,16 +63,16 @@ body {
    APP HEADER
    ========================================================================== */
 .app-header {
-  background: var(--bg-card);
+  background: var(--bg-surface);
   border-bottom: 1px solid var(--border-light);
   position: sticky;
   top: 0;
-  z-index: 40;
+  z-index: 50;
   box-shadow: var(--shadow-sm);
 }
 
-.header-content {
-  max-width: 1300px;
+.header-inner {
+  max-width: 1240px;
   margin: 0 auto;
   padding: 12px 20px;
   display: flex;
@@ -85,66 +86,59 @@ body {
   gap: 12px;
 }
 
-.brand-avatar {
-  width: 42px;
-  height: 42px;
-  background: var(--color-primary-light);
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--color-primary-subtle);
   border: 1px solid var(--color-primary-border);
-  border-radius: 12px;
+  color: var(--color-primary);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
 }
 
-.brand-titles h1 {
-  font-size: 18px;
+.brand-text h1 {
+  font-size: 17px;
   font-weight: 800;
-  color: var(--text-main);
+  color: var(--text-primary);
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
-.brand-titles p {
+.brand-text p {
   font-size: 11px;
   font-weight: 500;
   color: var(--text-muted);
 }
 
-.header-status {
+.header-right {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.offline-chip {
+.connection-status {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: var(--color-primary-light);
+  background: var(--color-primary-subtle);
   border: 1px solid var(--color-primary-border);
-  color: var(--color-primary-dark);
+  color: var(--color-primary-hover);
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 11px;
   font-weight: 700;
 }
 
-.offline-chip .dot {
+.status-indicator {
   width: 7px;
   height: 7px;
   background: var(--color-primary);
   border-radius: 50%;
-  animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.8; }
-}
-
-.live-clock-badge {
+.clock-display {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
@@ -152,22 +146,22 @@ body {
   border: 1px solid var(--border-light);
   padding: 4px 10px;
   border-radius: 8px;
-  color: var(--text-main);
+  color: var(--text-secondary);
 }
 
 /* ==========================================================================
-   APP NAVBAR (TaniDirect Style Tabs)
+   NAVIGATION BAR
    ========================================================================== */
-.app-navbar {
-  background: var(--bg-card);
+.app-nav {
+  background: var(--bg-surface);
   border-bottom: 1px solid var(--border-light);
   position: sticky;
-  top: 67px;
-  z-index: 30;
+  top: 63px;
+  z-index: 40;
 }
 
-.nav-wrapper {
-  max-width: 1300px;
+.nav-container {
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 16px;
   display: flex;
@@ -176,11 +170,11 @@ body {
   scrollbar-width: none;
 }
 
-.nav-wrapper::-webkit-scrollbar {
+.nav-container::-webkit-scrollbar {
   display: none;
 }
 
-.tab-btn {
+.nav-item {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -197,35 +191,43 @@ body {
   transition: all 0.2s ease;
 }
 
-.tab-btn:hover {
+.nav-item svg {
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.nav-item:hover {
   color: var(--color-primary);
-  background: var(--color-primary-light);
 }
 
-.tab-btn.active {
-  color: var(--color-primary-dark);
+.nav-item:hover svg {
+  color: var(--color-primary);
+}
+
+.nav-item.active {
+  color: var(--color-primary-hover);
   border-bottom-color: var(--color-primary);
-  background: var(--color-primary-light);
+  background: var(--color-primary-subtle);
 }
 
-.tab-icon {
-  font-size: 16px;
+.nav-item.active svg {
+  color: var(--color-primary);
 }
 
-.tab-badge {
+.nav-counter {
   background: var(--color-danger);
   color: white;
   font-size: 10px;
   font-weight: 700;
   padding: 2px 6px;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 /* ==========================================================================
-   APP MAIN CONTENT
+   MAIN VIEWPORT
    ========================================================================== */
-.app-main {
-  max-width: 1300px;
+.app-viewport {
+  max-width: 1240px;
   margin: 0 auto;
   padding: 24px 20px 60px;
   width: 100%;
@@ -242,49 +244,49 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(3px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* ==========================================================================
-   CLEAN CARD PATTERN (TaniDirect Component)
+   PANEL CARD (Clean Card Component)
    ========================================================================== */
-.clean-card {
-  background: var(--bg-card);
+.panel-card {
+  background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-radius: 16px;
-  padding: 20px;
+  border-radius: 14px;
+  padding: 18px 20px;
   box-shadow: var(--shadow-sm);
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
-.card-title-row {
+.panel-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
-.badge-number {
-  width: 24px;
-  height: 24px;
+.step-badge {
+  width: 22px;
+  height: 22px;
   background: var(--color-primary);
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 800;
 }
 
-.card-title-row h2 {
-  font-size: 15px;
+.panel-header h3 {
+  font-size: 14px;
   font-weight: 700;
-  color: var(--text-main);
+  color: var(--text-primary);
 }
 
-.section-desc {
+.panel-desc {
   font-size: 12px;
   color: var(--text-muted);
   margin-top: -6px;
@@ -292,54 +294,65 @@ body {
 }
 
 /* ==========================================================================
-   TAB 1: KASIR LAPAK LAYOUT
+   1. KASIR LAYOUT
    ========================================================================== */
-.kasir-grid {
+.pos-container {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 
-@media (min-width: 992px) {
-  .kasir-grid {
+@media (min-width: 960px) {
+  .pos-container {
     grid-template-columns: 7fr 5fr;
   }
 }
 
 /* Customer Type Toggle */
-.cust-type-toggle {
+.customer-toggle {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
   background: var(--bg-subtle);
   padding: 4px;
-  border-radius: 12px;
-  border: 1px solid var(--border-light);
+  border-radius: 10px;
 }
 
 .cust-type-btn {
   padding: 10px 14px;
   border: none;
   background: transparent;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
 }
 
 .cust-type-btn.active {
-  background: var(--bg-card);
-  color: var(--color-primary-dark);
+  background: var(--bg-surface);
+  color: var(--color-primary-hover);
   font-weight: 700;
   box-shadow: var(--shadow-sm);
 }
 
-.cust-balance-alert {
+.customer-select-wrap {
+  margin-top: 14px;
+}
+
+.customer-select-wrap label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.debt-notice {
   margin-top: 8px;
-  background: var(--color-danger-light);
+  background: var(--color-danger-subtle);
   border: 1px solid var(--color-danger-border);
   color: var(--color-danger);
   padding: 8px 12px;
@@ -347,48 +360,48 @@ body {
   font-size: 12px;
 }
 
-/* Stepper Controls */
-.input-stepper-grid {
+/* Counter & Steppers */
+.counter-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
 }
 
-.stepper-box {
-  background: var(--bg-surface);
+.counter-box {
+  background: var(--bg-subtle);
   border: 1px solid var(--border-light);
-  padding: 14px;
-  border-radius: 12px;
+  padding: 12px;
+  border-radius: 10px;
 }
 
-.stepper-box label {
+.counter-box label {
   display: block;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-muted);
-  margin-bottom: 8px;
   text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
-.stepper-controls {
+.stepper-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
 }
 
 .stepper-btn {
-  width: 40px;
-  height: 40px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  color: var(--text-main);
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 700;
+  width: 38px;
+  height: 38px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
-  transition: all 0.15s ease;
+  transition: all 0.15s;
 }
 
 .stepper-btn:hover {
@@ -397,31 +410,31 @@ body {
 }
 
 .stepper-btn:active {
-  transform: scale(0.94);
+  transform: scale(0.95);
 }
 
-.stepper-input {
-  width: 70px;
+.stepper-val {
+  width: 60px;
   text-align: center;
   border: none;
   background: transparent;
   font-family: var(--font-mono);
   font-size: 20px;
   font-weight: 800;
-  color: var(--text-main);
+  color: var(--text-primary);
   outline: none;
 }
 
-.stepper-input.bold-green {
+.stepper-val.text-primary {
   color: var(--color-primary);
 }
 
-/* Quick Pills */
-.quick-pill-row {
+/* Quick Weights & Prices */
+.quick-weights-wrapper {
   margin-top: 14px;
 }
 
-.pill-label {
+.quick-title {
   display: block;
   font-size: 11px;
   font-weight: 600;
@@ -429,7 +442,7 @@ body {
   margin-bottom: 6px;
 }
 
-.pill-buttons {
+.pill-group {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
@@ -443,19 +456,23 @@ body {
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
-  color: var(--text-main);
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.15s;
 }
 
 .qw-btn:hover, .qp-btn:hover {
-  background: var(--color-primary-light);
+  background: var(--color-primary-subtle);
   border-color: var(--color-primary-border);
-  color: var(--color-primary-dark);
+  color: var(--color-primary-hover);
 }
 
-/* Form inputs & Select */
-.form-field-group label {
+/* Form inputs */
+.price-field-wrapper, .note-field-wrap, .form-group-field {
+  margin-top: 14px;
+}
+
+.price-field-wrapper label, .note-field-wrap label, .form-group-field label {
   display: block;
   font-size: 12px;
   font-weight: 600;
@@ -463,53 +480,53 @@ body {
   margin-bottom: 6px;
 }
 
-.clean-input, .clean-select {
+.input-text, .input-select {
   width: 100%;
   padding: 10px 14px;
-  background: var(--bg-card);
+  background: var(--bg-input);
   border: 1px solid var(--border-light);
-  border-radius: 10px;
+  border-radius: 8px;
   font-family: var(--font-sans);
   font-size: 13px;
-  color: var(--text-main);
+  color: var(--text-primary);
   outline: none;
   transition: border-color 0.2s;
 }
 
-.clean-input:focus, .clean-select:focus {
+.input-text:focus, .input-select:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
 
-.price-input-row {
+.price-input-flex {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
-.quick-price-pills {
+.price-pill-group {
   display: flex;
   gap: 4px;
   flex-shrink: 0;
 }
 
-/* Cut Options Grid */
-.cut-options-grid {
+/* Cut Selection Grid */
+.cut-selection-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 8px;
 }
 
-.cut-option-label {
+.cut-card-label {
   cursor: pointer;
 }
 
-.cut-option-label input {
+.cut-card-label input {
   display: none;
 }
 
-.cut-tile {
-  background: var(--bg-surface);
+.cut-card-box {
+  background: var(--bg-subtle);
   border: 1px solid var(--border-light);
   padding: 10px 12px;
   border-radius: 10px;
@@ -517,45 +534,50 @@ body {
   text-align: center;
 }
 
-.cut-tile strong {
+.cut-card-box strong {
   display: block;
   font-size: 12px;
-  color: var(--text-main);
+  color: var(--text-primary);
 }
 
-.cut-tile small {
+.cut-card-box span {
   display: block;
   font-size: 10px;
   color: var(--text-muted);
   margin-top: 2px;
 }
 
-.cut-option-label input:checked + .cut-tile {
-  background: var(--color-primary-light);
+.cut-card-label input:checked + .cut-card-box {
+  background: var(--color-primary-subtle);
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px var(--color-primary-border);
 }
 
-.cut-option-label input:checked + .cut-tile strong {
-  color: var(--color-primary-dark);
+.cut-card-label input:checked + .cut-card-box strong {
+  color: var(--color-primary-hover);
 }
 
 /* ==========================================================================
-   STRUK & RINGKASAN KASIR (KOLOM KANAN)
+   CHECKOUT SIDE PANEL (KANAN)
    ========================================================================== */
-.sticky-card {
+.checkout-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
   position: sticky;
-  top: 140px;
+  top: 130px;
 }
 
-.receipt-header {
+.checkout-header {
   text-align: center;
-  padding-bottom: 14px;
-  border-bottom: 1px dashed var(--border-card);
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--border-subtle);
   margin-bottom: 16px;
 }
 
-.receipt-tag {
+.ch-badge {
   display: inline-block;
   font-size: 10px;
   font-weight: 700;
@@ -563,32 +585,32 @@ body {
   letter-spacing: 0.05em;
   background: var(--bg-subtle);
   color: var(--text-muted);
-  padding: 3px 8px;
-  border-radius: 6px;
+  padding: 2px 8px;
+  border-radius: 4px;
   margin-bottom: 4px;
 }
 
-.receipt-title {
+.checkout-header h3 {
   font-size: 15px;
   font-weight: 800;
-  color: var(--text-main);
+  color: var(--text-primary);
 }
 
-.receipt-subtitle {
+.checkout-header p {
   font-size: 11px;
   color: var(--text-muted);
 }
 
-.total-price-banner {
-  background: var(--bg-surface);
+.checkout-total-box {
+  background: var(--bg-subtle);
   border: 1px solid var(--border-light);
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 16px;
   text-align: center;
   margin-bottom: 16px;
 }
 
-.total-label {
+.total-caption {
   display: block;
   font-size: 11px;
   font-weight: 600;
@@ -597,25 +619,25 @@ body {
   color: var(--text-muted);
 }
 
-.total-amount {
+.total-figure {
   font-family: var(--font-mono);
   font-size: 28px;
   font-weight: 800;
-  color: var(--color-primary-dark);
+  color: var(--color-primary-hover);
   margin: 4px 0;
 }
 
-.total-hint {
+.total-calc-hint {
   display: block;
   font-size: 10px;
-  color: var(--text-sub);
+  color: var(--text-light);
 }
 
-.payment-method-box {
+.payment-selection-box {
   margin-bottom: 16px;
 }
 
-.payment-method-box label {
+.payment-selection-box label {
   display: block;
   font-size: 11px;
   font-weight: 600;
@@ -623,50 +645,61 @@ body {
   margin-bottom: 6px;
 }
 
-.pay-toggle-row {
+.payment-buttons-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
 
 .pay-type-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 12px;
   border: 1px solid var(--border-light);
-  background: var(--bg-surface);
-  color: var(--text-main);
-  border-radius: 10px;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  border-radius: 8px;
   font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
 }
 
-.pay-type-btn:hover {
-  border-color: var(--color-primary);
+.pay-type-btn svg {
+  color: var(--text-muted);
+  transition: color 0.15s;
 }
 
 .pay-type-btn.active[data-pay="tunai"] {
   background: var(--color-primary);
   border-color: var(--color-primary);
   color: white;
-  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+}
+
+.pay-type-btn.active[data-pay="tunai"] svg {
+  color: white;
 }
 
 .pay-type-btn.active[data-pay="bon"] {
   background: var(--color-danger);
   border-color: var(--color-danger);
   color: white;
-  box-shadow: 0 4px 10px rgba(225, 29, 72, 0.25);
 }
 
-.action-buttons-group {
+.pay-type-btn.active[data-pay="bon"] svg {
+  color: white;
+}
+
+.action-submit-wrap {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.btn-primary-action {
+.btn-submit-order {
   width: 100%;
   padding: 14px;
   background: var(--color-primary);
@@ -675,21 +708,21 @@ body {
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 700;
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.2);
-  transition: all 0.15s ease;
+  box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+  transition: all 0.15s;
 }
 
-.btn-primary-action:hover {
-  background: var(--color-primary-dark);
+.btn-submit-order:hover {
+  background: var(--color-primary-hover);
 }
 
-.btn-primary-action:active {
+.btn-submit-order:active {
   transform: scale(0.98);
 }
 
-.btn-secondary-action {
+.btn-clear-order {
   width: 100%;
   padding: 10px;
   background: transparent;
@@ -698,95 +731,102 @@ body {
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.15s;
 }
 
-.btn-secondary-action:hover {
+.btn-clear-order:hover {
   background: var(--bg-subtle);
-  color: var(--text-main);
+  color: var(--text-primary);
 }
 
 /* ==========================================================================
-   TAB 2: BUKU BON LANGGANAN
+   2. BUKU BON LANGGANAN
    ========================================================================== */
-.kpi-banner-grid {
+.kpi-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 14px;
   margin-bottom: 20px;
 }
 
-.kpi-item {
-  background: var(--bg-card);
+.kpi-box {
+  background: var(--bg-surface);
   border: 1px solid var(--border-light);
   padding: 16px;
-  border-radius: 14px;
+  border-radius: 12px;
   box-shadow: var(--shadow-sm);
 }
 
-.kpi-title {
+.kpi-label {
   display: block;
   font-size: 11px;
   font-weight: 600;
   color: var(--text-muted);
 }
 
-.kpi-value {
+.kpi-val {
   display: block;
   font-family: var(--font-mono);
   font-size: 22px;
   font-weight: 800;
-  color: var(--text-main);
   margin: 4px 0;
+  color: var(--text-primary);
 }
 
-.kpi-value.text-danger {
+.kpi-box.danger .kpi-val {
   color: var(--color-danger);
 }
 
-.kpi-value.text-success {
-  color: var(--color-primary-dark);
+.kpi-box.success .kpi-val {
+  color: var(--color-primary-hover);
 }
 
-.kpi-desc {
+.kpi-sub {
   display: block;
   font-size: 11px;
-  color: var(--text-sub);
+  color: var(--text-light);
 }
 
-.search-bar-clean {
+.search-container {
   margin-bottom: 20px;
 }
 
-.search-input {
-  width: 100%;
-  padding: 12px 16px;
-  background: var(--bg-card);
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-radius: 12px;
-  font-family: var(--font-sans);
-  font-size: 13px;
-  outline: none;
+  padding: 10px 16px;
+  border-radius: 10px;
   box-shadow: var(--shadow-sm);
 }
 
-.search-input:focus {
-  border-color: var(--color-primary);
+.search-box svg {
+  color: var(--text-muted);
 }
 
-/* Bon Cards Grid */
-.bon-cards-container {
+.search-input-field {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  outline: none;
+  color: var(--text-primary);
+}
+
+.customer-cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 16px;
 }
 
 .bon-card {
-  background: var(--bg-card);
+  background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 16px;
   box-shadow: var(--shadow-sm);
   display: flex;
@@ -796,7 +836,7 @@ body {
 }
 
 .bon-card.lunas {
-  background: var(--bg-surface);
+  background: var(--bg-subtle);
   border-color: var(--border-light);
 }
 
@@ -812,39 +852,38 @@ body {
   font-size: 11px;
   font-weight: 700;
   background: var(--bg-subtle);
-  color: var(--text-main);
+  color: var(--text-primary);
   padding: 2px 6px;
-  border-radius: 6px;
+  border-radius: 4px;
   margin-right: 6px;
 }
 
 .bon-name {
   font-size: 14px;
-  color: var(--text-main);
+  color: var(--text-primary);
 }
 
 .bon-badge {
   font-size: 10px;
   font-weight: 700;
   padding: 3px 8px;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .bon-badge.terhutang {
-  background: var(--color-danger-light);
+  background: var(--color-danger-subtle);
   color: var(--color-danger);
 }
 
 .bon-badge.lunas {
-  background: var(--color-primary-light);
-  color: var(--color-primary-dark);
+  background: var(--color-primary-subtle);
+  color: var(--color-primary-hover);
 }
 
 .bon-balance-box {
-  background: var(--bg-surface);
+  background: var(--bg-subtle);
   padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--border-light);
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -866,7 +905,7 @@ body {
 }
 
 .text-green {
-  color: var(--color-primary-dark);
+  color: var(--color-primary-hover);
 }
 
 .bon-card-actions {
@@ -887,9 +926,9 @@ body {
 }
 
 .pay-btn {
-  background: var(--color-primary-light);
+  background: var(--color-primary-subtle);
   border-color: var(--color-primary-border);
-  color: var(--color-primary-dark);
+  color: var(--color-primary-hover);
 }
 
 .pay-btn:hover {
@@ -900,7 +939,7 @@ body {
 .wa-btn {
   background: var(--bg-subtle);
   border-color: var(--border-light);
-  color: var(--text-main);
+  color: var(--text-secondary);
 }
 
 .wa-btn:hover {
@@ -910,49 +949,49 @@ body {
 }
 
 /* ==========================================================================
-   TAB 3: PASOKAN & REKAP
+   3. PASOKAN SUPPLIER & REKAP KAS
    ========================================================================== */
-.two-col-grid {
+.two-column-layout {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 
-@media (min-width: 992px) {
-  .two-col-grid {
+@media (min-width: 960px) {
+  .two-column-layout {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-.form-row-2 {
+.form-row-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-.modal-calc-box {
-  background: var(--bg-surface);
+.cost-preview-box {
+  background: var(--bg-subtle);
   border: 1px solid var(--border-light);
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 14px 0;
 }
 
-.modal-calc-box span {
+.cost-preview-box span {
   font-size: 12px;
   color: var(--text-muted);
 }
 
-.modal-calc-box strong {
+.cost-preview-box strong {
   font-family: var(--font-mono);
   font-size: 18px;
-  color: var(--color-primary-dark);
+  color: var(--color-primary-hover);
 }
 
-.supplies-list {
+.supplies-scroll-container {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -961,9 +1000,9 @@ body {
 }
 
 .supply-item-card {
-  background: var(--bg-surface);
+  background: var(--bg-subtle);
   border: 1px solid var(--border-light);
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 14px;
 }
 
@@ -978,7 +1017,8 @@ body {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
-  background: var(--bg-subtle);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
   padding: 2px 6px;
   border-radius: 4px;
   margin-right: 4px;
@@ -998,12 +1038,12 @@ body {
 }
 
 .supply-badge-status.lunas {
-  background: var(--color-primary-light);
-  color: var(--color-primary-dark);
+  background: var(--color-primary-subtle);
+  color: var(--color-primary-hover);
 }
 
 .supply-badge-status.tempo {
-  background: var(--color-danger-light);
+  background: var(--color-danger-subtle);
   color: var(--color-danger);
 }
 
@@ -1021,7 +1061,7 @@ body {
 }
 
 .text-modal {
-  color: var(--color-primary-dark);
+  color: var(--color-primary-hover);
 }
 
 .supply-note {
@@ -1032,97 +1072,95 @@ body {
 }
 
 /* ==========================================================================
-   TAB 4: REKAP KAS LACI
+   4. REKAP KAS LACI
    ========================================================================== */
-.rekap-intro-banner {
-  background: var(--bg-card);
+.rekap-header-card {
+  background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 16px 20px;
   margin-bottom: 20px;
   box-shadow: var(--shadow-sm);
 }
 
-.rekap-intro-banner h2 {
+.rekap-header-card h2 {
   font-size: 16px;
   font-weight: 800;
-  color: var(--text-main);
+  color: var(--text-primary);
 }
 
-.rekap-intro-banner p {
+.rekap-header-card p {
   font-size: 12px;
   color: var(--text-muted);
 }
 
-.rekap-cards-grid {
+.rekap-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 14px;
 }
 
-.rekap-card {
-  background: var(--bg-card);
+.rekap-box {
+  background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-radius: 14px;
-  padding: 18px;
+  border-radius: 12px;
+  padding: 16px;
   box-shadow: var(--shadow-sm);
 }
 
-.rekap-card.highlight-net {
-  background: var(--color-primary-light);
+.rekap-box.highlight-net {
+  background: var(--color-primary-subtle);
   border: 2px solid var(--color-primary);
 }
 
-.rc-label {
+.rk-label {
   display: block;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
   color: var(--text-muted);
 }
 
-.rc-val {
+.rk-val {
   display: block;
   font-family: var(--font-mono);
   font-size: 24px;
   font-weight: 800;
   margin: 6px 0;
-  color: var(--text-main);
+  color: var(--text-primary);
 }
 
 .text-net {
-  color: var(--color-primary-dark);
+  color: var(--color-primary-hover);
 }
 
-.rc-desc {
+.rk-hint {
   display: block;
   font-size: 11px;
   color: var(--text-muted);
 }
 
-.tonase-stats-row {
+.tonase-grid {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
-.t-stat {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-light);
+.tonase-item {
+  background: var(--bg-subtle);
   padding: 12px 16px;
-  border-radius: 10px;
+  border-radius: 8px;
   flex: 1;
-  min-width: 160px;
+  min-width: 150px;
 }
 
-.t-stat span {
+.tonase-item span {
   display: block;
   font-size: 11px;
   color: var(--text-muted);
 }
 
-.t-stat strong {
+.tonase-item strong {
   display: block;
   font-family: var(--font-mono);
   font-size: 16px;
@@ -1131,9 +1169,9 @@ body {
 }
 
 /* ==========================================================================
-   TAB 5: RIWAYAT TABEL
+   5. RIWAYAT TABEL
    ========================================================================== */
-.table-header-row {
+.table-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1142,22 +1180,25 @@ body {
   margin-bottom: 16px;
 }
 
-.table-header-row h2 {
-  font-size: 16px;
+.table-top-bar h3 {
+  font-size: 15px;
   font-weight: 800;
 }
 
-.table-header-row p {
+.table-top-bar p {
   font-size: 12px;
   color: var(--text-muted);
 }
 
-.table-actions {
+.table-button-actions {
   display: flex;
   gap: 8px;
 }
 
-.btn-export-csv {
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   padding: 8px 14px;
   background: var(--color-primary);
   border: none;
@@ -1170,11 +1211,14 @@ body {
   transition: all 0.15s;
 }
 
-.btn-export-csv:hover {
-  background: var(--color-primary-dark);
+.btn-secondary:hover {
+  background: var(--color-primary-hover);
 }
 
-.btn-reset-light {
+.btn-subtle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   padding: 8px 14px;
   background: var(--bg-subtle);
   border: 1px solid var(--border-light);
@@ -1186,24 +1230,24 @@ body {
   cursor: pointer;
 }
 
-.btn-reset-light:hover {
+.btn-subtle:hover {
   color: var(--color-danger);
   border-color: var(--color-danger-border);
 }
 
-.table-wrapper {
+.table-scroll-wrapper {
   overflow-x: auto;
 }
 
-.clean-table {
+.data-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
   font-size: 13px;
 }
 
-.clean-table th {
-  background: var(--bg-surface);
+.data-table th {
+  background: var(--bg-subtle);
   border-bottom: 2px solid var(--border-light);
   padding: 10px 12px;
   font-size: 11px;
@@ -1212,43 +1256,42 @@ body {
   text-transform: uppercase;
 }
 
-.clean-table td {
+.data-table td {
   padding: 12px;
   border-bottom: 1px solid var(--border-light);
 }
 
-.clean-table tr:hover td {
-  background: var(--bg-surface);
+.data-table tr:hover td {
+  background: var(--bg-subtle);
 }
 
 .status-pill {
   display: inline-block;
   padding: 3px 8px;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.04em;
 }
 
 .pill-tunai {
-  background: var(--color-primary-light);
-  color: var(--color-primary-dark);
+  background: var(--color-primary-subtle);
+  color: var(--color-primary-hover);
 }
 
 .pill-bon {
-  background: var(--color-danger-light);
+  background: var(--color-danger-subtle);
   color: var(--color-danger);
 }
 
 .pill-cicilan {
-  background: var(--color-info-light);
+  background: var(--color-info-subtle);
   color: var(--color-info);
 }
 
 /* ==========================================================================
-   CLEAN MODAL
+   MODAL
    ========================================================================== */
-.clean-modal-backdrop {
+.modal-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.4);
@@ -1260,34 +1303,34 @@ body {
   padding: 20px;
 }
 
-.clean-modal-backdrop.open {
+.modal-backdrop.open {
   display: flex;
   animation: fadeIn 0.15s ease;
 }
 
-.clean-modal-card {
-  background: var(--bg-card);
+.modal-dialog {
+  background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-radius: 18px;
+  border-radius: 14px;
   width: 100%;
-  max-width: 440px;
+  max-width: 420px;
   padding: 20px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-.modal-title-row {
+.modal-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 14px;
 }
 
-.modal-title-row h3 {
-  font-size: 16px;
+.modal-head h3 {
+  font-size: 15px;
   font-weight: 800;
 }
 
-.modal-close-btn {
+.modal-close {
   background: transparent;
   border: none;
   font-size: 20px;
@@ -1295,23 +1338,23 @@ body {
   cursor: pointer;
 }
 
-.modal-debtor-card {
-  background: var(--bg-surface);
+.debtor-detail-banner {
+  background: var(--bg-subtle);
   border: 1px solid var(--border-light);
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 13px;
 }
 
-.modal-debtor-card strong {
+.debtor-detail-banner strong {
   color: var(--color-danger);
   font-family: var(--font-mono);
 }
 
-.modal-quick-pills {
+.quick-preset-container {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
@@ -1321,48 +1364,25 @@ body {
   padding: 6px 12px;
   background: var(--bg-subtle);
   border: 1px solid var(--border-light);
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 11px;
   font-weight: 700;
-  color: var(--text-main);
+  color: var(--text-primary);
   cursor: pointer;
   transition: all 0.15s;
 }
 
 .quick-pill:hover {
-  background: var(--color-primary-light);
+  background: var(--color-primary-subtle);
   border-color: var(--color-primary-border);
-  color: var(--color-primary-dark);
+  color: var(--color-primary-hover);
 }
 
-.modal-footer-row {
+.modal-actions-footer {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 10px;
   margin-top: 18px;
-}
-
-.btn-cancel {
-  padding: 10px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border-light);
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.btn-confirm {
-  padding: 10px;
-  background: var(--color-primary);
-  border: none;
-  color: white;
-  border-radius: 10px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.btn-confirm:hover {
-  background: var(--color-primary-dark);
 }
 
 .empty-state {
