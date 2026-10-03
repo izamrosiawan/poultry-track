@@ -1356,3 +1356,214 @@ body {
 .mt-2 { margin-top: 8px; }
 .mt-3 { margin-top: 12px; }
 .mt-4 { margin-top: 16px; }
+
+@media (max-width: 768px) {
+  .app-viewport {
+    padding: 12px 10px 60px;
+  }
+
+  .header-inner {
+    padding: 8px 12px;
+    align-items: center;
+  }
+
+  .brand-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .brand-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .brand-text h1 {
+    font-size: 15px;
+  }
+
+  .brand-text p {
+    font-size: 10px;
+  }
+
+  .clock-display {
+    display: none;
+  }
+
+  .connection-status {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+
+  .app-nav {
+    top: 50px;
+  }
+
+  .nav-container {
+    padding: 0 8px;
+    gap: 4px;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  .nav-item {
+    padding: 10px 12px;
+    font-size: 12px;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .nav-item svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .panel-card {
+    padding: 14px 12px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+  }
+
+  .counter-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .price-input-flex {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .price-pill-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  .price-pill-group .qp-btn {
+    text-align: center;
+    padding: 8px 4px;
+  }
+
+  .cut-selection-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .checkout-card {
+    position: static;
+    top: auto;
+    padding: 16px 14px;
+  }
+
+  .total-figure {
+    font-size: 24px;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .customer-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .two-column-layout {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .form-row-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .supply-specs-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .rekap-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .tonase-grid {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tonase-item {
+    min-width: 100%;
+  }
+
+  .table-top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .table-button-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .table-button-actions button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .data-table {
+    font-size: 12px;
+  }
+
+  .data-table th, .data-table td {
+    padding: 8px 10px;
+    white-space: nowrap;
+  }
+
+  .modal-dialog {
+    padding: 16px;
+    max-width: 95vw;
+  }
+
+  .modal-actions-footer {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pill-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+  }
+
+  .qw-btn {
+    text-align: center;
+    padding: 8px 4px;
+  }
+
+  .cut-selection-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-buttons-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bon-card-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .stepper-val {
+    width: 50px;
+    font-size: 18px;
+  }
+}
+
