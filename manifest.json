@@ -1,16 +1,16 @@
-﻿{
+{
   "short_name": "PoultryTrack",
   "name": "PoultryTrack - Kasir & Lapak Ayam",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐔</text></svg>",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z'/><path d='m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z'/><path d='M7 21h10'/><path d='M12 3v18'/><path d='M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2'/></svg>",
       "sizes": "192x192 512x512",
       "type": "image/svg+xml"
     }
   ],
   "start_url": "./index.html",
-  "background_color": "#090d14",
-  "theme_color": "#0f1523",
+  "background_color": "#f2f2f7",
+  "theme_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait"
 }
