@@ -3,13 +3,19 @@ const STORAGE_KEY = 'POULTRYTRACK_APP_STATE_V1';
 const DEFAULT_STATE = {
   activeDate: new Date().toISOString().split('T')[0],
   customers: [
-    { id: "AL", name: "AL (Warung Nasi Padang)", phone: "081234567890", initialDebt: 1250000, currentDebt: 1250000, plafon: 2000000, daysLate: 0, status: "aktif", history: [] },
-    { id: "War", name: "War (Pecel Lele Mas Joko)", phone: "081298765432", initialDebt: 1950000, currentDebt: 1950000, plafon: 2000000, daysLate: 3, status: "tempo", history: [] },
-    { id: "Siti", name: "Siti (Katering Bu Siti)", phone: "081311223344", initialDebt: 680000, currentDebt: 680000, plafon: 3000000, daysLate: 0, status: "lancar", history: [] },
-    { id: "Jali", name: "Jali (Ayam Geprek Bang Jali)", phone: "081555667788", initialDebt: 970000, currentDebt: 970000, plafon: 1500000, daysLate: 1, status: "tempo", history: [] },
-    { id: "M", name: "M (Mie Ayam Bang Mul)", phone: "081777889900", initialDebt: 510000, currentDebt: 510000, plafon: 1000000, daysLate: 0, status: "aktif", history: [] },
-    { id: "S", name: "S (Sate Taichan Mas Sam)", phone: "081888990011", initialDebt: 720000, currentDebt: 720000, plafon: 1200000, daysLate: 0, status: "aktif", history: [] },
-    { id: "ECR", name: "ECR (Lapak Eceran Subuh)", phone: "-", initialDebt: 0, currentDebt: 0, plafon: 0, daysLate: 0, status: "eceran", history: [] }
+    { id: "AL", name: "AL (Bu Aliyah - Katering/Resto)", phone: "081234567801", initialDebt: 1622000, currentDebt: 1622000, plafon: 2000000, daysLate: 0, status: "aktif", history: [] },
+    { id: "War", name: "War (Warung Bu Warsiti - Lalapan)", phone: "081234567802", initialDebt: 560000, currentDebt: 560000, plafon: 1000000, daysLate: 0, status: "aktif", history: [] },
+    { id: "K", name: "K (Pak Kusno - Depot Bakso)", phone: "081234567803", initialDebt: 400000, currentDebt: 400000, plafon: 800000, daysLate: 0, status: "aktif", history: [] },
+    { id: "J", name: "J (Bu Jamilah - Nasi Barokah)", phone: "081234567804", initialDebt: 340000, currentDebt: 340000, plafon: 600000, daysLate: 0, status: "aktif", history: [] },
+    { id: "M", name: "M (Mas Munir - Penyetan Malam)", phone: "081234567805", initialDebt: 237000, currentDebt: 237000, plafon: 500000, daysLate: 0, status: "aktif", history: [] },
+    { id: "S", name: "S (Bu Siti - Warung Rames)", phone: "081234567806", initialDebt: 380000, currentDebt: 380000, plafon: 800000, daysLate: 0, status: "aktif", history: [] },
+    { id: "R", name: "R (Bu Rahma - Soto Lamongan)", phone: "081234567807", initialDebt: 240000, currentDebt: 240000, plafon: 500000, daysLate: 0, status: "aktif", history: [] },
+    { id: "B", name: "B (Bu Budi - Katering Kotak)", phone: "081234567808", initialDebt: 272000, currentDebt: 272000, plafon: 600000, daysLate: 0, status: "aktif", history: [] },
+    { id: "YA", name: "YA (Bu Yanti - Rumah Makan Padang)", phone: "081234567809", initialDebt: 505000, currentDebt: 505000, plafon: 1000000, daysLate: 2, status: "tempo", history: [] },
+    { id: "ATUL", name: "ATUL (Bu Atul - Warung Serba Ada)", phone: "081234567810", initialDebt: 150000, currentDebt: 150000, plafon: 400000, daysLate: 0, status: "aktif", history: [] },
+    { id: "SPI", name: "SPI (Pak Ismail - Soto Ayam)", phone: "081234567811", initialDebt: 170000, currentDebt: 170000, plafon: 300000, daysLate: 1, status: "tempo", history: [] },
+    { id: "Mic", name: "Mic (Bu Mieke - Langganan Tunai)", phone: "081234567812", initialDebt: 0, currentDebt: 0, plafon: 500000, daysLate: 0, status: "lancar", history: [] },
+    { id: "ECR", name: "ECR (Pembeli Pasar - Eceran Meja)", phone: "-", initialDebt: 0, currentDebt: 0, plafon: 0, daysLate: 0, status: "eceran", history: [] }
   ],
   supplies: [
     { id: "SUP-188", date: "2026-10-05", supplier: "UD. Cheyloo Farm Kamal", ekor: 180, kg: 300.5, pricePerKg: 23500, totalModal: 7061750, paymentStatus: "Lunas Tunai Meja", note: "Subuh 04:30 WIB • Siap potong" },
