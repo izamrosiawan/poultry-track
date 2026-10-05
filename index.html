@@ -2,9 +2,9 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>PoultryTrack &bull; Kasir & Pembukuan Lapak Pasar</title>
-  <meta name="description" content="Sistem kasir dan buku utang piutang lapak ayam potong pasar tradisional. Simpel, bersih, dan 100% offline.">
+  <meta name="description" content="Sistem kasir dan buku piutang lapak ayam potong pasar tradisional. Simpel, bersih, dan 100% offline.">
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,8 +18,7 @@
     <div class="header-inner">
       <div class="header-brand">
         <div class="brand-icon">
-          <!-- SVG Scale Icon -->
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
             <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
             <path d="M7 21h10"/>
@@ -36,397 +35,305 @@
       <div class="header-right">
         <div class="connection-status">
           <span class="status-indicator"></span>
-          <span>Offline Ready</span>
+          <span>Lapak Buka</span>
         </div>
         <div class="clock-display" id="liveClock">04:30:00 WIB</div>
       </div>
     </div>
   </header>
 
-  <!-- NAVIGATION TABS -->
-  <nav class="app-nav">
-    <div class="nav-container">
-      <button class="nav-item active" data-tab="kasir">
-        <!-- SVG Shopping Cart -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="8" cy="21" r="1"/>
-          <circle cx="19" cy="21" r="1"/>
-          <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
-        </svg>
-        <span>Kasir Transaksi</span>
-      </button>
-
-      <button class="nav-item" data-tab="buku-bon">
-        <!-- SVG Book Open -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-        </svg>
-        <span>Buku Bon Langganan</span>
-        <span class="nav-counter" id="headerDebtorCount">12</span>
-      </button>
-
-      <button class="nav-item" data-tab="pasokan">
-        <!-- SVG Truck -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
-          <path d="M15 18H9"/>
-          <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/>
-          <circle cx="17" cy="18" r="2"/>
-          <circle cx="7" cy="18" r="2"/>
-        </svg>
-        <span>Pasokan Supplier</span>
-      </button>
-
-      <button class="nav-item" data-tab="rekap-kas">
-        <!-- SVG Receipt / Chart -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/>
-          <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
-          <path d="M12 17.5v-11"/>
-        </svg>
-        <span>Rekap Kas Laci</span>
-      </button>
-
-      <button class="nav-item" data-tab="riwayat">
-        <!-- SVG History / FileText -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="16" y1="13" x2="8" y2="13"/>
-          <line x1="16" y1="17" x2="8" y2="17"/>
-          <line x1="10" y1="9" x2="8" y2="9"/>
-        </svg>
-        <span>Riwayat Transaksi</span>
-      </button>
-    </div>
-  </nav>
-
   <!-- MAIN VIEWPORT -->
   <main class="app-viewport">
 
-    <!-- ============================================== -->
-    <!-- 1. KASIR TRANSAKSI (SUPER CLEAR WORKFLOW)      -->
-    <!-- ============================================== -->
+    <!-- TAB 1: KASIR TRANSAKSI -->
     <section class="tab-pane active" id="kasir">
-      <div class="pos-container">
-        
-        <!-- KOLOM UTAMA INPUT (KIRI) -->
-        <div class="pos-input-section">
-          
-          <!-- STEP 1: PILIH PEMBELI -->
-          <div class="panel-card">
-            <div class="panel-header">
-              <span class="step-badge">1</span>
-              <h3>Pilih Pelanggan</h3>
-            </div>
+      <div class="screen-flow">
 
-            <div class="customer-toggle">
-              <button type="button" class="cust-type-btn active" data-type="eceran">
-                <span>Eceran Tunai</span>
-              </button>
-              <button type="button" class="cust-type-btn" data-type="langganan">
-                <span>Mitra Langganan (Bon)</span>
-              </button>
-            </div>
-
-            <!-- Dropdown Mitra Langganan -->
-            <div class="customer-select-wrap" id="langgananGroup" style="display: none;">
-              <label for="customerSelect">Pilih Mitra Warung / Pembeli Rutin:</label>
-              <select id="customerSelect" class="input-select">
-                <option value="">-- Pilih Mitra Warung / Katering --</option>
-              </select>
-
-              <div id="custBalanceBadge" class="debt-notice" style="display: none;">
-                Sisa Saldo Bon Saat Ini: <strong id="custBalanceAmount">Rp 0</strong>
-              </div>
-            </div>
+        <!-- Customer Toggle Card -->
+        <div class="surface-card">
+          <div class="segmented-control">
+            <button type="button" class="segment-btn cust-type-btn active" data-type="eceran">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>Eceran Tunai</span>
+            </button>
+            <button type="button" class="segment-btn cust-type-btn" data-type="langganan">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              <span>Mitra Langganan (Bon)</span>
+            </button>
           </div>
 
-          <!-- STEP 2: TIMBANGAN & KUANTITAS -->
-          <div class="panel-card">
-            <div class="panel-header">
-              <span class="step-badge">2</span>
-              <h3>Timbangan & Kuantitas</h3>
-            </div>
-
-            <div class="counter-grid">
-              
-              <!-- Ekor Counter -->
-              <div class="counter-box">
-                <label>Jumlah Karkas (Ekor)</label>
-                <div class="stepper-row">
-                  <button type="button" class="stepper-btn" data-target="inputEkor" data-step="-1">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  </button>
-                  <input type="number" id="inputEkor" value="1" min="1" class="stepper-val">
-                  <button type="button" class="stepper-btn" data-target="inputEkor" data-step="1">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Berat Kg -->
-              <div class="counter-box">
-                <label>Berat Timbangan (Kg)</label>
-                <div class="stepper-row">
-                  <button type="button" class="stepper-btn" data-target="inputKg" data-step="-0.5">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  </button>
-                  <input type="number" id="inputKg" value="1.8" step="0.1" min="0.1" class="stepper-val text-primary">
-                  <button type="button" class="stepper-btn" data-target="inputKg" data-step="0.5">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Tombol Preset Cepat Kg -->
-            <div class="quick-weights-wrapper">
-              <span class="quick-title">Pilihan Bobot Cepat:</span>
-              <div class="pill-group">
-                <button type="button" class="qw-btn" data-kg="1.5">1.5 Kg</button>
-                <button type="button" class="qw-btn" data-kg="1.8">1.8 Kg</button>
-                <button type="button" class="qw-btn" data-kg="2.0">2.0 Kg</button>
-                <button type="button" class="qw-btn" data-kg="2.5">2.5 Kg</button>
-                <button type="button" class="qw-btn" data-kg="5.0">5.0 Kg</button>
-              </div>
-            </div>
-
-            <!-- Input Tarif per Kg -->
-            <div class="price-field-wrapper">
-              <label for="inputPrice">Harga per Kilogram (Rp):</label>
-              <div class="price-input-flex">
-                <input type="number" id="inputPrice" value="35000" step="500" class="input-text">
-                <div class="price-pill-group">
-                  <button type="button" class="qp-btn" data-price="34000">34.000</button>
-                  <button type="button" class="qp-btn" data-price="35000">35.000</button>
-                  <button type="button" class="qp-btn" data-price="36000">36.000</button>
-                </div>
-              </div>
+          <div class="form-dropdown-group" id="langgananGroup" style="display: none;">
+            <label for="customerSelect">Pilih Mitra Warung / Langganan:</label>
+            <select id="customerSelect" class="form-select">
+              <option value="">-- Pilih Mitra Warung / Katering --</option>
+            </select>
+            <div id="custBalanceBadge" class="alert-banner alert-danger mt-2" style="display: none;">
+              Sisa Saldo Bon Saat Ini: <strong id="custBalanceAmount">Rp 0</strong>
             </div>
           </div>
-
-          <!-- STEP 3: JENIS POTONGAN -->
-          <div class="panel-card">
-            <div class="panel-header">
-              <span class="step-badge">3</span>
-              <h3>Permintaan Potongan Karkas</h3>
-            </div>
-
-            <div class="cut-selection-grid">
-              <label class="cut-card-label">
-                <input type="radio" name="part" id="partUtuh" value="utuh" checked>
-                <div class="cut-card-box">
-                  <strong>Utuh Segar</strong>
-                  <span>Karkas bersih siap olah</span>
-                </div>
-              </label>
-
-              <label class="cut-card-label">
-                <input type="radio" name="part" value="potong4">
-                <div class="cut-card-box">
-                  <strong>Potong 4</strong>
-                  <span>Belah dada & paha</span>
-                </div>
-              </label>
-
-              <label class="cut-card-label">
-                <input type="radio" name="part" value="potong8">
-                <div class="cut-card-box">
-                  <strong>Potong 8</strong>
-                  <span>Standar warung & katering</span>
-                </div>
-              </label>
-
-              <label class="cut-card-label">
-                <input type="radio" name="part" value="potong12">
-                <div class="cut-card-box">
-                  <strong>Potong 12</strong>
-                  <span>Nasi kotak ekonomis</span>
-                </div>
-              </label>
-
-              <label class="cut-card-label">
-                <input type="radio" name="part" value="fillet">
-                <div class="cut-card-box">
-                  <strong>Fillet Dada/Paha</strong>
-                  <span>Tanpa tulang & kulit</span>
-                </div>
-              </label>
-            </div>
-
-            <div class="note-field-wrap">
-              <label for="inputNote">Catatan Khusus (Opsional):</label>
-              <input type="text" id="inputNote" placeholder="Contoh: Pisahkan ati ampela / kepala dibelah" class="input-text">
-            </div>
-          </div>
-
         </div>
 
-        <!-- KOLOM STRUK & PEMBAYARAN (KANAN) -->
-        <div class="pos-checkout-section">
-          <div class="checkout-card">
-            
-            <div class="checkout-header">
-              <span class="ch-badge">Ringkasan Nota</span>
-              <h3>Kasir Meja Lapak</h3>
-              <p>Pelaku Usaha Mikro Pasar Tradisional</p>
+        <!-- Stepper: Kuantitas Ekor -->
+        <div class="surface-card">
+          <div class="card-meta-header">
+            <span class="meta-label">Jumlah Karkas (Ekor)</span>
+            <span class="meta-tag">Ayam Broiler Hidup / Segar</span>
+          </div>
+          <div class="stepper-box">
+            <button type="button" class="stepper-btn" data-target="inputEkor" data-step="-1" aria-label="Kurangi Ekor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="stepper-display">
+              <input type="number" id="inputEkor" value="3" min="1" class="stepper-input font-numeric">
+              <span class="stepper-unit">Ekor</span>
             </div>
+            <button type="button" class="stepper-btn" data-target="inputEkor" data-step="1" aria-label="Tambah Ekor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+        </div>
 
-            <!-- TOTAL DISPLAY UTAMA -->
-            <div class="checkout-total-box">
-              <span class="total-caption">Total Pembayaran</span>
-              <div class="total-figure" id="subtotalDisplay">Rp 63.000</div>
-              <span class="total-calc-hint">Dihitung dari Berat (Kg) &times; Tarif per Kg</span>
+        <!-- Bobot Netto Timbangan -->
+        <div class="surface-card">
+          <div class="card-meta-header">
+            <span class="meta-label">Bobot Timbang Netto</span>
+            <span class="badge-status-green">Timbangan Stabil</span>
+          </div>
+          <div class="weight-display-row">
+            <div class="weight-val-wrap">
+              <input type="number" id="inputKg" value="5.40" step="0.1" min="0.1" class="weight-large-input font-numeric">
+              <span class="weight-unit">Kg</span>
             </div>
-
-            <!-- CARA BAYAR (TUNAI / BON) -->
-            <div class="payment-selection-box">
-              <label>Metode Pembayaran:</label>
-              <div class="payment-buttons-row">
-                <button type="button" class="pay-type-btn active" data-pay="tunai">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
-                  <span>Tunai Lunas</span>
-                </button>
-                <button type="button" class="pay-type-btn" data-pay="bon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  <span>Catat Bon</span>
-                </button>
-              </div>
+            <div class="weight-steppers-mini">
+              <button type="button" class="stepper-btn-mini" data-target="inputKg" data-step="-0.5">-0.5</button>
+              <button type="button" class="stepper-btn-mini" data-target="inputKg" data-step="0.5">+0.5</button>
             </div>
+          </div>
+          <div class="pill-preset-grid mt-2">
+            <button type="button" class="preset-pill qw-btn" data-kg="1.5">1.5 Kg</button>
+            <button type="button" class="preset-pill qw-btn" data-kg="1.8">1.8 Kg</button>
+            <button type="button" class="preset-pill qw-btn" data-kg="2.0">2.0 Kg</button>
+            <button type="button" class="preset-pill qw-btn" data-kg="2.5">2.5 Kg</button>
+            <button type="button" class="preset-pill qw-btn" data-kg="5.4">5.4 Kg</button>
+          </div>
+        </div>
 
-            <!-- TOMBOL SIMPAN UTAMA -->
-            <div class="action-submit-wrap">
-              <button type="button" class="btn-submit-order" id="btnSubmitTrx">
-                Simpan Transaksi Kasir
-              </button>
-              <button type="button" class="btn-clear-order" id="btnResetTrx">
-                Kosongkan Formulir
-              </button>
+        <!-- Tarif / Kg -->
+        <div class="surface-card">
+          <div class="card-meta-header">
+            <span class="meta-label">Harga per Kg</span>
+            <span class="meta-caption">Standar Pasar Pagi</span>
+          </div>
+          <div class="price-input-wrapper">
+            <div class="input-prefix-box">
+              <span>Rp</span>
+              <input type="number" id="inputPrice" value="35000" step="500" class="form-input font-numeric">
             </div>
+            <div class="pill-preset-grid mt-2">
+              <button type="button" class="preset-pill qp-btn" data-price="34000">34.000</button>
+              <button type="button" class="preset-pill qp-btn active-pill" data-price="35000">35.000</button>
+              <button type="button" class="preset-pill qp-btn" data-price="36000">36.000</button>
+            </div>
+          </div>
+        </div>
 
+        <!-- Pilihan Potongan Karkas -->
+        <div class="surface-card">
+          <div class="card-meta-header">
+            <span class="meta-label">Pilihan Potongan Karkas</span>
+          </div>
+          <div class="cuts-chip-grid">
+            <label class="cut-option">
+              <input type="radio" name="part" value="utuh">
+              <span class="cut-chip">Utuh Segar</span>
+            </label>
+            <label class="cut-option">
+              <input type="radio" name="part" value="potong4" checked>
+              <span class="cut-chip">Potong 4</span>
+            </label>
+            <label class="cut-option">
+              <input type="radio" name="part" value="potong8">
+              <span class="cut-chip">Potong 8</span>
+            </label>
+            <label class="cut-option">
+              <input type="radio" name="part" value="potong12">
+              <span class="cut-chip">Potong 12</span>
+            </label>
+            <label class="cut-option">
+              <input type="radio" name="part" value="fillet">
+              <span class="cut-chip">Fillet</span>
+            </label>
+          </div>
+          <div class="mt-3">
+            <input type="text" id="inputNote" placeholder="Catatan opsional (e.g. ati ampela dipisah)" class="form-input form-input-subtle">
+          </div>
+        </div>
+
+        <!-- Total Pembayaran & Aksi -->
+        <div class="surface-card summary-action-card">
+          <div class="summary-top">
+            <span class="summary-title">TOTAL TAGIHAN</span>
+            <div class="summary-total-figure font-numeric" id="subtotalDisplay">Rp 189.000</div>
+            <p class="summary-calc-formula" id="formulaDisplay">5.40 Kg &times; Rp 35.000</p>
+          </div>
+
+          <div class="payment-mode-grid mt-3">
+            <button type="button" class="pay-select-btn pay-type-btn active" data-pay="tunai">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/></svg>
+              <span>Tunai Lunas</span>
+            </button>
+            <button type="button" class="pay-select-btn pay-type-btn" data-pay="bon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>Catat Bon</span>
+            </button>
+          </div>
+
+          <div class="action-buttons-stack mt-3">
+            <button type="button" class="btn-primary-action" id="btnSubmitTrx">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Simpan Transaksi Kasir</span>
+            </button>
+            <button type="button" class="btn-ghost-action" id="btnResetTrx">
+              Kosongkan Formulir
+            </button>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- ============================================== -->
-    <!-- 2. BUKU BON LANGGANAN (INTUITIF & JELAS)        -->
-    <!-- ============================================== -->
+    <!-- TAB 2: BUKU BON LANGGANAN -->
     <section class="tab-pane" id="buku-bon">
-      <div class="ledger-container">
-        
-        <!-- KPI METRICS SUMMARY -->
-        <div class="kpi-grid">
-          <div class="kpi-box danger">
-            <span class="kpi-label">Total Saldo Bon Belum Lunas</span>
-            <strong class="kpi-val" id="headerTotalDebt">Rp 0</strong>
-            <span class="kpi-sub">Total tagihan di 12 mitra warung</span>
-          </div>
+      <div class="screen-flow">
 
-          <div class="kpi-box">
-            <span class="kpi-label">Mitra Langganan Aktif</span>
-            <strong class="kpi-val text-dark" id="headerDebtorCount">12 Mitra</strong>
-            <span class="kpi-sub">Pelanggan rutin pemegang tempo</span>
+        <!-- Hero Metric Piutang -->
+        <div class="surface-card">
+          <div class="card-meta-header">
+            <span class="meta-label">Total Piutang Aktif</span>
+            <span class="badge-status-red" id="headerDueCount">Perlu Tagih</span>
           </div>
-
-          <div class="kpi-box success">
-            <span class="kpi-label">Status Pembukuan</span>
-            <strong class="kpi-val text-success">Aktif Terhubung</strong>
-            <span class="kpi-sub">Pencatatan setoran cicilan di meja</span>
+          <div class="hero-huge-figure text-danger font-numeric" id="headerTotalDebt">
+            Rp 4.850.000
+          </div>
+          <div class="hero-subline mt-2">
+            <span class="subline-text"><strong id="headerDebtorCount">12</strong> Mitra Warung Langganan Pasar</span>
           </div>
         </div>
 
-        <!-- SEARCH INPUT -->
-        <div class="search-container">
-          <div class="search-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="searchBon" placeholder="Cari nama warung atau inisial mitra..." class="search-input-field">
-          </div>
+        <!-- Search Bar -->
+        <div class="search-input-wrap">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="searchBon" placeholder="Cari nama warung, pemilik, nota..." class="search-input">
         </div>
 
-        <!-- GRID KARTU BON MITRA -->
-        <div class="customer-cards-grid" id="bonListContainer">
+        <!-- Filter Tabs -->
+        <div class="filter-pills-row" id="bonFilterRow">
+          <button type="button" class="filter-chip active" data-filter="all">Semua (12)</button>
+          <button type="button" class="filter-chip" data-filter="tempo">Jatuh Tempo (4)</button>
+          <button type="button" class="filter-chip" data-filter="kritis">Plafon Kritis (2)</button>
+        </div>
+
+        <!-- List Kartu Bon Mitra -->
+        <div class="debtor-cards-list" id="bonListContainer">
           <!-- Rendered via JS -->
         </div>
 
       </div>
     </section>
 
-    <!-- ============================================== -->
-    <!-- 3. PASOKAN SUPPLIER (UD. CHEYLOO FARM)         -->
-    <!-- ============================================== -->
+    <!-- TAB 3: PASOKAN SUPPLIER -->
     <section class="tab-pane" id="pasokan">
-      <div class="two-column-layout">
-        
-        <!-- FORM NOTA MASUK -->
-        <div class="panel-card">
-          <div class="panel-header">
-            <span class="step-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </span>
-            <h3>Input Nota Pasokan Ayam Masuk</h3>
-          </div>
-          <p class="panel-desc">Faktur pasokan harian karkas segar dari peternak (UD. Cheyloo Farm Kamal).</p>
+      <div class="screen-flow">
 
-          <div class="form-group-field">
-            <label for="supplySupplier">Nama Pemasok / Peternakan:</label>
-            <input type="text" id="supplySupplier" value="UD. Cheyloo Farm Kamal" class="input-text">
-          </div>
-
-          <div class="form-row-grid">
-            <div class="form-group-field">
-              <label for="supplyEkor">Jumlah Karkas (Ekor):</label>
-              <input type="number" id="supplyEkor" value="100" min="1" class="input-text">
+        <!-- Supplier Info Banner -->
+        <div class="surface-card supplier-banner-card">
+          <div class="supplier-header-row">
+            <div>
+              <span class="supplier-eyebrow">Mitra Peternak Utama</span>
+              <h2 class="supplier-title" id="supplySupplierTitle">UD. Cheyloo Farm Kamal</h2>
+              <p class="supplier-caption">Supir: Pak Matrawi &bull; Plat: M 8214 UA</p>
             </div>
-            <div class="form-group-field">
-              <label for="supplyKg">Berat Timbang Total (Kg):</label>
-              <input type="number" id="supplyKg" value="160.0" step="0.5" class="input-text">
-            </div>
+            <span class="badge-clock">Subuh 04:30 WIB</span>
           </div>
-
-          <div class="form-row-grid">
-            <div class="form-group-field">
-              <label for="supplyPrice">Harga Beli / Kg (Rp):</label>
-              <input type="number" id="supplyPrice" value="28500" step="500" class="input-text">
-            </div>
-            <div class="form-group-field">
-              <label for="supplyPayment">Metode Bayar Peternak:</label>
-              <select id="supplyPayment" class="input-select">
-                <option value="Lunas Tunai">Lunas Tunai di Meja</option>
-                <option value="Tempo / Bon Supplier">Tempo / Bon Supplier</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group-field">
-            <label for="supplyNote">Catatan Faktur (Opsional):</label>
-            <input type="text" id="supplyNote" placeholder="Contoh: Kualitas bobot seragam" class="input-text">
-          </div>
-
-          <!-- Total Modal Preview -->
-          <div class="cost-preview-box">
-            <span>Perkiraan Total Bayar Modal:</span>
-            <strong id="supplyModalTotal">Rp 4.560.000</strong>
-          </div>
-
-          <button type="button" class="btn-submit-order full-width" id="btnSubmitSupply">
-            Simpan Nota Pasokan
-          </button>
         </div>
 
-        <!-- RIWAYAT FAKTUR PASOKAN -->
-        <div class="panel-card">
-          <div class="panel-header">
-            <span class="step-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            </span>
-            <h3>Riwayat Nota Pasokan Fisik</h3>
+        <!-- Form Nota Pasokan -->
+        <div class="surface-card">
+          <div class="card-meta-header">
+            <span class="meta-label">Input Nota Pasokan Ayam Masuk</span>
+            <span class="meta-tag">Faktur Masuk</span>
           </div>
-          <div class="supplies-scroll-container" id="suppliesListContainer">
+
+          <div class="form-vertical-stack mt-2">
+            <div>
+              <label class="form-label" for="supplyEkor">Jumlah Ayam (Ekor):</label>
+              <div class="stepper-box">
+                <button type="button" class="stepper-btn" data-target="supplyEkor" data-step="-5">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <div class="stepper-display">
+                  <input type="number" id="supplyEkor" value="180" min="1" class="stepper-input font-numeric">
+                  <span class="stepper-unit">Ekor</span>
+                </div>
+                <button type="button" class="stepper-btn" data-target="supplyEkor" data-step="5">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label" for="supplyKg">Berat Timbang Bersih (Netto Kg):</label>
+              <div class="weight-display-row">
+                <div class="weight-val-wrap">
+                  <input type="number" id="supplyKg" value="300.5" step="0.5" min="1" class="weight-large-input font-numeric">
+                  <span class="weight-unit">Kg</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label" for="supplyPrice">Harga Beli Peternak / Kg:</label>
+              <div class="input-prefix-box">
+                <span>Rp</span>
+                <input type="number" id="supplyPrice" value="23500" step="500" class="form-input font-numeric">
+              </div>
+              <div class="pill-preset-grid mt-2">
+                <button type="button" class="preset-pill qsp-btn" data-price="23000">23.000</button>
+                <button type="button" class="preset-pill qsp-btn active-pill" data-price="23500">23.500</button>
+                <button type="button" class="preset-pill qsp-btn" data-price="24000">24.000</button>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label" for="supplyPayment">Metode Pelunasan Pengiriman:</label>
+              <select id="supplyPayment" class="form-select">
+                <option value="Lunas Tunai Meja">Lunas Tunai Meja Lapak</option>
+                <option value="Tempo 7 Hari">Tempo 7 Hari Peternak</option>
+              </select>
+            </div>
+
+            <!-- Total Modal Banner -->
+            <div class="supply-cost-banner mt-3">
+              <div class="sc-left">
+                <span class="sc-label">TOTAL TAGIHAN MODAL:</span>
+                <div class="sc-value font-numeric" id="supplyModalTotal">Rp 7.061.750</div>
+              </div>
+              <span class="sc-note">Nota Pasokan #04-188</span>
+            </div>
+
+            <button type="button" class="btn-primary-action mt-3" id="btnSubmitSupply">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Konfirmasi &amp; Masukkan Stok Lapak</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Log Pasokan Terakhir -->
+        <div class="surface-card">
+          <div class="card-meta-header">
+            <span class="meta-label">Pasokan 48 Jam Terakhir</span>
+          </div>
+          <div class="supplies-list-wrap mt-2" id="suppliesListContainer">
             <!-- Rendered via JS -->
           </div>
         </div>
@@ -434,116 +341,109 @@
       </div>
     </section>
 
-    <!-- ============================================== -->
-    <!-- 4. REKAP KAS LACI (CLOSING RECONCILIATION)      -->
-    <!-- ============================================== -->
+    <!-- TAB 4: REKAP KAS LACI -->
     <section class="tab-pane" id="rekap-kas">
-      <div class="rekap-wrapper">
-        
-        <div class="rekap-header-card">
-          <h2>Tutup Buku & Rekapitulasi Kas Laci</h2>
-          <p>Pemeriksaan uang tunai fisik yang wajib ada di laci meja lapak sebelum tutup.</p>
+      <div class="screen-flow">
+
+        <!-- Header Rekap Laci -->
+        <div class="surface-card">
+          <div class="card-meta-header">
+            <span class="badge-status-green">Siap Tutup Buku</span>
+            <span class="meta-caption">Shift Pagi (05:00 - 14:00 WIB)</span>
+          </div>
+          <h2 class="section-main-title mt-1">Rekap Uang Kas Laci Meja</h2>
+          <p class="section-sub-desc">Pencocokan fisik uang tunai di laci sebelum lapak tutup siang.</p>
         </div>
 
-        <!-- REKAP 4 KOTAK FINANSIAL -->
-        <div class="rekap-grid">
-          
-          <div class="rekap-box">
-            <span class="rk-label">Penjualan Tunai Lapak</span>
-            <strong class="rk-val" id="rekapCashSales">Rp 0</strong>
-            <span class="rk-hint">Uang fisik dari pembeli eceran</span>
+        <!-- Rincian Arus Kas Meja -->
+        <div class="surface-card">
+          <div class="card-meta-header">
+            <span class="meta-label">Rincian Arus Kas Laci</span>
+            <span class="meta-caption">3 Pos Transaksi</span>
           </div>
 
-          <div class="rekap-box">
-            <span class="rk-label">Setoran Cicilan Bon Tunai</span>
-            <strong class="rk-val text-success" id="rekapCashCicilan">Rp 0</strong>
-            <span class="rk-hint">Uang tunai pelunasan mitra</span>
-          </div>
-
-          <div class="rekap-box">
-            <span class="rk-label">Modal Pasokan Dibayar Tunai</span>
-            <strong class="rk-val text-danger" id="rekapModalPasokan">Rp 0</strong>
-            <span class="rk-hint">Uang modal diserahkan ke peternak</span>
-          </div>
-
-          <div class="rekap-box highlight-net">
-            <span class="rk-label">UANG FISIK BERSIH DI LACI MEJA</span>
-            <strong class="rk-val text-net" id="rekapKasBersihLaci">Rp 0</strong>
-            <span class="rk-hint">Kas Bersih = (Penjualan Tunai + Cicilan) − Modal Pasokan</span>
-          </div>
-
-        </div>
-
-        <!-- RINGKASAN TONASE AYAM -->
-        <div class="panel-card mt-4">
-          <div class="panel-header">
-            <span class="step-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-            </span>
-            <h3>Ringkasan Tonase Ayam Terjual Hari Ini</h3>
-          </div>
-
-          <div class="tonase-grid">
-            <div class="tonase-item">
-              <span>Total Daging Keluar:</span>
-              <strong id="rekapKgSold">0.0 Kg</strong>
+          <div class="cash-flow-list mt-2">
+            <!-- Pos 1 -->
+            <div class="cash-flow-row">
+              <div class="cf-info">
+                <div class="cf-icon cf-in">+</div>
+                <div>
+                  <strong class="cf-name">(+) Penjualan Tunai Lapak</strong>
+                  <span class="cf-sub">Transaksi eceran langsung</span>
+                </div>
+              </div>
+              <div class="cf-amount text-success font-numeric" id="rekapCashSales">Rp 5.240.000</div>
             </div>
-            <div class="tonase-item">
-              <span>Jumlah Karkas:</span>
-              <strong id="rekapEkorSold">0 Ekor</strong>
+
+            <!-- Pos 2 -->
+            <div class="cash-flow-row">
+              <div class="cf-info">
+                <div class="cf-icon cf-in">+</div>
+                <div>
+                  <strong class="cf-name">(+) Setoran Cicilan Bon</strong>
+                  <span class="cf-sub">Pelunasan hutang mitra warung</span>
+                </div>
+              </div>
+              <div class="cf-amount text-success font-numeric" id="rekapCashCicilan">Rp 1.420.000</div>
             </div>
-            <div class="tonase-item">
-              <span>Tambahan Bon Baru:</span>
-              <strong id="rekapBonKeluar" class="text-danger">Rp 0</strong>
+
+            <!-- Pos 3 -->
+            <div class="cash-flow-row">
+              <div class="cf-info">
+                <div class="cf-icon cf-out">&minus;</div>
+                <div>
+                  <strong class="cf-name">(&minus;) Modal Pasokan Tunai</strong>
+                  <span class="cf-sub">Diserahkan ke supir peternak</span>
+                </div>
+              </div>
+              <div class="cf-amount text-danger font-numeric" id="rekapModalPasokan">Rp 3.500.000</div>
             </div>
           </div>
         </div>
 
-      </div>
-    </section>
-
-    <!-- ============================================== -->
-    <!-- 5. RIWAYAT NOTA TRANSAKSI                      -->
-    <!-- ============================================== -->
-    <section class="tab-pane" id="riwayat">
-      <div class="panel-card">
-        
-        <div class="table-top-bar">
-          <div>
-            <h3>Daftar Seluruh Transaksi Lapak</h3>
-            <p>Arsip catatan transaksi tunai, bon tempo, dan setoran cicilan.</p>
+        <!-- Decisive Highlight Box: Uang Fisik Kas Laci -->
+        <div class="drawer-highlight-card">
+          <div class="dh-header">
+            <div class="dh-title-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              <span>UANG FISIK WAJIB DI LACI MEJA</span>
+            </div>
+            <span class="dh-badge">Kas Klop / Sesuai 100%</span>
           </div>
-          <div class="table-button-actions">
-            <button type="button" class="btn-secondary" id="btnExportCsv">
-              <!-- SVG Download -->
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span>Download Excel (CSV)</span>
-            </button>
-            <button type="button" class="btn-subtle" id="btnResetToDefault">
-              <!-- SVG Rotate / Reset -->
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-              <span>Reset Data</span>
-            </button>
+          <div class="dh-figure font-numeric" id="rekapKasBersihLaci">Rp 3.160.000</div>
+          <p class="dh-formula">Kas Bersih = (Penjualan Tunai + Cicilan) &minus; Modal Tunai</p>
+        </div>
+
+        <!-- Verifikasi Timbangan & Tonase -->
+        <div class="surface-card">
+          <div class="card-meta-header">
+            <span class="meta-label">Verifikasi Timbangan &amp; Karkas</span>
+            <span class="badge-status-green">Tervalidasi</span>
+          </div>
+          <div class="tonase-summary-grid mt-2">
+            <div class="tonase-box">
+              <span class="t-caption">Total Daging Terjual:</span>
+              <strong class="t-val font-numeric" id="rekapKgSold">208.4 Kg</strong>
+            </div>
+            <div class="tonase-box">
+              <span class="t-caption">Karkas Terjual:</span>
+              <strong class="t-val font-numeric" id="rekapEkorSold">124 Ekor</strong>
+            </div>
+            <div class="tonase-box">
+              <span class="t-caption">Tambahan Bon Hari Ini:</span>
+              <strong class="t-val text-danger font-numeric" id="rekapBonKeluar">Rp 1.650.000</strong>
+            </div>
           </div>
         </div>
 
-        <div class="table-scroll-wrapper">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Waktu</th>
-                <th>Nama Pelanggan</th>
-                <th>Kuantitas</th>
-                <th>Potongan</th>
-                <th>Tarif / Kg</th>
-                <th>Total Transaksi</th>
-                <th>Status Pembayaran</th>
-              </tr>
-            </thead>
-            <tbody id="historyTableBody">
-              <!-- Rendered via JS -->
-            </tbody>
-          </table>
+        <div class="action-buttons-stack">
+          <button type="button" class="btn-primary-action" id="btnExportCsv">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download Rekap Kas (CSV / Excel)</span>
+          </button>
+          <button type="button" class="btn-ghost-action" id="btnResetToDefault">
+            Reset Data Transaksi ke Awal
+          </button>
         </div>
 
       </div>
@@ -551,23 +451,72 @@
 
   </main>
 
+  <!-- BOTTOM MOBILE NAVIGATION BAR -->
+  <nav class="bottom-nav-bar" id="mobileTabBar">
+    <button type="button" class="bnav-item active" data-tab="kasir">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect height="14" rx="2" width="20" x="2" y="3"/>
+        <line x1="8" x2="16" y1="21" y2="21"/>
+        <line x1="12" x2="12" y1="17" y2="21"/>
+      </svg>
+      <span>Kasir</span>
+    </button>
+
+    <button type="button" class="bnav-item" data-tab="buku-bon">
+      <div class="bnav-icon-wrap">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+          <path d="M6 6h10"/>
+          <path d="M6 10h10"/>
+        </svg>
+        <span class="bnav-counter" id="navDebtorBadge">12</span>
+      </div>
+      <span>Buku Bon</span>
+    </button>
+
+    <button type="button" class="bnav-item" data-tab="pasokan">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="12" x2="12" y1="18" y2="12"/>
+        <line x1="9" x2="15" y1="15" y2="15"/>
+      </svg>
+      <span>Pasokan</span>
+    </button>
+
+    <button type="button" class="bnav-item" data-tab="rekap-kas">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect height="18" rx="2" width="18" x="3" y="3"/>
+        <line x1="8" x2="16" y1="12" y2="12"/>
+        <line x1="12" x2="12" y1="8" y2="16"/>
+      </svg>
+      <span>Rekap Laci</span>
+    </button>
+  </nav>
+
   <!-- MODAL: SETOR CICILAN BON -->
   <div class="modal-backdrop" id="paymentModal">
-    <div class="modal-dialog">
-      <div class="modal-head">
+    <div class="modal-sheet">
+      <div class="modal-sheet-header">
         <h3>Setor Cicilan Tunai Bon</h3>
-        <button type="button" class="modal-close" id="btnModalClose">&times;</button>
+        <button type="button" class="modal-close-btn" id="btnModalClose">&times;</button>
       </div>
 
-      <div class="modal-body-content">
+      <div class="modal-sheet-body">
         <div class="debtor-detail-banner">
-          <span class="db-title" id="modalCustName">Mitra Langganan</span>
-          <span class="db-balance">Sisa Bon: <strong id="modalCurrentDebt">Rp 0</strong></span>
+          <div>
+            <span class="db-title" id="modalCustName">Mitra Langganan</span>
+            <p class="db-sub">Pencatatan setoran tunai di meja kasir</p>
+          </div>
+          <div class="text-right">
+            <span class="db-label">Sisa Bon:</span>
+            <div class="db-balance font-numeric" id="modalCurrentDebt">Rp 0</div>
+          </div>
         </div>
 
-        <div class="form-group-field mt-3">
-          <label for="modalPayAmount">Nominal Setoran Tunai (Rp):</label>
-          <input type="number" id="modalPayAmount" placeholder="Contoh: 50000" class="input-text input-large">
+        <div class="form-group mt-3">
+          <label class="form-label" for="modalPayAmount">Nominal Setoran Tunai (Rp):</label>
+          <input type="number" id="modalPayAmount" placeholder="Contoh: 100000" class="form-input form-input-large font-numeric">
         </div>
 
         <div class="quick-preset-container mt-2" id="modalQuickPayOptions">
@@ -575,9 +524,9 @@
         </div>
       </div>
 
-      <div class="modal-actions-footer">
-        <button type="button" class="btn-subtle" id="btnModalCancel">Batal</button>
-        <button type="button" class="btn-submit-order" id="btnModalConfirm">Simpan Setoran Tunai</button>
+      <div class="modal-sheet-footer">
+        <button type="button" class="btn-ghost-action" id="btnModalCancel">Batal</button>
+        <button type="button" class="btn-primary-action" id="btnModalConfirm">Simpan Setoran Tunai</button>
       </div>
     </div>
   </div>

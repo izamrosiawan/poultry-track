@@ -3,34 +3,29 @@ const STORAGE_KEY = 'POULTRYTRACK_APP_STATE_V1';
 const DEFAULT_STATE = {
   activeDate: new Date().toISOString().split('T')[0],
   customers: [
-    { id: "AL", name: "AL (Warung Nasi Padang)", phone: "081234567890", initialDebt: 850000, currentDebt: 850000, history: [] },
-    { id: "War", name: "War (Pecel Lele & Ayam Cak War)", phone: "081298765432", initialDebt: 620000, currentDebt: 620000, history: [] },
-    { id: "K", name: "K (Kantin Bu Kus)", phone: "081311223344", initialDebt: 450000, currentDebt: 450000, history: [] },
-    { id: "J", name: "J (Pak Joko Soto)", phone: "081555667788", initialDebt: 380000, currentDebt: 380000, history: [] },
-    { id: "M", name: "M (Mie Ayam Bang Mul)", phone: "081777889900", initialDebt: 510000, currentDebt: 510000, history: [] },
-    { id: "S", name: "S (Sate Taichan Mas Sam)", phone: "081888990011", initialDebt: 720000, currentDebt: 720000, history: [] },
-    { id: "R", name: "R (Rumah Makan Roso)", phone: "081999001122", initialDebt: 300000, currentDebt: 300000, history: [] },
-    { id: "B", name: "B (Bakso & Pangsit Bu Sri)", phone: "082111223344", initialDebt: 250000, currentDebt: 250000, history: [] },
-    { id: "YA", name: "YA (Ayam Bakar Pak Yanto)", phone: "082222334455", initialDebt: 540000, currentDebt: 540000, history: [] },
-    { id: "ATUL", name: "ATUL (Warung Bu Atul)", phone: "082333445566", initialDebt: 180000, currentDebt: 180000, history: [] },
-    { id: "SPI", name: "SPI (Spesialis Opor)", phone: "082444556677", initialDebt: 410000, currentDebt: 410000, history: [] },
-    { id: "Mic", name: "Mic (Katering Michael)", phone: "082555667788", initialDebt: 920000, currentDebt: 920000, history: [] },
-    { id: "ECR", name: "ECR (Lapak Eceran Subuh)", phone: "-", initialDebt: 0, currentDebt: 0, history: [] }
+    { id: "AL", name: "AL (Warung Nasi Padang)", phone: "081234567890", initialDebt: 1250000, currentDebt: 1250000, plafon: 2000000, daysLate: 0, status: "aktif", history: [] },
+    { id: "War", name: "War (Pecel Lele Mas Joko)", phone: "081298765432", initialDebt: 1950000, currentDebt: 1950000, plafon: 2000000, daysLate: 3, status: "tempo", history: [] },
+    { id: "Siti", name: "Siti (Katering Bu Siti)", phone: "081311223344", initialDebt: 680000, currentDebt: 680000, plafon: 3000000, daysLate: 0, status: "lancar", history: [] },
+    { id: "Jali", name: "Jali (Ayam Geprek Bang Jali)", phone: "081555667788", initialDebt: 970000, currentDebt: 970000, plafon: 1500000, daysLate: 1, status: "tempo", history: [] },
+    { id: "M", name: "M (Mie Ayam Bang Mul)", phone: "081777889900", initialDebt: 510000, currentDebt: 510000, plafon: 1000000, daysLate: 0, status: "aktif", history: [] },
+    { id: "S", name: "S (Sate Taichan Mas Sam)", phone: "081888990011", initialDebt: 720000, currentDebt: 720000, plafon: 1200000, daysLate: 0, status: "aktif", history: [] },
+    { id: "ECR", name: "ECR (Lapak Eceran Subuh)", phone: "-", initialDebt: 0, currentDebt: 0, plafon: 0, daysLate: 0, status: "eceran", history: [] }
   ],
   supplies: [
-    { id: "SUP-001", date: "2026-09-25", supplier: "UD. Cheyloo Farm Kamal", ekor: 120, kg: 198.5, pricePerKg: 28500, totalModal: 5657250, paymentStatus: "Lunas Tunai", note: "Ayam segar utuh" },
-    { id: "SUP-002", date: "2026-09-26", supplier: "UD. Cheyloo Farm Kamal", ekor: 135, kg: 221.0, pricePerKg: 28500, totalModal: 6298500, paymentStatus: "Lunas Tunai", note: "Kualitas bobot merata" },
-    { id: "SUP-003", date: "2026-09-27", supplier: "UD. Cheyloo Farm Kamal", ekor: 110, kg: 182.0, pricePerKg: 29000, totalModal: 5278000, paymentStatus: "Lunas Tunai", note: "Harga pasaran stabil" }
+    { id: "SUP-188", date: "2026-10-05", supplier: "UD. Cheyloo Farm Kamal", ekor: 180, kg: 300.5, pricePerKg: 23500, totalModal: 7061750, paymentStatus: "Lunas Tunai Meja", note: "Subuh 04:30 WIB • Siap potong" },
+    { id: "SUP-187", date: "2026-10-04", supplier: "UD. Cheyloo Farm Kamal", ekor: 150, kg: 282.0, pricePerKg: 28000, totalModal: 7896000, paymentStatus: "Lunas Tunai Meja", note: "Ayam segar utuh" },
+    { id: "SUP-186", date: "2026-10-03", supplier: "CV. Unggas Jaya", ekor: 80, kg: 148.5, pricePerKg: 28000, totalModal: 4158000, paymentStatus: "Tempo 7 Hari", note: "Kualitas bobot merata" }
   ],
   transactions: [
-    { id: "TRX-101", date: "2026-09-27", time: "04:15", customerId: "AL", customerName: "AL (Warung Nasi Padang)", ekor: 15, kg: 24.5, part: "utuh", pricePerKg: 35000, total: 857500, type: "bon", notes: "Bon harian" },
-    { id: "TRX-102", date: "2026-09-27", time: "04:40", customerId: "War", customerName: "War (Pecel Lele & Ayam Cak War)", ekor: 10, kg: 16.0, part: "potong8", pricePerKg: 35000, total: 560000, type: "tunai", notes: "Lunas uang pas" },
-    { id: "TRX-103", date: "2026-09-27", time: "05:10", customerId: "ECR", customerName: "ECR (Lapak Eceran Subuh)", ekor: 2, kg: 3.2, part: "potong4", pricePerKg: 36000, total: 115200, type: "tunai", notes: "Pembeli eceran" }
+    { id: "TRX-101", date: "2026-10-05", time: "05:15", customerId: "AL", customerName: "AL (Warung Nasi Padang)", ekor: 15, kg: 28.5, part: "utuh", pricePerKg: 35000, total: 997500, type: "bon", notes: "Bon harian rutin" },
+    { id: "TRX-102", date: "2026-10-05", time: "05:40", customerId: "ECR", customerName: "Eceran Tunai", ekor: 3, kg: 5.4, part: "potong4", pricePerKg: 35000, total: 189000, type: "tunai", notes: "Uang pas" },
+    { id: "TRX-103", date: "2026-10-05", time: "06:10", customerId: "Siti", customerName: "Siti (Katering Bu Siti)", ekor: 8, kg: 15.1, part: "potong8", pricePerKg: 34500, total: 520950, type: "bon", notes: "Katering pesanan" }
   ]
 };
 
 let state = null;
 let audioCtx = null;
+let currentBonFilter = 'all';
 
 function playTouchSound(freq = 750, duration = 0.02) {
   try {
@@ -94,27 +89,27 @@ function initClock() {
 }
 
 function initTabs() {
-  const navItems = document.querySelectorAll('.nav-item, .tab-btn');
+  const bnavItems = document.querySelectorAll('.bnav-item, .nav-item');
   const tabPanes = document.querySelectorAll('.tab-pane');
 
-  navItems.forEach(btn => {
+  bnavItems.forEach(btn => {
     btn.addEventListener('click', () => {
       playTouchSound(600);
       const target = btn.dataset.tab;
 
-      navItems.forEach(b => b.classList.remove('active'));
-      tabPanes.forEach(p => p.classList.remove('active'));
+      bnavItems.forEach(b => {
+        b.classList.toggle('active', b.dataset.tab === target);
+      });
 
-      btn.classList.add('active');
-      const pane = document.getElementById(target);
-      if (pane) {
-        pane.classList.add('active');
-      }
+      tabPanes.forEach(p => {
+        p.classList.toggle('active', p.id === target);
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 
       if (target === 'buku-bon') renderBukuBon();
       if (target === 'pasokan') renderSupplies();
       if (target === 'rekap-kas') renderRekapKas();
-      if (target === 'riwayat') renderRiwayat();
     });
   });
 }
@@ -133,9 +128,10 @@ function initKasir() {
   const kgInput = document.getElementById('inputKg');
   const priceInput = document.getElementById('inputPrice');
   const subtotalDisplay = document.getElementById('subtotalDisplay');
+  const formulaDisplay = document.getElementById('formulaDisplay');
   const quickWeights = document.querySelectorAll('.qw-btn');
   const quickPrices = document.querySelectorAll('.qp-btn');
-  const steppers = document.querySelectorAll('.stepper-btn');
+  const steppers = document.querySelectorAll('.stepper-btn, .stepper-btn-mini');
   const payTypeBtns = document.querySelectorAll('.pay-type-btn');
   const btnSubmitTrx = document.getElementById('btnSubmitTrx');
   const btnResetTrx = document.getElementById('btnResetTrx');
@@ -161,20 +157,20 @@ function initKasir() {
 
       if (selectedCustomerType === 'langganan') {
         if (langgananGroup) langgananGroup.style.display = 'block';
+        selectPaymentType('bon');
       } else {
         if (langgananGroup) langgananGroup.style.display = 'none';
-        if (customerSelect) customerSelect.value = '';
         if (custBalanceBadge) custBalanceBadge.style.display = 'none';
         selectPaymentType('tunai');
       }
-      recalculateSubtotal();
     });
   });
 
   if (customerSelect) {
     customerSelect.addEventListener('change', () => {
-      const cust = state.customers.find(c => c.id === customerSelect.value);
-      if (cust) {
+      const cId = customerSelect.value;
+      const cust = state.customers.find(c => c.id === cId);
+      if (cust && cust.currentDebt > 0) {
         if (custBalanceBadge) custBalanceBadge.style.display = 'block';
         if (custBalanceAmount) custBalanceAmount.innerText = formatRupiah(cust.currentDebt);
         selectPaymentType('bon');
@@ -193,7 +189,7 @@ function initKasir() {
       if (targetEl) {
         let val = parseNumber(targetEl.value);
         val = Math.max(0, val + step);
-        targetEl.value = step % 1 === 0 ? val : val.toFixed(1);
+        targetEl.value = step % 1 === 0 ? val : val.toFixed(2);
         recalculateSubtotal();
       }
     });
@@ -202,6 +198,8 @@ function initKasir() {
   quickWeights.forEach(btn => {
     btn.addEventListener('click', () => {
       playTouchSound(900);
+      quickWeights.forEach(b => b.classList.remove('active-pill'));
+      btn.classList.add('active-pill');
       if (kgInput) {
         kgInput.value = btn.dataset.kg;
         recalculateSubtotal();
@@ -212,6 +210,8 @@ function initKasir() {
   quickPrices.forEach(btn => {
     btn.addEventListener('click', () => {
       playTouchSound(900);
+      quickPrices.forEach(b => b.classList.remove('active-pill'));
+      btn.classList.add('active-pill');
       if (priceInput) {
         priceInput.value = btn.dataset.price;
         recalculateSubtotal();
@@ -232,6 +232,9 @@ function initKasir() {
     if (subtotalDisplay) {
       subtotalDisplay.innerText = formatRupiah(subtotal);
     }
+    if (formulaDisplay) {
+      formulaDisplay.innerHTML = `${kg.toFixed(2)} Kg &times; ${formatRupiah(price)}`;
+    }
   }
   recalculateSubtotal();
 
@@ -249,63 +252,60 @@ function initKasir() {
     });
   });
 
-  function resetForm() {
-    if (ekorInput) ekorInput.value = 1;
-    if (kgInput) kgInput.value = 1.8;
-    if (priceInput) priceInput.value = 35000;
-    const noteEl = document.getElementById('inputNote');
-    if (noteEl) noteEl.value = '';
-    const partUtuh = document.getElementById('partUtuh');
-    if (partUtuh) partUtuh.checked = true;
-    selectPaymentType('tunai');
-    if (custTypeBtns[0]) custTypeBtns[0].click();
-    recalculateSubtotal();
-  }
-
   if (btnResetTrx) {
     btnResetTrx.addEventListener('click', () => {
-      playTouchSound(450);
-      resetForm();
+      playTouchSound();
+      if (ekorInput) ekorInput.value = 3;
+      if (kgInput) kgInput.value = "5.40";
+      if (priceInput) priceInput.value = 35000;
+      const noteInput = document.getElementById('inputNote');
+      if (noteInput) noteInput.value = '';
+      selectPaymentType('tunai');
+      custTypeBtns.forEach(b => b.classList.toggle('active', b.dataset.type === 'eceran'));
+      if (langgananGroup) langgananGroup.style.display = 'none';
+      if (custBalanceBadge) custBalanceBadge.style.display = 'none';
+      recalculateSubtotal();
     });
   }
 
   if (btnSubmitTrx) {
     btnSubmitTrx.addEventListener('click', () => {
-      playTouchSound(1000);
+      playTouchSound(1000, 0.08);
+
+      const ekor = parseNumber(ekorInput ? ekorInput.value : 1);
       const kg = parseNumber(kgInput ? kgInput.value : 0);
-      const ekor = parseNumber(ekorInput ? ekorInput.value : 0);
       const price = parseNumber(priceInput ? priceInput.value : 0);
       const total = kg * price;
 
       if (kg <= 0 || price <= 0) {
-        alert("Masukkan berat (kg) dan harga yang valid!");
+        alert("Mohon masukkan berat (Kg) dan harga per Kg yang valid!");
         return;
       }
 
       let customerId = 'ECR';
-      let customerName = 'Lapak Eceran Subuh';
+      let customerName = 'Eceran Tunai';
 
       if (selectedCustomerType === 'langganan') {
         customerId = customerSelect ? customerSelect.value : '';
         if (!customerId) {
-          alert("Silakan pilih mitra langganan terlebih dahulu!");
+          alert("Harap pilih nama mitra warung / langganan bon!");
           return;
         }
         const custObj = state.customers.find(c => c.id === customerId);
-        customerName = custObj ? custObj.name : customerId;
+        if (custObj) customerName = custObj.name;
       }
 
-      const partRadio = document.querySelector('input[name="part"]:checked');
-      const part = partRadio ? partRadio.value : 'utuh';
-      const noteEl = document.getElementById('inputNote');
-      const notes = noteEl ? noteEl.value.trim() : '';
+      const checkedPart = document.querySelector('input[name="part"]:checked');
+      const part = checkedPart ? checkedPart.value : 'utuh';
+      const noteInput = document.getElementById('inputNote');
+      const notes = noteInput ? noteInput.value.trim() : '';
 
       const now = new Date();
       const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
       const dateStr = now.toISOString().split('T')[0];
 
       const newTrx = {
-        id: "TRX-" + Date.now().toString().slice(-5),
+        id: "TRX-" + Date.now().toString().slice(-4),
         date: dateStr,
         time: timeStr,
         customerId: customerId,
@@ -316,91 +316,122 @@ function initKasir() {
         pricePerKg: price,
         total: total,
         type: selectedPaymentType,
-        notes: notes || (selectedPaymentType === 'bon' ? 'Bon belanja' : 'Tunai lunas')
+        notes: notes
       };
 
-      if (selectedPaymentType === 'bon' && customerId !== 'ECR') {
-        const custObj = state.customers.find(c => c.id === customerId);
-        if (custObj) {
-          custObj.currentDebt = (custObj.currentDebt || 0) + total;
-          custObj.history.push({
-            date: dateStr,
-            time: timeStr,
-            type: "BON_BARU",
-            amount: total,
-            remaining: custObj.currentDebt,
-            ref: newTrx.id
-          });
+      state.transactions.unshift(newTrx);
+
+      if (selectedPaymentType === 'bon') {
+        const cust = state.customers.find(c => c.id === customerId);
+        if (cust) {
+          cust.currentDebt += total;
         }
       }
 
-      state.transactions.unshift(newTrx);
       saveState();
       populateCustomerSelect();
-
-      alert(`Transaksi ${newTrx.id} Berhasil Disimpan!\nTotal: ${formatRupiah(total)} (${newTrx.type.toUpperCase()})`);
-      resetForm();
       renderBukuBon();
       renderRekapKas();
+
+      alert(`Transaksi ${newTrx.id} Berhasil Disimpan!\nTotal: ${formatRupiah(total)} (${selectedPaymentType.toUpperCase()})`);
+
+      if (btnResetTrx) btnResetTrx.click();
     });
   }
 }
 
 function renderBukuBon() {
   const container = document.getElementById('bonListContainer');
+  const headerTotalDebt = document.getElementById('headerTotalDebt');
+  const headerDebtorCount = document.getElementById('headerDebtorCount');
+  const navDebtorBadge = document.getElementById('navDebtorBadge');
   const searchInput = document.getElementById('searchBon');
-  const totalDebtHeader = document.getElementById('headerTotalDebt');
-  const totalDebtorCount = document.getElementById('headerDebtorCount');
-  
+
   if (!container) return;
 
-  const validCustomers = state.customers.filter(c => c.id !== 'ECR');
-  const totalDebt = validCustomers.reduce((acc, c) => acc + (c.currentDebt || 0), 0);
-  const activeDebtors = validCustomers.filter(c => (c.currentDebt || 0) > 0).length;
+  const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+  const debtors = state.customers.filter(c => c.id !== 'ECR');
 
-  if (totalDebtHeader) totalDebtHeader.innerText = formatRupiah(totalDebt);
-  if (totalDebtorCount) totalDebtorCount.innerText = `${activeDebtors} Mitra`;
+  let totalDebt = 0;
+  let activeDebtorsCount = 0;
 
-  const query = (searchInput ? searchInput.value : '').toLowerCase();
+  debtors.forEach(c => {
+    totalDebt += c.currentDebt;
+    if (c.currentDebt > 0) activeDebtorsCount++;
+  });
 
-  const filtered = validCustomers.filter(c => 
-    c.name.toLowerCase().includes(query) || c.id.toLowerCase().includes(query)
-  );
+  if (headerTotalDebt) headerTotalDebt.innerText = formatRupiah(totalDebt);
+  if (headerDebtorCount) headerDebtorCount.innerText = activeDebtorsCount.toString();
+  if (navDebtorBadge) navDebtorBadge.innerText = activeDebtorsCount.toString();
+
+  let filtered = debtors.filter(c => {
+    const matchQuery = c.name.toLowerCase().includes(query) || c.id.toLowerCase().includes(query);
+    if (!matchQuery) return false;
+
+    if (currentBonFilter === 'tempo') {
+      return (c.daysLate || 0) > 0 && c.currentDebt > 0;
+    }
+    if (currentBonFilter === 'kritis') {
+      const ratio = c.plafon > 0 ? (c.currentDebt / c.plafon) : 0;
+      return ratio >= 0.85 && c.currentDebt > 0;
+    }
+    return true;
+  });
 
   container.innerHTML = '';
   if (filtered.length === 0) {
-    container.innerHTML = `<div class="empty-state">Tidak ada data mitra langganan yang cocok.</div>`;
+    container.innerHTML = `<div class="surface-card text-center" style="text-align: center; color: var(--text-muted); padding: 24px;">Tidak ada data mitra warung yang cocok.</div>`;
     return;
   }
 
   filtered.forEach(c => {
     const isLunas = c.currentDebt <= 0;
     const card = document.createElement('div');
-    card.className = `bon-card ${isLunas ? 'lunas' : ''}`;
+    card.className = 'debtor-item-card';
+
+    const ratio = c.plafon > 0 ? Math.min(100, Math.round((c.currentDebt / c.plafon) * 100)) : 0;
+    const isOverdue = (c.daysLate || 0) > 0 && !isLunas;
+
     card.innerHTML = `
-      <div class="bon-card-header">
+      <div class="debtor-item-header">
         <div>
-          <span class="badge-code">${c.id}</span>
-          <strong class="bon-name">${c.name}</strong>
+          <h3 class="debtor-name">${c.name}</h3>
+          <p class="debtor-sub">Kode: ${c.id} &bull; Plafon: ${formatRupiah(c.plafon || 2000000)} (${ratio}%)</p>
         </div>
-        <div class="bon-badge ${isLunas ? 'lunas' : 'terhutang'}">
-          ${isLunas ? 'LUNAS' : 'BON AKTIF'}
+        <div class="text-right">
+          <span class="${isOverdue ? 'badge-status-red' : (isLunas ? 'badge-status-green' : 'meta-tag')}">
+            ${isOverdue ? `Telat ${c.daysLate} Hari` : (isLunas ? 'LUNAS' : 'BON AKTIF')}
+          </span>
+          <div class="debtor-amount ${isLunas ? 'text-success' : 'text-danger'} font-numeric mt-1">
+            ${formatRupiah(c.currentDebt)}
+          </div>
         </div>
       </div>
-      <div class="bon-balance-box">
-        <span class="label">Sisa Saldo Bon:</span>
-        <span class="value ${isLunas ? 'text-green' : 'text-red'}">${formatRupiah(c.currentDebt)}</span>
-      </div>
-      <div class="bon-card-actions">
-        <button type="button" class="action-btn pay-btn" onclick="openPaymentModal('${c.id}')">
-          Setor Cicilan
+      <div class="debtor-actions-grid">
+        <button type="button" class="btn-card-pay" onclick="openPaymentModal('${c.id}')">
+          Setor Cicilan Tunai
         </button>
-        <button type="button" class="action-btn wa-btn" onclick="sendWhatsAppReminder('${c.id}')">
+        <a class="btn-card-wa" href="https://wa.me/?text=Halo%20${encodeURIComponent(c.name)},%20mengingatkan%20catatan%20bon%20lapak%20ayam%20sebesar%20${encodeURIComponent(formatRupiah(c.currentDebt))}." target="_blank">
           Kirim WA
-        </button>
+        </a>
       </div>
     `;
     container.appendChild(card);
+  });
+}
+
+function initBonFilters() {
+  const filterRow = document.getElementById('bonFilterRow');
+  if (!filterRow) return;
+  const chips = filterRow.querySelectorAll('.filter-chip');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      playTouchSound();
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentBonFilter = chip.dataset.filter || 'all';
+      renderBukuBon();
+    });
   });
 }
 
@@ -415,7 +446,7 @@ window.openPaymentModal = function(customerId) {
   const amountInput = document.getElementById('modalPayAmount');
   const quickOpts = document.getElementById('modalQuickPayOptions');
 
-  if (nameEl) nameEl.innerText = `${cIdDisplay(cust.id)} - ${cust.name}`;
+  if (nameEl) nameEl.innerText = `${cust.id} - ${cust.name}`;
   if (debtEl) debtEl.innerText = formatRupiah(cust.currentDebt);
   if (amountInput) amountInput.value = '';
   if (modal) modal.dataset.customerId = customerId;
@@ -427,7 +458,7 @@ window.openPaymentModal = function(customerId) {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'quick-pill';
-      b.textContent = p === cust.currentDebt ? `Lunas Semua (${formatRupiah(p)})` : formatRupiah(p);
+      b.textContent = p === cust.currentDebt ? `Lunas (${formatRupiah(p)})` : formatRupiah(p);
       b.onclick = () => {
         playTouchSound();
         if (amountInput) amountInput.value = p;
@@ -439,55 +470,46 @@ window.openPaymentModal = function(customerId) {
   if (modal) modal.classList.add('open');
 };
 
-function cIdDisplay(id) {
-  return id || '';
-}
-
 function initModal() {
   const modal = document.getElementById('paymentModal');
   const btnClose = document.getElementById('btnModalClose');
   const btnCancel = document.getElementById('btnModalCancel');
   const btnConfirm = document.getElementById('btnModalConfirm');
+  const amountInput = document.getElementById('modalPayAmount');
 
-  [btnClose, btnCancel].forEach(b => {
-    if (b) {
-      b.onclick = () => {
-        playTouchSound(400);
-        if (modal) modal.classList.remove('open');
-      };
-    }
-  });
+  function closeModal() {
+    if (modal) modal.classList.remove('open');
+  }
+
+  if (btnClose) btnClose.onclick = closeModal;
+  if (btnCancel) btnCancel.onclick = closeModal;
 
   if (btnConfirm) {
     btnConfirm.onclick = () => {
-      playTouchSound(1000);
-      const customerId = modal ? modal.dataset.customerId : null;
-      const cust = state.customers.find(c => c.id === customerId);
-      const payInput = document.getElementById('modalPayAmount');
-      const amount = parseNumber(payInput ? payInput.value : 0);
+      playTouchSound(950);
+      const cId = modal ? modal.dataset.customerId : null;
+      const amount = parseNumber(amountInput ? amountInput.value : 0);
 
-      if (!cust || amount <= 0) {
-        alert("Masukkan nominal cicilan yang valid!");
+      if (!cId || amount <= 0) {
+        alert("Masukkan jumlah cicilan setoran tunai yang valid!");
         return;
       }
 
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-      const dateStr = now.toISOString().split('T')[0];
+      const cust = state.customers.find(c => c.id === cId);
+      if (!cust) return;
+
+      if (amount > cust.currentDebt) {
+        alert(`Jumlah cicilan melebihi sisa bon (${formatRupiah(cust.currentDebt)})!`);
+        return;
+      }
 
       cust.currentDebt = Math.max(0, cust.currentDebt - amount);
-      cust.history.push({
-        date: dateStr,
-        time: timeStr,
-        type: "SETOR_CICILAN",
-        amount: amount,
-        remaining: cust.currentDebt
-      });
 
-      state.transactions.unshift({
-        id: "PAY-" + Date.now().toString().slice(-5),
-        date: dateStr,
-        time: timeStr,
+      const now = new Date();
+      const newTrx = {
+        id: "PAY-" + Date.now().toString().slice(-4),
+        date: now.toISOString().split('T')[0],
+        time: now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
         customerId: cust.id,
         customerName: cust.name,
         ekor: 0,
@@ -496,50 +518,48 @@ function initModal() {
         pricePerKg: 0,
         total: amount,
         type: "cicilan_masuk",
-        notes: `Setoran cicilan bon tunai (${formatRupiah(amount)})`
-      });
+        notes: `Setoran cicilan tunai bon di meja kasir`
+      };
 
+      state.transactions.unshift(newTrx);
       saveState();
-      if (modal) modal.classList.remove('open');
+      closeModal();
       renderBukuBon();
       renderRekapKas();
-      alert(`Berhasil mencatat setoran cicilan Rp ${amount.toLocaleString('id-ID')} dari ${cust.name}.\nSisa saldo bon sekarang: ${formatRupiah(cust.currentDebt)}`);
+      alert(`Setoran tunai ${formatRupiah(amount)} untuk ${cust.name} berhasil dicatat!`);
     };
   }
 }
 
-window.sendWhatsAppReminder = function(customerId) {
-  playTouchSound(800);
-  const cust = state.customers.find(c => c.id === customerId);
-  if (!cust) return;
-
-  const phone = (cust.phone || '').replace(/[^0-9]/g, '');
-  const cleanPhone = phone.startsWith('0') ? '62' + phone.slice(1) : phone;
-
-  const msg = `Halo ${cust.name}, catatan rincian bon belanja ayam potong di meja lapak:\n` +
-              `Total Sisa Saldo Bon: *${formatRupiah(cust.currentDebt)}*.\n` +
-              `Terima kasih atas kerja samanya, semoga usahanya semakin lancar dan berkah selalu!`;
-
-  const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`;
-  window.open(waUrl, '_blank');
-};
-
 function initSupplies() {
-  const btnSubmitSupply = document.getElementById('btnSubmitSupply');
   const supplyEkor = document.getElementById('supplyEkor');
   const supplyKg = document.getElementById('supplyKg');
   const supplyPrice = document.getElementById('supplyPrice');
   const supplyModalTotal = document.getElementById('supplyModalTotal');
+  const btnSubmitSupply = document.getElementById('btnSubmitSupply');
+  const quickSupplyPrices = document.querySelectorAll('.qsp-btn');
 
   function updateSupplyTotal() {
     const kg = parseNumber(supplyKg ? supplyKg.value : 0);
-    const p = parseNumber(supplyPrice ? supplyPrice.value : 0);
+    const price = parseNumber(supplyPrice ? supplyPrice.value : 0);
     if (supplyModalTotal) {
-      supplyModalTotal.innerText = formatRupiah(kg * p);
+      supplyModalTotal.innerText = formatRupiah(kg * price);
     }
   }
 
-  [supplyKg, supplyPrice].forEach(inp => {
+  quickSupplyPrices.forEach(btn => {
+    btn.addEventListener('click', () => {
+      playTouchSound(800);
+      quickSupplyPrices.forEach(b => b.classList.remove('active-pill'));
+      btn.classList.add('active-pill');
+      if (supplyPrice) {
+        supplyPrice.value = btn.dataset.price;
+        updateSupplyTotal();
+      }
+    });
+  });
+
+  [supplyKg, supplyPrice, supplyEkor].forEach(inp => {
     if (inp) inp.addEventListener('input', updateSupplyTotal);
   });
   updateSupplyTotal();
@@ -547,18 +567,14 @@ function initSupplies() {
   if (btnSubmitSupply) {
     btnSubmitSupply.onclick = () => {
       playTouchSound(1000);
-      const supplierInput = document.getElementById('supplySupplier');
-      const supplier = supplierInput ? (supplierInput.value.trim() || 'UD. Cheyloo Farm Kamal') : 'UD. Cheyloo Farm Kamal';
       const ekor = parseNumber(supplyEkor ? supplyEkor.value : 0);
       const kg = parseNumber(supplyKg ? supplyKg.value : 0);
       const price = parseNumber(supplyPrice ? supplyPrice.value : 0);
       const paymentInput = document.getElementById('supplyPayment');
-      const paymentStatus = paymentInput ? paymentInput.value : 'Lunas Tunai';
-      const noteInput = document.getElementById('supplyNote');
-      const note = noteInput ? noteInput.value.trim() : '';
+      const paymentStatus = paymentInput ? paymentInput.value : 'Lunas Tunai Meja';
 
       if (kg <= 0 || price <= 0) {
-        alert("Masukkan berat kg dan harga timbang supplier yang valid!");
+        alert("Masukkan berat timbangan bersih dan harga peternak yang valid!");
         return;
       }
 
@@ -566,26 +582,20 @@ function initSupplies() {
       const newSupply = {
         id: "SUP-" + Date.now().toString().slice(-4),
         date: now.toISOString().split('T')[0],
-        supplier: supplier,
+        supplier: "UD. Cheyloo Farm Kamal",
         ekor: ekor,
         kg: kg,
         pricePerKg: price,
         totalModal: kg * price,
         paymentStatus: paymentStatus,
-        note: note || "Pasokan karkas segar"
+        note: "Pasokan subuh karkas segar"
       };
 
       state.supplies.unshift(newSupply);
       saveState();
       renderSupplies();
       renderRekapKas();
-      alert(`Nota pasokan ${newSupply.id} berhasil dicatat!\nTotal modal: ${formatRupiah(newSupply.totalModal)}`);
-
-      if (supplyEkor) supplyEkor.value = 100;
-      if (supplyKg) supplyKg.value = 160;
-      if (supplyPrice) supplyPrice.value = 28500;
-      if (noteInput) noteInput.value = '';
-      updateSupplyTotal();
+      alert(`Nota pasokan ${newSupply.id} berhasil ditambahkan!\nTotal: ${formatRupiah(newSupply.totalModal)}`);
     };
   }
 }
@@ -596,112 +606,77 @@ function renderSupplies() {
 
   container.innerHTML = '';
   if (state.supplies.length === 0) {
-    container.innerHTML = `<div class="empty-state">Belum ada catatan nota pasokan masuk.</div>`;
+    container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 14px;">Belum ada catatan pasokan.</div>`;
     return;
   }
 
-  state.supplies.forEach(s => {
+  state.supplies.slice(0, 5).forEach(s => {
     const item = document.createElement('div');
-    item.className = 'supply-item-card';
+    item.style.cssText = "display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: var(--bg-subtle); border-radius: 8px; margin-bottom: 8px;";
     item.innerHTML = `
-      <div class="supply-item-header">
-        <div>
-          <span class="supply-tag">${s.id}</span>
-          <strong>${s.supplier}</strong>
-          <span class="supply-date">${s.date}</span>
+      <div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <strong style="font-size: 13px;">${s.supplier}</strong>
+          <span class="${s.paymentStatus.includes('Lunas') ? 'badge-status-green' : 'badge-status-red'}">${s.paymentStatus}</span>
         </div>
-        <span class="supply-badge-status ${s.paymentStatus.includes('Lunas') ? 'lunas' : 'tempo'}">${s.paymentStatus}</span>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">${s.date} &bull; ${s.ekor} Ekor / ${s.kg} Kg</p>
       </div>
-      <div class="supply-specs-grid">
-        <div><small>Jumlah Ekor</small><br><strong>${s.ekor} Ekor</strong></div>
-        <div><small>Berat Timbang</small><br><strong>${s.kg} Kg</strong></div>
-        <div><small>Harga / Kg</small><br><strong>${formatRupiah(s.pricePerKg)}</strong></div>
-        <div><small>Total Modal</small><br><strong class="text-modal">${formatRupiah(s.totalModal)}</strong></div>
+      <div style="text-align: right;">
+        <strong class="font-numeric" style="font-size: 13px;">${formatRupiah(s.totalModal)}</strong>
+        <p style="font-size: 10px; color: var(--text-muted);">@${formatRupiah(s.pricePerKg)}/Kg</p>
       </div>
-      ${s.note ? `<div class="supply-note"><small>Catatan: ${s.note}</small></div>` : ''}
     `;
     container.appendChild(item);
   });
 }
 
 function renderRekapKas() {
-  const todayStr = new Date().toISOString().split('T')[0];
-
-  const cashSalesToday = state.transactions
-    .filter(t => t.date === todayStr && t.type === 'tunai')
-    .reduce((sum, t) => sum + t.total, 0);
-
-  const cashCicilanToday = state.transactions
-    .filter(t => t.date === todayStr && t.type === 'cicilan_masuk')
-    .reduce((sum, t) => sum + t.total, 0);
-
-  const totalKasMasuk = cashSalesToday + cashCicilanToday;
-
-  const modalPasokanToday = state.supplies
-    .filter(s => s.date === todayStr && s.paymentStatus.includes('Tunai'))
-    .reduce((sum, s) => sum + s.totalModal, 0);
-
-  const kasBersihLaci = totalKasMasuk - modalPasokanToday;
-
-  const bonKeluarToday = state.transactions
-    .filter(t => t.date === todayStr && t.type === 'bon')
-    .reduce((sum, t) => sum + t.total, 0);
-
-  const totalKgSold = state.transactions
-    .filter(t => t.date === todayStr && t.type !== 'cicilan_masuk')
-    .reduce((sum, t) => sum + (t.kg || 0), 0);
-
-  const totalEkorSold = state.transactions
-    .filter(t => t.date === todayStr && t.type !== 'cicilan_masuk')
-    .reduce((sum, t) => sum + (t.ekor || 0), 0);
-
   const elCashSales = document.getElementById('rekapCashSales');
   const elCashCicilan = document.getElementById('rekapCashCicilan');
   const elModalPasokan = document.getElementById('rekapModalPasokan');
   const elKasBersihLaci = document.getElementById('rekapKasBersihLaci');
-  const elBonKeluar = document.getElementById('rekapBonKeluar');
   const elKgSold = document.getElementById('rekapKgSold');
   const elEkorSold = document.getElementById('rekapEkorSold');
+  const elBonKeluar = document.getElementById('rekapBonKeluar');
 
-  if (elCashSales) elCashSales.innerText = formatRupiah(cashSalesToday);
-  if (elCashCicilan) elCashCicilan.innerText = formatRupiah(cashCicilanToday);
-  if (elModalPasokan) elModalPasokan.innerText = formatRupiah(modalPasokanToday);
-  if (elKasBersihLaci) elKasBersihLaci.innerText = formatRupiah(kasBersihLaci);
-  if (elBonKeluar) elBonKeluar.innerText = formatRupiah(bonKeluarToday);
-  if (elKgSold) elKgSold.innerText = `${totalKgSold.toFixed(1)} Kg`;
-  if (elEkorSold) elEkorSold.innerText = `${totalEkorSold} Ekor`;
-}
-
-function renderRiwayat() {
-  const container = document.getElementById('historyTableBody');
-  if (!container) return;
-
-  container.innerHTML = '';
-  if (state.transactions.length === 0) {
-    container.innerHTML = `<tr><td colspan="7" class="empty-state">Belum ada riwayat transaksi.</td></tr>`;
-    return;
-  }
+  let cashSales = 0;
+  let cashCicilan = 0;
+  let bonBaru = 0;
+  let totalKg = 0;
+  let totalEkor = 0;
 
   state.transactions.forEach(t => {
-    const tr = document.createElement('tr');
-    const isCicilan = t.type === 'cicilan_masuk';
-    const isBon = t.type === 'bon';
+    if (t.type === 'tunai') {
+      cashSales += t.total;
+    } else if (t.type === 'cicilan_masuk') {
+      cashCicilan += t.total;
+    } else if (t.type === 'bon') {
+      bonBaru += t.total;
+    }
 
-    tr.innerHTML = `
-      <td><strong>${t.time}</strong><br><small style="color: var(--text-muted);">${t.date}</small></td>
-      <td><span class="badge-code">${t.customerId}</span> ${t.customerName}</td>
-      <td>${isCicilan ? '-' : `${t.ekor} Ekor (${t.kg} Kg)`}</td>
-      <td>${isCicilan ? '-' : t.part}</td>
-      <td>${isCicilan ? '-' : formatRupiah(t.pricePerKg)}</td>
-      <td><strong>${formatRupiah(t.total)}</strong></td>
-      <td>
-        <span class="status-pill ${isBon ? 'pill-bon' : (isCicilan ? 'pill-cicilan' : 'pill-tunai')}">
-          ${isBon ? 'BON' : (isCicilan ? 'SETOR CICILAN' : 'TUNAI')}
-        </span>
-      </td>
-    `;
-    container.appendChild(tr);
+    if (t.type !== 'cicilan_masuk') {
+      totalKg += (t.kg || 0);
+      totalEkor += (t.ekor || 0);
+    }
   });
+
+  let modalPasokanTunai = 0;
+  state.supplies.forEach(s => {
+    if (s.paymentStatus.includes('Lunas') || s.paymentStatus.includes('Tunai')) {
+      modalPasokanTunai += s.totalModal;
+    }
+  });
+
+  const kasBersih = (cashSales + cashCicilan) - modalPasokanTunai;
+
+  if (elCashSales) elCashSales.innerText = formatRupiah(cashSales);
+  if (elCashCicilan) elCashCicilan.innerText = formatRupiah(cashCicilan);
+  if (elModalPasokan) elModalPasokan.innerText = formatRupiah(modalPasokanTunai);
+  if (elKasBersihLaci) elKasBersihLaci.innerText = formatRupiah(kasBersih);
+
+  if (elKgSold) elKgSold.innerText = `${totalKg.toFixed(1)} Kg`;
+  if (elEkorSold) elEkorSold.innerText = `${totalEkor} Ekor`;
+  if (elBonKeluar) elBonKeluar.innerText = formatRupiah(bonBaru);
 }
 
 function initExport() {
@@ -771,6 +746,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initKasir();
   initModal();
   initSupplies();
+  initBonFilters();
   initExport();
   initSearch();
   initDataTools();
@@ -778,5 +754,4 @@ document.addEventListener('DOMContentLoaded', () => {
   renderBukuBon();
   renderSupplies();
   renderRekapKas();
-  renderRiwayat();
 });
