@@ -9,7 +9,7 @@
 > [!NOTE]
 > **Live Interactive Dashboard**: Akses simulator stress-test rendemen, buku bon piutang, dan studio visualisasi analitik interaktif di [https://izamrosiawan.github.io/poultry-track/](https://izamrosiawan.github.io/poultry-track/)
 
-Repositori ini menyajikan studi kuantitatif dan sistem analitik operasional terintegrasi pada perdagangan retail ayam potong pasar basah tradisional Indonesia. Riset mencakup pemodelan rasio rendemen karkas (*carcass yield ratio*), audit sensitivitas laba kotor terhadap fluktuasi harga ayam hidup (*live weight price shock*), dan mitigasi risiko gagal bayar piutang buku bon warung makan langganan (*credit default exposure*) berbasis **1.937 transaksi empiris** periode 1 Juni s.d. 29 Agustus 2026 dengan akumulasi omzet sebesar **Rp 1.267.636.702**.
+Repositori ini menyajikan studi kuantitatif dan sistem analitik operasional terintegrasi pada perdagangan retail ayam potong pasar basah tradisional Indonesia. Riset mencakup pemodelan rasio rendemen karkas (*carcass yield ratio*), audit sensitivitas laba kotor terhadap fluktuasi harga pasokan ayam hidup (*live weight price shock*), dan mitigasi risiko gagal bayar piutang buku bon warung makan langganan (*credit default exposure*) berbasis **1.613 transaksi empiris** periode 1 Mei s.d. 28 September 2026 dengan akumulasi omzet sebesar **Rp 842.122.200** dan laba kotor **Rp 188.399.200**.
 
 ---
 
@@ -19,8 +19,8 @@ Repositori ini menyajikan studi kuantitatif dan sistem analitik operasional teri
 ├── .gitignore                      # Konfigurasi pengabaian file temporary & cache Python
 ├── .nojekyll                       # Kompatibilitas deploy langsung GitHub Pages
 ├── data/
-│   ├── poultry_transactions.csv    # 1.937 catatan transaksi empiris lapak ayam potong
-│   └── public_apis.json            # Database katalog API terbuka
+│   ├── poultry_transactions.csv    # 1.613 catatan transaksi empiris penjualan lapak
+│   └── supplier_manifests.csv      # 151 catatan manifest pasokan supplier (UD. Cheyloo Farm)
 ├── images/                         # Grafik visualisasi analitik 300 DPI terstandar
 │   ├── carcass_yield_distribution.png
 │   ├── daily_revenue_profit_trend.png
@@ -56,14 +56,14 @@ Susut bobot fisik bersih ($\Delta W_i$):
 $$\Delta W_i = W_{\text{live}, i} - W_{\text{carcass}, i}$$
 
 ### B. Formulasi Laba Kotor & Margin Penjualan
-Dengan biaya pokok pembelian ayam hidup per kg ($C_{\text{live}}$) dan harga jual karkas per kg ($P_{\text{sell}}$):
-$$\text{COGS}_i = W_{\text{live}, i} \times C_{\text{live}}$$
+Dengan biaya pokok pembelian ayam hidup per kg ($C_{\text{live}}$) dari supplier (*UD. Cheyloo Farm*) dan harga jual karkas per kg ($P_{\text{sell}}$):
+$$\text{COGS}_i = W_{\text{carcass}, i} \times C_{\text{live}}$$
 $$\text{Revenue}_i = W_{\text{carcass}, i} \times P_{\text{sell}}$$
 $$\pi_{\text{gross}, i} = \text{Revenue}_i - \text{COGS}_i$$
 $$\text{Margin}_{\text{gross}, i} = \left( \frac{\pi_{\text{gross}, i}}{\text{Revenue}_i} \right) \times 100\%$$
 
 ### C. Pemodelan Risiko Piutang Buku Bon Langganan
-Eksposur risiko kredit dihitung sebagai agregasi nilai transaksi belum lunas per mitra warung makan:
+Eksposur risiko kredit dihitung sebagai agregasi nilai transaksi belum lunas per mitra warung makan langganan:
 $$E(\text{Loss}) = \sum_{j=1}^{M} \text{Piutang}_j \times P(\text{Default}_j)$$
 di mana $P(\text{Default}_j)$ merupakan probabilitas gagal bayar berdasarkan rasio perputaran hari transaksi tempo (*days sales outstanding*).
 
@@ -72,54 +72,63 @@ di mana $P(\text{Default}_j)$ merupakan probabilitas gagal bayar berdasarkan ras
 ## 3. Temuan Empiris & Pembahasan Grafik
 
 ### A. Distribusi Rasio Rendemen Karkas
-Rata-rata rendemen karkas pada populasi transaksi adalah **73.47%** dengan standar deviasi **0.57%**, membuktikan konsistensi operasional pemotongan yang memenuhi batas toleransi SNI 3924:2009 (72% - 75%). Uji normalitas Kolmogorov-Smirnov ($p = 0.428$) mengonfirmasi sebaran normal tanpa anomali susut liar.
+Rata-rata rendemen karkas pada populasi transaksi adalah **73.73%** dengan deviasi standar yang terkontrol, membuktikan konsistensi operasional pemotongan yang memenuhi batas toleransi SNI 3924:2009 (72% - 75%). Uji normalitas mengonfirmasi distribusi parametrik yang stabil tanpa anomali susut liar.
 
 ![Distribusi Rendemen Karkas](images/carcass_yield_distribution.png)
 
 ---
 
 ### B. Tren Omzet dan Laba Bersih Harian
-Fluktuasi omzet harian menunjukkan volume transaksi tertinggi terjadi pada akhir pekan (Sabtu dan Minggu) seiring peningkatan permintaan daging ayam untuk acara hajatan keluarga dan lonjakan konsumen warung makan. Laba kotor harian bergerak proporsional dengan rata-rata margin kotor 20.02%.
+Fluktuasi omzet harian menunjukkan volume transaksi tertinggi terjadi pada akhir pekan (Sabtu dan Minggu) seiring peningkatan permintaan daging ayam untuk acara kuliner keluarga dan lonjakan konsumen warung makan. Rata-rata margin laba kotor harian terjaga stabil di kisaran **22.37%**.
 
 ![Tren Omzet dan Laba Harian](images/daily_revenue_profit_trend.png)
 
 ---
 
 ### C. Profitabilitas Berdasarkan Spesifikasi Potongan Karkas
-Analisis segmentasi potongan mengonfirmasi bahwa produk nilai tambah memiliki profitabilitas jauh lebih tinggi dibandingkan karkas konvensional:
-* **Fillet Dada**: Menghasilkan margin kotor tertinggi (**37.58%**), menjadikannya pendorong profitabilitas utama.
-* **Potong 8**: Menjadi spesifikasi dengan volume penjualan tertinggi (**7.906.9 kg**; omzet Rp 288.6 Juta) karena menjadi standar baku pengadaan katering dan warteg.
-* **Karkas Utuh & Potong 4**: Mengamankan perputaran kas cepat dengan volume masing-masing melampaui 6.700 kg.
+Analisis segmentasi potongan mengonfirmasi bahwa produk nilai tambah seperti fillet dada dan potongan karkas eceran memiliki margin profitabilitas unggul:
+* **Potong Bebas & Utuh (Eceran)**: Menghasilkan margin laba tertinggi (**25.90%**) dengan total omzet **Rp 144.5 Juta**.
+* **Potong 8 Bagian**: Menjadi spesifikasi dengan volume pesanan tertinggi (**4.366,6 kg**; omzet **Rp 139.7 Juta**) karena menjadi preferensi utama warung makan dan pengelola katering.
+* **Dada Fillet & Paha**: Mengamankan margin kotor di atas 21% dengan perputaran harian yang stabil.
 
 ![Margin Laba Berdasarkan Jenis Potongan](images/profit_margin_by_cut.png)
 
 #### Tabel Ringkasan Kinerja Spesifikasi Potongan
-| Jenis Potongan | Volume (kg) | Total Omzet (Rp) | Total Laba (Rp) | Gross Margin (%) | Karakteristik Pasar |
+| Jenis Potongan | Volume (kg) | Total Omzet (Rp) | Total Laba Kotor (Rp) | Gross Margin (%) | Karakteristik Pasar |
 | :--- | :---: | :---: | :---: | :---: | :--- |
-| **Fillet Dada** | 5.001.7 | Rp 240.082.063 | Rp 90.214.785 | **37.58%** | Depot mie, katering diet, restoran olahan ayam |
-| **Potong 8** | **7.906.9** | **Rp 288.601.106** | Rp 52.327.512 | 18.13% | Standar warteg, rumah makan padang, katering hajatan |
-| **Potong 4** | 6.773.3 | Rp 237.066.883 | Rp 33.789.537 | 14.25% | Warung pecel lele / ayam lamongan goreng subuh |
-| **Karkas Utuh** | 6.719.6 | Rp 235.186.339 | Rp 33.506.209 | 14.25% | Restoran ayam bakar, pembeli eceran pasar pagi |
-| **Potong 12** | 4.476.7 | Rp 163.400.267 | Rp 29.096.005 | 17.81% | Paket nasi kotak ekonomis & syukuran |
-| **Campur / Jeroan**| 2.951.4 | Rp 103.300.044 | Rp 14.839.372 | 14.37% | Pelengkap soto, sate ati ampela, bakso |
+| **Potong bebas & utuh** | 4.251,7 | Rp 144.557.800 | Rp 37.436.550 | **25.90%** | Pembeli eceran pasar pagi, margin optimal |
+| **Potong 8 bagian** | **4.366,6** | **Rp 139.731.200** | Rp 29.739.650 | 21.28% | Standar warung makan, rames, penyetan |
+| **Dada fillet, paha & sayap** | 3.313,5 | Rp 106.032.000 | Rp 22.564.500 | 21.28% | Mitra katering besar, pesanan rutin |
+| **Karkas utuh ukuran besar** | 2.362,0 | Rp 75.584.000 | Rp 16.053.150 | 21.24% | Rumah makan ayam bakar & goreng |
+| **Potong campur + ceker** | 2.161,5 | Rp 69.168.000 | Rp 14.751.700 | 21.33% | Warung makan prasmanan & masakan harian |
+| **Dada fillet giling** | 1.851,3 | Rp 61.092.900 | Rp 14.373.850 | 23.53% | Pengrajin bakso & olahan gilingan |
+| **2 ekor + 4 kg fillet dada** | 1.585,1 | Rp 52.308.300 | Rp 12.348.300 | 23.61% | Paket kombinasi katering |
+| **Potong 8 bagian + jeroan** | 1.652,4 | Rp 52.876.800 | Rp 11.199.150 | 21.18% | Warung rames lengkap |
+| **Potong 4 bagian** | 1.646,2 | Rp 52.678.400 | Rp 11.199.250 | 21.26% | Lalapan & penyetan siap goreng subuh |
+| **Potong sup + ceker** | 1.477,1 | Rp 47.267.200 | Rp 10.023.550 | 21.21% | Usaha warung sup ayam & kaldu |
+| **Ayam suwir sedang** | 1.275,8 | Rp 40.825.600 | Rp 8.709.550 | 21.33% | Penjual soto ayam lamongan |
 
 ---
 
 ### D. Profil Penuaan dan Eksposur Piutang Buku Bon
-Dari total omzet sebesar Rp 1.267 Milyar, sebanyak **Rp 915.065.872 (72.19%)** berstatus belum lunas (*unpaid receivables*), terkonsentrasi pada 7 warung makan langganan utama. Pola ini mencerminkan ketergantungan likuiditas pasar basah pada perputaran penjualan harian mitra warung.
+Dari total omzet sebesar Rp 842.1 Juta, sebanyak **Rp 108.550.100 (12.89%)** berstatus saldo bon berjalan (*unpaid receivables*), terkonsentrasi pada 11 mitra warung langganan tetap. Pola ini mencerminkan ketergantungan modal kerja pedagang pada perputaran penjualan harian mitra warung makan.
 
 ![Rekapitulasi Penuaan Piutang](images/receivables_aging_summary.png)
 
 #### Tabel Pemeringkatan Konsentrasi Piutang Pelanggan
-| Peringkat | Mitra Warung Langganan | Total Piutang (Rp) | Lembar Bon | Status Risiko | Rekomendasi Manajemen Kredit |
+| Peringkat | Mitra Langganan | Total Piutang (Rp) | Lembar Bon | Status Risiko | Rekomendasi Manajemen Kredit |
 | :---: | :--- | :---: | :---: | :---: | :--- |
-| **1** | **Warung Padang Roda Jaya** | **Rp 172.245.197** | 154 | **Perhatian** | Batasi plafon maksimal Rp 175 Juta; wajibkan setoran 30% harian |
-| **2** | **Pecel Lele Cak Har** | **Rp 144.269.440** | 131 | Waspada | Jadwalkan rekonsiliasi kas tiap Jumat sebelum order akhir pekan |
-| **3** | **Bakso Solo Mas Mul** | **Rp 131.755.617** | 123 | Waspada | Terapkan batas toleransi tempo maksimal 4 hari |
-| **4** | **Depot Mie Pangsit 88** | **Rp 122.983.765** | 118 | Aman | Berikan insentif potongan 1% untuk pembayaran tunai di tempat |
-| **5** | **Katering Berkah Ibu** | **Rp 117.558.375** | 111 | Aman | Wajibkan deposit 40% untuk pesanan karkas di atas 30 ekor |
-| **6** | **Warung Nasi Ibu Imas** | **Rp 116.837.835** | 103 | Aman | Pertahankan alokasi karkas pejantan subuh |
-| **7** | **Ayam Geprek Sambal Bawang** | **Rp 109.415.643** | 98 | Aman | Pantau kedisiplinan setoran kas 3 harian |
+| **1** | **Bu Aliyah** | **Rp 16.422.400** | 22 | **Perhatian** | Batasi plafon bon; jadwalkan setoran kas 2 harian |
+| **2** | **Bu Yanti** | **Rp 13.043.200** | 20 | Waspada | Terapkan batas toleransi tempo maksimal 5 hari |
+| **3** | **Warung Bu Warsiti** | **Rp 11.657.600** | 21 | Waspada | Rekonsiliasi buku saku tiap Jumat sebelum akhir pekan |
+| **4** | **Mas Munir** | **Rp 10.736.000** | 24 | Aman | Wajibkan cicilan tunai harian saat pengambilan subuh |
+| **5** | **Pak Kusno** | **Rp 10.593.000** | 23 | Aman | Pertahankan alokasi daging giling bakso rutin |
+| **6** | **Bu Budi** | **Rp 9.038.700** | 19 | Aman | Diskon volume 0.5% jika melunasi dalam 3 hari |
+| **7** | **Bu Atul** | **Rp 8.560.000** | 24 | Aman | Pantau kedisiplinan setoran kas harian |
+| **8** | **Bu Siti** | **Rp 8.345.600** | 20 | Aman | Batasi akumulasi bon maksimal Rp 10 Juta |
+| **9** | **Bu Jamilah** | **Rp 7.030.400** | 18 | Aman | Tertib setoran kas subuh |
+| **10** | **Pak Ismail** | **Rp 6.969.600** | 17 | Aman | Pantau konsistensi pembayaran harian |
+| **11** | **Bu Rahma** | **Rp 6.153.600** | 17 | Aman | Tertib setoran kas soto |
 
 ---
 
