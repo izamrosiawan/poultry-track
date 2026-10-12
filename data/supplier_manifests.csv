@@ -1,152 +1,152 @@
 No,Tanggal,Waktu_Sesi,Jenis_Arus_Transaksi,Kode_Pihak,Nama_Pihak,Rincian_Barang_Potongan,Jumlah_Ekor,Berat_Kg,Harga_Per_Kg,Total_Nominal,Cara_Bayar
-6,2026-05-01,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,79.9,24500,1957550.0000000002,Tunai
-17,2026-05-02,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),38,93.9,24500,2300550.0,Tunai
-26,2026-05-03,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,91.0,24500,2229500.0,Tunai
-38,2026-05-04,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,31,76.9,24500,1884050.0000000002,Tunai
-50,2026-05-05,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,68.0,25000,1700000.0,Tunai
-64,2026-05-06,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,79.4,25000,1985000.0000000002,Tunai
-73,2026-05-07,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,72.2,24500,1768900.0,Tunai
-84,2026-05-08,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,77.8,25000,1945000.0,Tunai
-95,2026-05-09,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),36,89.3,25000,2232500.0,Tunai
-105,2026-05-10,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),38,92.0,24500,2254000.0,Tunai
-117,2026-05-11,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,79.0,25000,1975000.0,Tunai
-129,2026-05-12,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,67.5,25000,1687500.0,Tunai
-141,2026-05-13,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,80.9,25000,2022500.0000000002,Tunai
-151,2026-05-14,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,73.8,24500,1808100.0,Tunai
-157,2026-05-15,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,79.4,24500,1945300.0000000002,Tunai
-171,2026-05-16,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,88.4,25000,2210000.0,Tunai
-185,2026-05-17,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),33,80.2,25000,2005000.0,Tunai
-197,2026-05-18,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,31,75.3,24500,1844850.0,Tunai
-207,2026-05-19,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,31,77.2,25000,1930000.0,Tunai
-217,2026-05-20,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,81.2,25000,2030000.0,Tunai
-231,2026-05-21,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,31,76.0,25000,1900000.0,Tunai
-240,2026-05-22,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,79.0,25000,1975000.0,Tunai
-252,2026-05-23,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),36,86.4,25000,2160000.0,Tunai
-265,2026-05-24,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,90.7,25000,2267500.0,Tunai
-277,2026-05-25,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,79.9,24500,1957550.0000000002,Tunai
-291,2026-05-26,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Menyesuaikan Permintaan Qurban,24,57.1,24500,1398950.0,Tunai
-301,2026-05-27,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Menyesuaikan Permintaan Qurban,26,63.7,24500,1560650.0,Tunai
-313,2026-05-28,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Menyesuaikan Permintaan Qurban,28,66.9,25000,1672500.0000000002,Tunai
-325,2026-05-29,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,69.3,25000,1732500.0,Tunai
-337,2026-05-30,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,87.7,24500,2148650.0,Tunai
-349,2026-05-31,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),33,80.2,25000,2005000.0,Tunai
-361,2026-06-01,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,76.2,25000,1905000.0,Tunai
-373,2026-06-02,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,73.8,24500,1808100.0,Tunai
-384,2026-06-03,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,75.8,25000,1895000.0,Tunai
-391,2026-06-04,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,31,77.2,25000,1930000.0,Tunai
-407,2026-06-05,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,72.9,25000,1822500.0000000002,Tunai
-420,2026-06-06,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),38,93.1,24500,2280950.0,Tunai
-431,2026-06-07,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),38,93.5,25000,2337500.0,Tunai
-443,2026-06-08,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,73.5,24500,1800750.0,Tunai
-452,2026-06-09,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,68.6,25000,1714999.9999999998,Tunai
-468,2026-06-10,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,78.5,25000,1962500.0,Tunai
-477,2026-06-11,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,74.1,24500,1815449.9999999998,Tunai
-489,2026-06-12,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,78.7,24500,1928150.0,Tunai
-502,2026-06-13,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),35,84.7,25000,2117500.0,Tunai
-517,2026-06-14,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),33,79.9,25000,1997500.0000000002,Tunai
-528,2026-06-15,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,74.1,24500,1815449.9999999998,Tunai
-543,2026-06-16,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,69.0,24500,1690500.0,Tunai
-552,2026-06-17,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,80.5,24500,1972250.0,Tunai
-564,2026-06-18,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,75.5,25000,1887500.0,Tunai
-575,2026-06-19,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,69.4,25000,1735000.0000000002,Tunai
-588,2026-06-20,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,89.5,24500,2192750.0,Tunai
-603,2026-06-21,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),39,92.8,24500,2273600.0,Tunai
-610,2026-06-22,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,82.5,24500,2021250.0,Tunai
-622,2026-06-23,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,78.1,25000,1952499.9999999998,Tunai
-633,2026-06-24,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,72.2,25000,1805000.0,Tunai
-644,2026-06-25,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,69.2,24500,1695400.0,Tunai
-660,2026-06-26,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,73.8,25000,1845000.0,Tunai
-671,2026-06-27,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),39,92.4,25000,2310000.0,Tunai
-683,2026-06-28,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),36,87.8,25000,2195000.0,Tunai
-697,2026-06-29,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,70.2,24500,1719900.0,Tunai
-704,2026-06-30,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,77.8,24500,1906100.0,Tunai
-717,2026-07-01,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,72.2,25500,1841100.0,Tunai
-726,2026-07-02,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,73.5,25000,1837500.0,Tunai
-739,2026-07-03,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,76.8,25000,1920000.0,Tunai
-748,2026-07-04,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),36,87.1,25500,2221050.0,Tunai
-765,2026-07-05,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),38,91.2,25500,2325600.0,Tunai
-774,2026-07-06,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,70.5,25000,1762500.0,Tunai
-786,2026-07-07,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,76.5,25500,1950750.0,Tunai
-795,2026-07-08,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,79.5,25500,2027250.0,Tunai
-806,2026-07-09,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,66.4,25000,1660000.0000000002,Tunai
-820,2026-07-10,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,31,76.9,25000,1922500.0000000002,Tunai
-838,2026-07-11,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),34,82.3,25500,2098650.0,Tunai
-849,2026-07-12,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),35,86.1,25500,2195550.0,Tunai
-861,2026-07-13,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,77.4,25500,1973700.0000000002,Tunai
-870,2026-07-14,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,82.5,25500,2103750.0,Tunai
-883,2026-07-15,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,80.2,25500,2045100.0,Tunai
-892,2026-07-16,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,76.8,25500,1958400.0,Tunai
-905,2026-07-17,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,78.4,25500,1999200.0000000002,Tunai
-922,2026-07-18,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),34,82.6,25500,2106300.0,Tunai
-932,2026-07-19,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),33,82.5,25500,2103750.0,Tunai
-941,2026-07-20,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,82.2,25500,2096100.0,Tunai
-955,2026-07-21,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,74.7,25500,1904850.0,Tunai
-969,2026-07-22,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,72.3,25500,1843650.0,Tunai
-980,2026-07-23,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,82.2,25500,2096100.0,Tunai
-992,2026-07-24,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,68.6,25000,1714999.9999999998,Tunai
-1006,2026-07-25,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,88.4,25500,2254200.0,Tunai
-1017,2026-07-26,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),35,84.0,25000,2100000.0,Tunai
-1029,2026-07-27,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,77.9,25500,1986450.0000000002,Tunai
-1039,2026-07-28,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,73.5,25500,1874250.0,Tunai
-1056,2026-07-29,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,72.6,25500,1851299.9999999998,Tunai
-1062,2026-07-30,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,79.2,25500,2019600.0,Tunai
-1075,2026-07-31,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,81.2,25000,2030000.0,Tunai
-1089,2026-08-01,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),39,94.4,25000,2360000.0,Tunai
-1100,2026-08-02,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),39,92.8,25500,2366400.0,Tunai
-1112,2026-08-03,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,73.2,25500,1866600.0,Tunai
-1124,2026-08-04,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,81.8,25500,2085900.0,Tunai
-1132,2026-08-05,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,74.1,25500,1889549.9999999998,Tunai
-1144,2026-08-06,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,78.5,25500,2001750.0,Tunai
-1153,2026-08-07,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,76.2,25500,1943100.0,Tunai
-1167,2026-08-08,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,91.4,25000,2285000.0,Tunai
-1175,2026-08-09,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,90.3,25500,2302650.0,Tunai
-1186,2026-08-10,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,68.9,25500,1756950.0000000002,Tunai
-1195,2026-08-11,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,76.5,25500,1950750.0,Tunai
-1209,2026-08-12,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,71.4,25000,1785000.0000000002,Tunai
-1218,2026-08-13,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,79.9,25500,2037450.0000000002,Tunai
-1233,2026-08-14,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,70.0,25500,1785000.0,Tunai
-1244,2026-08-15,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),39,94.0,25000,2350000.0,Tunai
-1257,2026-08-16,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),33,78.2,25500,1994100.0,Tunai
-1270,2026-08-17,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,73.5,25500,1874250.0,Tunai
-1281,2026-08-18,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,75.5,25500,1925250.0,Tunai
-1287,2026-08-19,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,31,76.0,25500,1938000.0,Tunai
-1301,2026-08-20,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,67.8,25500,1728900.0,Tunai
-1310,2026-08-21,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,71.1,25500,1813049.9999999998,Tunai
-1322,2026-08-22,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),39,94.4,25500,2407200.0,Tunai
-1334,2026-08-23,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),38,89.7,25500,2287350.0,Tunai
-1346,2026-08-24,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,69.4,25500,1769700.0000000002,Tunai
-1358,2026-08-25,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,72.2,25500,1841100.0,Tunai
-1364,2026-08-26,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,66.4,25000,1660000.0000000002,Tunai
-1376,2026-08-27,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,77.8,25500,1983900.0,Tunai
-1387,2026-08-28,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,77.1,25500,1966049.9999999998,Tunai
-1397,2026-08-29,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),36,87.8,25000,2195000.0,Tunai
-1411,2026-08-30,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),38,91.2,25000,2280000.0,Tunai
-1424,2026-08-31,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,80.2,25500,2045100.0,Tunai
-1434,2026-09-01,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,31,76.3,25500,1945650.0,Tunai
-1450,2026-09-02,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,77.8,25500,1983900.0,Tunai
-1457,2026-09-03,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,71.3,25500,1818150.0,Tunai
-1471,2026-09-04,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,69.3,26000,1801800.0,Tunai
-1484,2026-09-05,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),33,79.9,25500,2037450.0000000002,Tunai
-1497,2026-09-06,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),35,86.8,26000,2256800.0,Tunai
-1505,2026-09-07,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,80.9,25500,2062950.0000000002,Tunai
-1518,2026-09-08,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,82.2,25500,2096100.0,Tunai
-1528,2026-09-09,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,81.5,26000,2119000.0,Tunai
-1543,2026-09-10,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,81.5,26000,2119000.0,Tunai
-1556,2026-09-11,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,68.7,26000,1786200.0,Tunai
-1568,2026-09-12,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),38,92.7,25500,2363850.0,Tunai
-1577,2026-09-13,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),38,94.6,26000,2459600.0,Tunai
-1588,2026-09-14,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,69.9,26000,1817400.0000000002,Tunai
-1601,2026-09-15,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,78.4,26000,2038400.0000000002,Tunai
-1611,2026-09-16,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,79.4,26000,2064400.0000000002,Tunai
-1625,2026-09-17,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,78.5,25500,2001750.0,Tunai
-1634,2026-09-18,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,82.2,25500,2096100.0,Tunai
-1650,2026-09-19,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,91.0,26000,2366000.0,Tunai
-1660,2026-09-20,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,87.7,25500,2236350.0,Tunai
-1678,2026-09-21,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,82.2,26000,2137200.0,Tunai
-1685,2026-09-22,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,80.2,25500,2045100.0,Tunai
-1697,2026-09-23,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,72.2,25500,1841100.0,Tunai
-1708,2026-09-24,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,67.2,26000,1747200.0,Tunai
-1721,2026-09-25,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Sesuai Nota Asli Foto (71.9 x 26.000),30,71.9,26000,1869400.0000000002,Tunai
-1732,2026-09-26,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Sesuai Nota Asli Foto (73.3 x 25.500),30,73.3,25500,1869150.0,Tunai
-1745,2026-09-27,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Sesuai Nota Asli Foto (76.9 x 25.500),29,76.9,25500,1960950.0000000002,Tunai
-1758,2026-09-28,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,79.4,25500,2024700.0000000002,Tunai
+1,2026-05-01,Subuh 03:32,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,30,69.7,24500,1707650.0,Tunai
+13,2026-05-02,Subuh 03:20,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),40,101.5,24500,2486750.0,Tunai
+26,2026-05-03,Subuh 03:40,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,39,98.3,24500,2408350.0,Tunai
+38,2026-05-04,Subuh 03:21,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,29,67.1,25000,1677499.9999999998,Tunai
+47,2026-05-05,Subuh 03:29,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,27,64.8,25000,1620000.0,Tunai
+61,2026-05-06,Subuh 03:43,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,33,84.1,24500,2060449.9999999998,Tunai
+73,2026-05-07,Subuh 03:31,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,32,78.8,25000,1970000.0,Tunai
+85,2026-05-08,Subuh 03:44,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,31,73.0,24500,1788500.0,Tunai
+96,2026-05-09,Subuh 03:27,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,90.4,25000,2260000.0,Tunai
+109,2026-05-10,Subuh 03:47,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),36,85.1,25000,2127500.0,Tunai
+121,2026-05-11,Subuh 03:19,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,34,87.6,24500,2146200.0,Tunai
+134,2026-05-12,Subuh 03:17,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,31,71.8,24500,1759100.0,Tunai
+144,2026-05-13,Subuh 03:43,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,74.9,24500,1835050.0000000002,Tunai
+157,2026-05-14,Subuh 03:16,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,28,67.0,24500,1641500.0,Tunai
+170,2026-05-15,Subuh 03:46,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,34,84.5,24500,2070250.0,Tunai
+184,2026-05-16,Subuh 03:36,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Segar Pasokan Sabtu/Minggu,40,98.4,25000,2460000.0,Tunai
+196,2026-05-17,Subuh 03:48,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),36,92.4,24500,2263800.0,Tunai
+210,2026-05-18,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,70.0,24500,1715000.0,Tunai
+221,2026-05-19,Subuh 03:47,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,29,67.6,24500,1656199.9999999998,Tunai
+232,2026-05-20,Subuh 03:40,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,27,64.5,24500,1580250.0,Tunai
+243,2026-05-21,Subuh 03:37,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,31,72.5,24500,1776250.0,Tunai
+254,2026-05-22,Subuh 03:32,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,71.4,25000,1785000.0000000002,Tunai
+266,2026-05-23,Subuh 03:15,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Segar Pasokan Sabtu/Minggu,39,95.7,24500,2344650.0,Tunai
+278,2026-05-24,Subuh 03:18,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,38,97.7,25000,2442500.0,Tunai
+291,2026-05-25,Subuh 03:15,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,27,65.9,25000,1647500.0000000002,Tunai
+299,2026-05-26,Subuh 03:20,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,32,73.9,25000,1847500.0000000002,Tunai
+312,2026-05-27,Subuh 03:22,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,30,74.5,25500,1899750.0,Tunai
+325,2026-05-28,Subuh 03:39,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,27,63.2,25000,1580000.0,Tunai
+337,2026-05-29,Subuh 03:34,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,27,63.7,25000,1592500.0,Tunai
+349,2026-05-30,Subuh 03:34,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,35,80.8,25500,2060400.0,Tunai
+363,2026-05-31,Subuh 03:47,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Segar Pasokan Sabtu/Minggu,35,85.4,25000,2135000.0,Tunai
+375,2026-06-01,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,74.2,25500,1892100.0,Tunai
+387,2026-06-02,Subuh 03:16,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,28,71.4,25000,1785000.0000000002,Tunai
+398,2026-06-03,Subuh 03:26,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,34,78.4,25500,1999200.0000000002,Tunai
+406,2026-06-04,Subuh 03:43,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,27,63.3,25500,1614150.0,Tunai
+416,2026-06-05,Subuh 03:26,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,32,76.5,25000,1912500.0,Tunai
+428,2026-06-06,Subuh 03:17,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,37,92.0,24500,2254000.0,Tunai
+441,2026-06-07,Subuh 03:21,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),37,88.1,24500,2158450.0,Tunai
+453,2026-06-08,Subuh 03:38,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,27,67.7,24500,1658650.0,Tunai
+465,2026-06-09,Subuh 03:24,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,28,69.9,25000,1747500.0000000002,Tunai
+475,2026-06-10,Subuh 03:15,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,29,73.5,24500,1800750.0,Tunai
+489,2026-06-11,Subuh 03:33,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,34,78.9,24500,1933050.0000000002,Tunai
+500,2026-06-12,Subuh 03:43,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,67.7,25000,1692500.0,Tunai
+513,2026-06-13,Subuh 03:26,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,40,97.9,24500,2398550.0,Tunai
+525,2026-06-14,Subuh 03:45,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,37,88.4,24500,2165800.0,Tunai
+539,2026-06-15,Subuh 03:24,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,27,63.6,24500,1558200.0,Tunai
+552,2026-06-16,Subuh 03:23,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,28,67.6,24500,1656199.9999999998,Tunai
+564,2026-06-17,Subuh 03:45,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,28,64.4,24500,1577800.0000000002,Tunai
+577,2026-06-18,Subuh 03:21,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,31,75.9,24500,1859550.0000000002,Tunai
+589,2026-06-19,Subuh 03:21,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,31,71.5,24500,1751750.0,Tunai
+601,2026-06-20,Subuh 03:26,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,34,80.3,25000,2007500.0,Tunai
+614,2026-06-21,Subuh 03:35,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,39,92.2,24500,2258900.0,Tunai
+628,2026-06-22,Subuh 03:38,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,34,87.3,24500,2138850.0,Tunai
+642,2026-06-23,Subuh 03:34,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,29,71.5,24500,1751750.0,Tunai
+655,2026-06-24,Subuh 03:41,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,30,72.2,24500,1768900.0,Tunai
+666,2026-06-25,Subuh 03:48,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,28,67.7,25000,1692500.0,Tunai
+677,2026-06-26,Subuh 03:20,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,27,68.7,24500,1683150.0,Tunai
+690,2026-06-27,Subuh 03:26,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,35,88.5,24500,2168250.0,Tunai
+701,2026-06-28,Subuh 03:47,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Segar Pasokan Sabtu/Minggu,34,83.1,24500,2035949.9999999998,Tunai
+715,2026-06-29,Subuh 03:24,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,29,70.7,24500,1732150.0,Tunai
+723,2026-06-30,Subuh 03:26,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,80.9,24500,1982050.0000000002,Tunai
+736,2026-07-01,Subuh 03:18,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,31,71.2,25000,1780000.0,Tunai
+749,2026-07-02,Subuh 03:24,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,33,81.3,25000,2032500.0,Tunai
+759,2026-07-03,Subuh 03:19,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,27,65.5,25000,1637500.0,Tunai
+772,2026-07-04,Subuh 03:18,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,39,92.3,25000,2307500.0,Tunai
+784,2026-07-05,Subuh 03:37,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Segar Pasokan Sabtu/Minggu,36,89.1,25500,2272050.0,Tunai
+795,2026-07-06,Subuh 03:45,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,32,77.2,25000,1930000.0,Tunai
+806,2026-07-07,Subuh 03:35,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,27,66.3,25000,1657500.0,Tunai
+818,2026-07-08,Subuh 03:31,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,34,81.3,25000,2032500.0,Tunai
+830,2026-07-09,Subuh 03:27,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,29,66.4,25500,1693200.0000000002,Tunai
+840,2026-07-10,Subuh 03:19,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,32,76.2,25500,1943100.0,Tunai
+852,2026-07-11,Subuh 03:39,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,34,81.1,25000,2027499.9999999998,Tunai
+865,2026-07-12,Subuh 03:40,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),35,81.4,25500,2075700.0000000002,Tunai
+875,2026-07-13,Subuh 03:43,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,33,84.2,25500,2147100.0,Tunai
+887,2026-07-14,Subuh 03:27,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,31,77.6,25000,1939999.9999999998,Tunai
+898,2026-07-15,Subuh 03:42,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,28,64.2,25000,1605000.0,Tunai
+908,2026-07-16,Subuh 03:34,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,29,71.9,25000,1797500.0000000002,Tunai
+921,2026-07-17,Subuh 03:28,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,34,84.2,25000,2105000.0,Tunai
+931,2026-07-18,Subuh 03:28,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Stok Akhir Pekan (Ramai),36,89.3,25500,2277150.0,Tunai
+944,2026-07-19,Subuh 03:18,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,39,93.8,25500,2391900.0,Tunai
+957,2026-07-20,Subuh 03:44,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,34,85.1,25000,2127500.0,Tunai
+968,2026-07-21,Subuh 03:40,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,27,68.6,25500,1749299.9999999998,Tunai
+978,2026-07-22,Subuh 03:15,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,27,63.8,25000,1595000.0,Tunai
+988,2026-07-23,Subuh 03:28,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,27,69.5,25000,1737500.0,Tunai
+1000,2026-07-24,Subuh 03:18,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,31,71.3,25000,1782500.0,Tunai
+1012,2026-07-25,Subuh 03:29,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Segar Pasokan Sabtu/Minggu,37,87.0,25000,2175000.0,Tunai
+1026,2026-07-26,Subuh 03:44,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,38,91.5,25000,2287500.0,Tunai
+1038,2026-07-27,Subuh 03:21,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,32,79.1,25000,1977499.9999999998,Tunai
+1049,2026-07-28,Subuh 03:41,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,28,64.5,25000,1612500.0,Tunai
+1060,2026-07-29,Subuh 03:42,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,28,65.6,25000,1639999.9999999998,Tunai
+1072,2026-07-30,Subuh 03:26,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,34,78.2,25500,1994100.0,Tunai
+1084,2026-07-31,Subuh 03:16,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,29,71.4,25000,1785000.0000000002,Tunai
+1095,2026-08-01,Subuh 03:32,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,37,92.8,25000,2320000.0,Tunai
+1104,2026-08-02,Subuh 03:29,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,39,96.7,25500,2465850.0,Tunai
+1114,2026-08-03,Subuh 03:46,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,33,85.0,25000,2125000.0,Tunai
+1125,2026-08-04,Subuh 03:26,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,33,85.1,25000,2127500.0,Tunai
+1137,2026-08-05,Subuh 03:27,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,32,77.0,25000,1925000.0,Tunai
+1149,2026-08-06,Subuh 03:45,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,34,81.7,25500,2083350.0,Tunai
+1161,2026-08-07,Subuh 03:22,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,33,80.7,25500,2057850.0,Tunai
+1173,2026-08-08,Subuh 03:23,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,36,90.1,25000,2252500.0,Tunai
+1187,2026-08-09,Subuh 03:21,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,39,100.0,25500,2550000.0,Tunai
+1201,2026-08-10,Subuh 03:34,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,31,78.8,25500,2009400.0,Tunai
+1213,2026-08-11,Subuh 03:48,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,31,74.5,25000,1862500.0,Tunai
+1223,2026-08-12,Subuh 03:35,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,33,84.9,25500,2164950.0,Tunai
+1234,2026-08-13,Subuh 03:18,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,69.8,25000,1745000.0,Tunai
+1245,2026-08-14,Subuh 03:15,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,29,74.2,25500,1892100.0,Tunai
+1256,2026-08-15,Subuh 03:33,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,36,85.4,25500,2177700.0,Tunai
+1267,2026-08-16,Subuh 03:39,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,36,90.8,25000,2270000.0,Tunai
+1280,2026-08-17,Subuh 03:46,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,34,87.6,25000,2190000.0,Tunai
+1291,2026-08-18,Subuh 03:45,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,34,80.8,25000,2020000.0,Tunai
+1304,2026-08-19,Subuh 03:29,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,31,72.6,25000,1814999.9999999998,Tunai
+1315,2026-08-20,Subuh 03:36,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,33,84.6,25000,2115000.0,Tunai
+1327,2026-08-21,Subuh 03:41,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,33,75.5,25000,1887500.0,Tunai
+1339,2026-08-22,Subuh 03:44,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,37,86.0,25500,2193000.0,Tunai
+1351,2026-08-23,Subuh 03:23,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,34,85.4,25000,2135000.0,Tunai
+1365,2026-08-24,Subuh 03:17,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,27,68.1,25000,1702499.9999999998,Tunai
+1375,2026-08-25,Subuh 03:31,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,71.5,25500,1823250.0,Tunai
+1388,2026-08-26,Subuh 03:24,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,27,66.5,25000,1662500.0,Tunai
+1399,2026-08-27,Subuh 03:46,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,30,76.3,25000,1907500.0,Tunai
+1411,2026-08-28,Subuh 03:17,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,72.8,25500,1856400.0,Tunai
+1422,2026-08-29,Subuh 03:33,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,37,88.0,25000,2200000.0,Tunai
+1436,2026-08-30,Subuh 03:41,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,38,92.1,25000,2302500.0,Tunai
+1450,2026-08-31,Subuh 03:34,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,30,74.6,25500,1902299.9999999998,Tunai
+1460,2026-09-01,Subuh 03:42,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,34,84.6,26000,2199600.0,Tunai
+1472,2026-09-02,Subuh 03:47,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,33,81.5,25500,2078250.0,Tunai
+1485,2026-09-03,Subuh 03:42,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,33,83.5,25500,2129250.0,Tunai
+1496,2026-09-04,Subuh 03:19,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,30,72.9,25500,1858950.0000000002,Tunai
+1507,2026-09-05,Subuh 03:40,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Segar Pasokan Sabtu/Minggu,35,80.7,26000,2098200.0,Tunai
+1521,2026-09-06,Subuh 03:30,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Segar Pasokan Sabtu/Minggu,37,88.6,25500,2259300.0,Tunai
+1534,2026-09-07,Subuh 03:22,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,27,65.4,25500,1667700.0000000002,Tunai
+1546,2026-09-08,Subuh 03:29,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,29,71.4,25500,1820700.0000000002,Tunai
+1559,2026-09-09,Subuh 03:19,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,33,76.2,25500,1943100.0,Tunai
+1572,2026-09-10,Subuh 03:45,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,29,68.9,26000,1791400.0000000002,Tunai
+1584,2026-09-11,Subuh 03:16,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,27,64.2,25500,1637100.0,Tunai
+1595,2026-09-12,Subuh 03:45,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,34,85.0,25500,2167500.0,Tunai
+1606,2026-09-13,Subuh 03:48,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Ukuran Besar Akhir Pekan,38,95.3,25500,2430150.0,Tunai
+1617,2026-09-14,Subuh 03:48,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,33,79.9,25500,2037450.0000000002,Tunai
+1627,2026-09-15,Subuh 03:41,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,31,71.5,26000,1859000.0,Tunai
+1639,2026-09-16,Subuh 03:35,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,27,63.1,26000,1640600.0,Tunai
+1649,2026-09-17,Subuh 03:37,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,30,70.8,25500,1805400.0,Tunai
+1660,2026-09-18,Subuh 03:38,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,28,63.9,25500,1629450.0,Tunai
+1671,2026-09-19,Subuh 03:45,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,38,90.1,25500,2297550.0,Tunai
+1683,2026-09-20,Subuh 03:27,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Pikap Subuh Gelombang 1,34,79.6,26000,2069599.9999999998,Tunai
+1693,2026-09-21,Subuh 03:45,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Muatan Karkas Segar Pagi,29,70.8,25500,1805400.0,Tunai
+1705,2026-09-22,Subuh 03:36,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,28,71.7,26000,1864200.0,Tunai
+1716,2026-09-23,Subuh 03:36,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Pasokan Broiler Harian Subuh,27,67.6,25500,1723799.9999999998,Tunai
+1728,2026-09-24,Subuh 03:24,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Ayam Broiler Super Segar,30,74.7,26000,1942200.0,Tunai
+1738,2026-09-25,Subuh 03:24,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Sesuai Nota Asli Foto (71.9 x 26.000),30,71.9,26000,1869400.0000000002,Tunai
+1751,2026-09-26,Subuh 03:32,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Sesuai Nota Asli Foto (73.3 x 25.500),30,73.3,25500,1869150.0,Tunai
+1765,2026-09-27,Subuh 03:24,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Sesuai Nota Asli Foto (76.9 x 25.500),29,76.9,25500,1960950.0000000002,Tunai
+1778,2026-09-28,Subuh 03:22,Pasokan Masuk (Supplier),CF,UD. Cheyloo Farm,Karkas Broiler Bersih Siap Lapak,31,73.1,25500,1864049.9999999998,Tunai
