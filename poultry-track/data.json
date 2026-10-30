@@ -1,0 +1,33 @@
+{
+  "customers": [
+    { "id": "C01", "code": "AL", "name": "Bu Aliyah", "phone": "081234567801", "defaultCut": "Dada fillet, paha & sayap", "balance": 1622000, "note": "Katering / Resto, ambil subuh rutin" },
+    { "id": "C02", "code": "War", "name": "Warung Bu Warsiti", "phone": "081234567802", "defaultCut": "Potong campur + ceker", "balance": 560000, "note": "Warung makan lalapan, ambil 04.30" },
+    { "id": "C03", "code": "K", "name": "Pak Kusno", "phone": "081234567803", "defaultCut": "Fillet dada giling", "balance": 400000, "note": "Depot bakso, cicil subuh rutin" },
+    { "id": "C04", "code": "J", "name": "Bu Jamilah", "phone": "081234567804", "defaultCut": "Potong 4 bagian", "balance": 340000, "note": "Warung nasi barokah, cicil subuh" },
+    { "id": "C05", "code": "M", "name": "Mas Munir", "phone": "081234567805", "defaultCut": "Potong 8 bagian", "balance": 237000, "note": "Penyetan kaki lima malam" },
+    { "id": "C06", "code": "S", "name": "Bu Siti", "phone": "081234567806", "defaultCut": "Potong 8 + jeroan", "balance": 380000, "note": "Warung rames campur" },
+    { "id": "C07", "code": "R", "name": "Bu Rahma", "phone": "081234567807", "defaultCut": "Ayam suwir sedang", "balance": 240000, "note": "Soto lamongan" },
+    { "id": "C08", "code": "B", "name": "Bu Budi", "phone": "081234567808", "defaultCut": "2 ekor + 4 kg fillet dada", "balance": 272000, "note": "Katering nasi kotak" },
+    { "id": "C09", "code": "YA", "name": "Bu Yanti", "phone": "081234567809", "defaultCut": "Karkas utuh ukuran besar", "balance": 505000, "note": "Rumah makan Padang, cicil 25rb" },
+    { "id": "C10", "code": "ATUL", "name": "Bu Atul", "phone": "081234567810", "defaultCut": "Potong 8 bagian", "balance": 150000, "note": "Warung serba ada" },
+    { "id": "C11", "code": "SPI", "name": "Pak Ismail", "phone": "081234567811", "defaultCut": "Potong sup + ceker", "balance": 170000, "note": "Soto ayam Barokah, cicil 10rb" },
+    { "id": "C12", "code": "Mic", "name": "Bu Mieke", "phone": "081234567812", "defaultCut": "Potong 8 bagian", "balance": 0, "note": "Langganan tunai pas ambil" },
+    { "id": "C99", "code": "ECR", "name": "Pembeli Pasar (Eceran)", "phone": "-", "defaultCut": "Potong bebas & campur", "balance": 0, "note": "Beli eceran langsung bayar meja" }
+  ],
+  "cuts": [
+    { "id": "cut-1", "name": "Karkas Utuh", "price": 32000 },
+    { "id": "cut-2", "name": "Potong 4", "price": 32000 },
+    { "id": "cut-3", "name": "Potong 8", "price": 32000 },
+    { "id": "cut-4", "name": "Potong 12", "price": 32000 },
+    { "id": "cut-5", "name": "Fillet Dada", "price": 34000 },
+    { "id": "cut-6", "name": "Fillet Paha", "price": 34000 },
+    { "id": "cut-7", "name": "Sayap", "price": 31000 },
+    { "id": "cut-8", "name": "Ceker & Kepala", "price": 22000 },
+    { "id": "cut-9", "name": "Ati Ampela (Set)", "price": 3000 }
+  ],
+  "recentSupplies": [
+    { "id": "SP-01", "date": "2026-09-25", "invoice": "25-09-26", "supplier": "UD. CHEYLOO FARM", "chickens": 30, "weight": 71.9, "pricePerKg": 26000, "total": 1869400, "payment": "Tunai" },
+    { "id": "SP-02", "date": "2026-09-26", "invoice": "26-09-26", "supplier": "UD. CHEYLOO FARM", "chickens": 30, "weight": 73.3, "pricePerKg": 25500, "total": 1869150, "payment": "Tunai" },
+    { "id": "SP-03", "date": "2026-09-27", "invoice": "27-09-26", "supplier": "UD. CHEYLOO FARM", "chickens": 29, "weight": 76.9, "pricePerKg": 25500, "total": 1960950, "payment": "Tunai" }
+  ]
+}

@@ -1,0 +1,152 @@
+No,Tanggal,Jenis_Arus_Transaksi,Kode_Pihak,Rincian_Barang_Potongan,Jumlah_Ekor,Berat_Kg,Harga_Per_Kg,Total_Nominal,Cara_Bayar
+1,2026-05-01,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,30,69.7,24500,1707650.0,Tunai
+13,2026-05-02,Pasokan Masuk (Supplier),CF,Pasokan Stok Akhir Pekan (Ramai),40,101.5,24500,2486750.0,Tunai
+26,2026-05-03,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,39,98.3,24500,2408350.0,Tunai
+38,2026-05-04,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,29,67.1,25000,1677499.9999999998,Tunai
+47,2026-05-05,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,27,64.8,25000,1620000.0,Tunai
+61,2026-05-06,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,33,84.1,24500,2060450.0,Tunai
+73,2026-05-07,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,32,78.8,25000,1970000.0,Tunai
+85,2026-05-08,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,31,73.0,24500,1788500.0,Tunai
+96,2026-05-09,Pasokan Masuk (Supplier),CF,Pasokan Stok Akhir Pekan (Ramai),37,90.4,25000,2260000.0,Tunai
+109,2026-05-10,Pasokan Masuk (Supplier),CF,Pasokan Stok Akhir Pekan (Ramai),36,85.1,25000,2127500.0,Tunai
+121,2026-05-11,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,34,87.6,24500,2146200.0,Tunai
+134,2026-05-12,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,31,71.8,24500,1759100.0,Tunai
+144,2026-05-13,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,30,74.9,24500,1835050.0,Tunai
+157,2026-05-14,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,28,67.0,24500,1641500.0,Tunai
+170,2026-05-15,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,34,84.5,24500,2070250.0,Tunai
+184,2026-05-16,Pasokan Masuk (Supplier),CF,Karkas Broiler Segar Pasokan Sabtu/Minggu,40,98.4,25000,2460000.0,Tunai
+196,2026-05-17,Pasokan Masuk (Supplier),CF,Pasokan Stok Akhir Pekan (Ramai),36,92.4,24500,2263800.0,Tunai
+210,2026-05-18,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,28,70.0,24500,1715000.0,Tunai
+221,2026-05-19,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,29,67.6,24500,1656199.9999999998,Tunai
+232,2026-05-20,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,27,64.5,24500,1580250.0,Tunai
+243,2026-05-21,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,31,72.5,24500,1776250.0,Tunai
+254,2026-05-22,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,30,71.4,25000,1785000.0000000002,Tunai
+266,2026-05-23,Pasokan Masuk (Supplier),CF,Karkas Broiler Segar Pasokan Sabtu/Minggu,39,95.7,24500,2344650.0,Tunai
+278,2026-05-24,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,38,97.7,25000,2442500.0,Tunai
+291,2026-05-25,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,27,65.9,25000,1647500.0000000002,Tunai
+299,2026-05-26,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,32,73.9,25000,1847500.0,Tunai
+312,2026-05-27,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,30,74.5,25500,1899750.0,Tunai
+325,2026-05-28,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,27,63.2,25000,1580000.0,Tunai
+337,2026-05-29,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,27,63.7,25000,1592500.0,Tunai
+349,2026-05-30,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,35,80.8,25500,2060400.0,Tunai
+363,2026-05-31,Pasokan Masuk (Supplier),CF,Karkas Broiler Segar Pasokan Sabtu/Minggu,35,85.4,25000,2135000.0,Tunai
+375,2026-06-01,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,29,74.2,25500,1892100.0,Tunai
+387,2026-06-02,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,28,71.4,25000,1785000.0000000002,Tunai
+398,2026-06-03,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,34,78.4,25500,1999200.0,Tunai
+406,2026-06-04,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,27,63.3,25500,1614150.0,Tunai
+416,2026-06-05,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,32,76.5,25000,1912500.0,Tunai
+428,2026-06-06,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,37,92.0,24500,2254000.0,Tunai
+441,2026-06-07,Pasokan Masuk (Supplier),CF,Pasokan Stok Akhir Pekan (Ramai),37,88.1,24500,2158450.0,Tunai
+453,2026-06-08,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,27,67.7,24500,1658650.0,Tunai
+465,2026-06-09,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,28,69.9,25000,1747500.0000000002,Tunai
+475,2026-06-10,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,29,73.5,24500,1800750.0,Tunai
+489,2026-06-11,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,34,78.9,24500,1933050.0,Tunai
+500,2026-06-12,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,29,67.7,25000,1692500.0,Tunai
+513,2026-06-13,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,40,97.9,24500,2398550.0,Tunai
+525,2026-06-14,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,37,88.4,24500,2165800.0,Tunai
+539,2026-06-15,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,27,63.6,24500,1558200.0,Tunai
+552,2026-06-16,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,28,67.6,24500,1656199.9999999998,Tunai
+564,2026-06-17,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,28,64.4,24500,1577800.0000000002,Tunai
+577,2026-06-18,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,31,75.9,24500,1859550.0,Tunai
+589,2026-06-19,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,31,71.5,24500,1751750.0,Tunai
+601,2026-06-20,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,34,80.3,25000,2007500.0,Tunai
+614,2026-06-21,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,39,92.2,24500,2258900.0,Tunai
+628,2026-06-22,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,34,87.3,24500,2138850.0,Tunai
+642,2026-06-23,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,29,71.5,24500,1751750.0,Tunai
+655,2026-06-24,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,30,72.2,24500,1768900.0,Tunai
+666,2026-06-25,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,28,67.7,25000,1692500.0,Tunai
+677,2026-06-26,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,27,68.7,24500,1683150.0,Tunai
+690,2026-06-27,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,35,88.5,24500,2168250.0,Tunai
+701,2026-06-28,Pasokan Masuk (Supplier),CF,Karkas Broiler Segar Pasokan Sabtu/Minggu,34,83.1,24500,2035950.0,Tunai
+715,2026-06-29,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,29,70.7,24500,1732150.0,Tunai
+723,2026-06-30,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,33,80.9,24500,1982050.0,Tunai
+736,2026-07-01,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,31,71.2,25000,1780000.0,Tunai
+749,2026-07-02,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,33,81.3,25000,2032500.0,Tunai
+759,2026-07-03,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,27,65.5,25000,1637500.0,Tunai
+772,2026-07-04,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,39,92.3,25000,2307500.0,Tunai
+784,2026-07-05,Pasokan Masuk (Supplier),CF,Karkas Broiler Segar Pasokan Sabtu/Minggu,36,89.1,25500,2272050.0,Tunai
+795,2026-07-06,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,32,77.2,25000,1930000.0,Tunai
+806,2026-07-07,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,27,66.3,25000,1657500.0,Tunai
+818,2026-07-08,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,34,81.3,25000,2032500.0,Tunai
+830,2026-07-09,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,29,66.4,25500,1693200.0000000002,Tunai
+840,2026-07-10,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,32,76.2,25500,1943100.0,Tunai
+852,2026-07-11,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,34,81.1,25000,2027500.0,Tunai
+865,2026-07-12,Pasokan Masuk (Supplier),CF,Pasokan Stok Akhir Pekan (Ramai),35,81.4,25500,2075700.0,Tunai
+875,2026-07-13,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,33,84.2,25500,2147100.0,Tunai
+887,2026-07-14,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,31,77.6,25000,1940000.0,Tunai
+898,2026-07-15,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,28,64.2,25000,1605000.0,Tunai
+908,2026-07-16,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,29,71.9,25000,1797500.0000000002,Tunai
+921,2026-07-17,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,34,84.2,25000,2105000.0,Tunai
+931,2026-07-18,Pasokan Masuk (Supplier),CF,Pasokan Stok Akhir Pekan (Ramai),36,89.3,25500,2277150.0,Tunai
+944,2026-07-19,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,39,93.8,25500,2391900.0,Tunai
+957,2026-07-20,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,34,85.1,25000,2127500.0,Tunai
+968,2026-07-21,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,27,68.6,25500,1749299.9999999998,Tunai
+978,2026-07-22,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,27,63.8,25000,1595000.0,Tunai
+988,2026-07-23,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,27,69.5,25000,1737500.0,Tunai
+1000,2026-07-24,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,31,71.3,25000,1782500.0,Tunai
+1012,2026-07-25,Pasokan Masuk (Supplier),CF,Karkas Broiler Segar Pasokan Sabtu/Minggu,37,87.0,25000,2175000.0,Tunai
+1026,2026-07-26,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,38,91.5,25000,2287500.0,Tunai
+1038,2026-07-27,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,32,79.1,25000,1977500.0,Tunai
+1049,2026-07-28,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,28,64.5,25000,1612500.0,Tunai
+1060,2026-07-29,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,28,65.6,25000,1639999.9999999998,Tunai
+1072,2026-07-30,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,34,78.2,25500,1994100.0,Tunai
+1084,2026-07-31,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,29,71.4,25000,1785000.0000000002,Tunai
+1095,2026-08-01,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,37,92.8,25000,2320000.0,Tunai
+1104,2026-08-02,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,39,96.7,25500,2465850.0,Tunai
+1114,2026-08-03,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,33,85.0,25000,2125000.0,Tunai
+1125,2026-08-04,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,33,85.1,25000,2127500.0,Tunai
+1137,2026-08-05,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,32,77.0,25000,1925000.0,Tunai
+1149,2026-08-06,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,34,81.7,25500,2083350.0,Tunai
+1161,2026-08-07,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,33,80.7,25500,2057850.0,Tunai
+1173,2026-08-08,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,36,90.1,25000,2252500.0,Tunai
+1187,2026-08-09,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,39,100.0,25500,2550000.0,Tunai
+1201,2026-08-10,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,31,78.8,25500,2009400.0,Tunai
+1213,2026-08-11,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,31,74.5,25000,1862500.0,Tunai
+1223,2026-08-12,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,33,84.9,25500,2164950.0,Tunai
+1234,2026-08-13,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,30,69.8,25000,1745000.0,Tunai
+1245,2026-08-14,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,29,74.2,25500,1892100.0,Tunai
+1256,2026-08-15,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,36,85.4,25500,2177700.0,Tunai
+1267,2026-08-16,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,36,90.8,25000,2270000.0,Tunai
+1280,2026-08-17,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,34,87.6,25000,2190000.0,Tunai
+1291,2026-08-18,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,34,80.8,25000,2020000.0,Tunai
+1304,2026-08-19,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,31,72.6,25000,1815000.0,Tunai
+1315,2026-08-20,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,33,84.6,25000,2115000.0,Tunai
+1327,2026-08-21,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,33,75.5,25000,1887500.0,Tunai
+1339,2026-08-22,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,37,86.0,25500,2193000.0,Tunai
+1351,2026-08-23,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,34,85.4,25000,2135000.0,Tunai
+1365,2026-08-24,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,27,68.1,25000,1702499.9999999998,Tunai
+1375,2026-08-25,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,30,71.5,25500,1823250.0,Tunai
+1388,2026-08-26,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,27,66.5,25000,1662500.0,Tunai
+1399,2026-08-27,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,30,76.3,25000,1907500.0,Tunai
+1411,2026-08-28,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,30,72.8,25500,1856400.0,Tunai
+1422,2026-08-29,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,37,88.0,25000,2200000.0,Tunai
+1436,2026-08-30,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,38,92.1,25000,2302500.0,Tunai
+1450,2026-08-31,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,30,74.6,25500,1902300.0,Tunai
+1460,2026-09-01,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,34,84.6,26000,2199600.0,Tunai
+1472,2026-09-02,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,33,81.5,25500,2078250.0,Tunai
+1485,2026-09-03,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,33,83.5,25500,2129250.0,Tunai
+1496,2026-09-04,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,30,72.9,25500,1858950.0,Tunai
+1507,2026-09-05,Pasokan Masuk (Supplier),CF,Karkas Broiler Segar Pasokan Sabtu/Minggu,35,80.7,26000,2098200.0,Tunai
+1521,2026-09-06,Pasokan Masuk (Supplier),CF,Karkas Broiler Segar Pasokan Sabtu/Minggu,37,88.6,25500,2259300.0,Tunai
+1534,2026-09-07,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,27,65.4,25500,1667700.0000000002,Tunai
+1546,2026-09-08,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,29,71.4,25500,1820700.0,Tunai
+1559,2026-09-09,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,33,76.2,25500,1943100.0,Tunai
+1572,2026-09-10,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,29,68.9,26000,1791400.0000000002,Tunai
+1584,2026-09-11,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,27,64.2,25500,1637100.0,Tunai
+1595,2026-09-12,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,34,85.0,25500,2167500.0,Tunai
+1606,2026-09-13,Pasokan Masuk (Supplier),CF,Pasokan Broiler Ukuran Besar Akhir Pekan,38,95.3,25500,2430150.0,Tunai
+1617,2026-09-14,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,33,79.9,25500,2037450.0,Tunai
+1627,2026-09-15,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,31,71.5,26000,1859000.0,Tunai
+1639,2026-09-16,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,27,63.1,26000,1640600.0,Tunai
+1649,2026-09-17,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,30,70.8,25500,1805400.0,Tunai
+1660,2026-09-18,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,28,63.9,25500,1629450.0,Tunai
+1671,2026-09-19,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,38,90.1,25500,2297550.0,Tunai
+1683,2026-09-20,Pasokan Masuk (Supplier),CF,Muatan Pikap Subuh Gelombang 1,34,79.6,26000,2069600.0,Tunai
+1693,2026-09-21,Pasokan Masuk (Supplier),CF,Muatan Karkas Segar Pagi,29,70.8,25500,1805400.0,Tunai
+1705,2026-09-22,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,28,71.7,26000,1864200.0,Tunai
+1716,2026-09-23,Pasokan Masuk (Supplier),CF,Pasokan Broiler Harian Subuh,27,67.6,25500,1723799.9999999998,Tunai
+1728,2026-09-24,Pasokan Masuk (Supplier),CF,Ayam Broiler Super Segar,30,74.7,26000,1942200.0,Tunai
+1738,2026-09-25,Pasokan Masuk (Supplier),CF,Sesuai Nota Asli Foto (71.9 x 26.000),30,71.9,26000,1869400.0,Tunai
+1751,2026-09-26,Pasokan Masuk (Supplier),CF,Sesuai Nota Asli Foto (73.3 x 25.500),30,73.3,25500,1869150.0,Tunai
+1765,2026-09-27,Pasokan Masuk (Supplier),CF,Sesuai Nota Asli Foto (76.9 x 25.500),29,76.9,25500,1960950.0,Tunai
+1778,2026-09-28,Pasokan Masuk (Supplier),CF,Karkas Broiler Bersih Siap Lapak,31,73.1,25500,1864050.0,Tunai

@@ -1,525 +1,949 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>PoultryTrack &bull; Kasir & Pembukuan Lapak Pasar</title>
-  <meta name="description" content="Sistem kasir dan buku piutang lapak ayam potong pasar tradisional. Simpel, bersih, dan 100% offline.">
-  <link rel="manifest" href="manifest.json">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2C1810">
+  <meta name="description" content="PoultryTrack - Kasir dan pembukuan lapak ayam modern, antrean potong karkas, buku bon piutang mitra, manifes pasokan, dan rekap laci kasir subuh.">
+  <title>PoultryTrack | Kasir & Pembukuan Lapak Ayam</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- TOP HEADER -->
+  <!-- Header Aplikasi -->
   <header class="app-header">
     <div class="header-inner">
-      <div class="header-brand">
-        <div class="brand-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
-            <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
-            <path d="M7 21h10"/>
-            <path d="M12 3v18"/>
-            <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
-          </svg>
-        </div>
-        <div class="brand-text">
-          <h1>PoultryTrack</h1>
-          <p>Pelaku Usaha Mikro &bull; Pasar Tradisional</p>
-        </div>
+      <div class="header-branding">
+        <span class="app-eyebrow">POULTRYTRACK</span>
+        <h1 id="pageTitle">Kasir</h1>
       </div>
-
-      <div class="header-right">
-        <div class="connection-status">
-          <span class="status-indicator"></span>
-          <span>Lapak Buka</span>
-        </div>
-        <div class="clock-display" id="liveClock">04:30:00 WIB</div>
-      </div>
+      <button type="button" id="btnNotifications" class="profile-button" aria-label="Pengaturan Lapak & Profil">
+        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
     </div>
   </header>
 
-  <!-- MAIN VIEWPORT -->
+  <!-- Konten Utama Aplikasi Mobile -->
   <main class="app-viewport">
+    <!-- Brand Card (Coklat Gelap) -->
+    <section class="brand-card" aria-label="Informasi Lapak">
+      <div class="brand-lockup">
+        <span class="brand-icon">
+          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 5c-3 0-5 2-5 5s3 6 6 6h3l3 4a3 3 0 0 0 4-4l-3-3v-3c0-3-3-6-6-6Z"/>
+            <path d="m15 17 2-2"/>
+          </svg>
+        </span>
+        <div class="brand-wordmark">
+          <h2>PoultryTrack</h2>
+          <p>Pelaku Usaha Mikro • Pasar Tradisional</p>
+        </div>
+      </div>
 
-    <!-- TAB 1: KASIR TRANSAKSI -->
+      <div class="brand-status">
+        <span class="lapak-open" id="lapakStatus">
+          <span class="status-dot"></span>
+          <span id="lapakStatusText">Lapak Tutup</span>
+        </span>
+        <span class="clock-display">
+          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+          </svg>
+          <span id="liveClock">--:--:-- WIB</span>
+        </span>
+      </div>
+
+      <!-- Segmented Control untuk Kasir (Eceran Tunai vs Mitra Langganan) -->
+      <div class="customer-hero">
+        <div class="segmented-control" role="tablist" aria-label="Tipe Pelanggan">
+          <button type="button" class="segment-btn cust-type-btn active" data-type="eceran" role="tab" aria-selected="true" aria-pressed="true">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="6" width="20" height="13" rx="2"/>
+              <circle cx="12" cy="12.5" r="3"/>
+              <path d="M5 3h14M5 10v5m14-5v5"/>
+            </svg>
+            <span>Eceran Tunai</span>
+          </button>
+          <button type="button" class="segment-btn cust-type-btn" data-type="langganan" role="tab" aria-selected="false" aria-pressed="false">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 5c-3-2-6-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V4c-4-1-7-1-10 1ZM12 5v15M5 8h4M5 12h4m6-4h4m-4 4h4"/>
+            </svg>
+            <span>Mitra Langganan (Bon)</span>
+          </button>
+        </div>
+
+        <!-- Dropdown Pilih Mitra (Muncul jika Tab Mitra Aktif) -->
+        <div class="form-dropdown-group" id="langgananGroup" style="display:none">
+          <label for="customerSelect">INPUT NAMA LANGGANAN</label>
+          <div class="partner-select-wrap">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m3 10 2-7h14l2 7M3 10c0 4 5 4 5 0 0 4 8 4 8 0 0 4 5 4 5 0M5 13v8h14v-8M10 21v-6h4v6"/>
+            </svg>
+            <select id="customerSelect" class="form-select">
+              <option value="">Cari atau pilih nama langganan...</option>
+            </select>
+          </div>
+          <p id="custBalanceBadge" style="display:none">
+            Sisa bon: <strong id="custBalanceAmount">Rp 0</strong>
+          </p>
+          <button type="button" class="inline-new-partner" id="btnNewPartner">+ Tambah mitra baru</button>
+        </div>
+      </div>
+
+      <!-- Hero Copy untuk Antrean, Pasokan, dan Laporan -->
+      <div class="hero-copy" id="heroCopy" hidden>
+        <div class="hero-divider"></div>
+        <div class="hero-title-row">
+          <h2 id="heroTitle"></h2>
+          <span class="live-pill" id="heroLiveBadge" hidden>• Live Update</span>
+        </div>
+        <span class="hero-log-badge" id="heroLogBadge" hidden>
+          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/>
+          </svg>
+          ✦ Log Subuh
+        </span>
+        <p id="heroDescription"></p>
+        <div class="report-hero-badges" id="reportHeroBadges" hidden>
+          <span>
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="m7 12 3 3 7-7"/>
+            </svg>
+            📋 Audit Harian
+          </span>
+          <span id="shiftStatusBadge">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/>
+            </svg>
+            ⚙ Shift Subuh Selesai
+          </span>
+        </div>
+      </div>
+
+      <!-- Hero Metrics untuk Buku Bon -->
+      <div class="bon-hero-metrics" id="bonHeroMetrics" hidden>
+        <div class="hero-divider"></div>
+        <div class="card-meta-header">
+          <span class="hero-metric-label">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="6" width="20" height="13" rx="2"/>
+              <circle cx="12" cy="12.5" r="3"/>
+              <path d="M5 3h14M5 10v5m14-5v5"/>
+            </svg>
+            TOTAL PIUTANG BERJALAN
+          </span>
+          <span class="badge-status-red" id="headerDueCount">Wajib Tagih</span>
+        </div>
+        <div class="hero-huge-figure" id="headerTotalDebt">Rp 0</div>
+        <p class="hero-partners">
+          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span>Tersebar di <strong id="headerDebtorCount">0</strong> <strong>mitra</strong> / warung makan & katering langganan</span>
+        </p>
+        <div class="bon-hero-footer">
+          <span><i class="green-dot"></i>Jatuh Tempo Hari Ini: <strong id="heroDueMitra">0 Mitra</strong></span>
+          <button type="button" id="btnPrintBon">
+            Export PDF Rekap <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+      <span id="navDebtorBadge" hidden></span>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- TAB 1: KASIR                                   -->
+    <!-- ============================================== -->
     <section class="tab-pane active" id="kasir">
       <div class="screen-flow">
-
-        <!-- Customer Toggle Card -->
-        <div class="surface-card">
-          <div class="segmented-control">
-            <button type="button" class="segment-btn cust-type-btn active" data-type="eceran">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              <span>Eceran Tunai</span>
-            </button>
-            <button type="button" class="segment-btn cust-type-btn" data-type="langganan">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-              <span>Mitra Langganan (Bon)</span>
-            </button>
-          </div>
-
-          <div class="form-dropdown-group" id="langgananGroup" style="display: none;">
-            <label for="customerSelect">Pilih Mitra Warung / Langganan:</label>
-            <select id="customerSelect" class="form-select">
-              <option value="">-- Pilih Mitra Warung / Katering --</option>
-            </select>
-            <div id="custBalanceBadge" class="alert-banner alert-danger mt-2" style="display: none;">
-              Sisa Saldo Bon Saat Ini: <strong id="custBalanceAmount">Rp 0</strong>
-            </div>
-          </div>
+        <!-- Step Progress Bar -->
+        <div class="cashier-progress" aria-label="Tahapan transaksi">
+          <button type="button" class="progress-step active" id="stepOneBtn" aria-current="step">
+            <span class="step-num">1</span>
+            <span class="step-text">Timbang & Ekor</span>
+          </button>
+          <button type="button" class="progress-step" id="stepTwoBtn">
+            <span class="step-num">2</span>
+            <span class="step-text">Opsi Potong & Transaksi</span>
+          </button>
         </div>
 
-        <!-- Stepper: Kuantitas Ekor -->
-        <div class="surface-card">
-          <div class="card-meta-header">
-            <span class="meta-label">Jumlah Karkas (Ekor)</span>
-            <span class="meta-tag">Ayam Broiler Hidup / Segar</span>
-          </div>
-          <div class="stepper-box">
-            <button type="button" class="stepper-btn" data-target="inputEkor" data-step="-1" aria-label="Kurangi Ekor">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </button>
-            <div class="stepper-display">
-              <input type="number" id="inputEkor" value="3" min="1" class="stepper-input font-numeric">
-              <span class="stepper-unit">Ekor</span>
+        <p class="form-error" id="cashierError" role="alert" hidden></p>
+
+        <!-- Step 1: Timbang & Ekor -->
+        <div class="screen-flow cashier-step" id="cashierStepOne">
+          <!-- Card Info Mitra (Hanya muncul jika Langganan aktif) -->
+          <section class="surface-card partner-info" id="partnerInfoCard" hidden>
+            <div class="partner-info-inner">
+              <div class="card-meta-header">
+                <h3 class="meta-label">
+                  <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m3 10 2-7h14l2 7M3 10c0 4 5 4 5 0 0 4 8 4 8 0 0 4 5 4 5 0M5 13v8h14v-8M10 21v-6h4v6"/>
+                  </svg>
+                  Informasi Mitra
+                </h3>
+                <span class="badge-status-green"><span class="status-dot"></span>Aktif</span>
+              </div>
+              <div class="phone-field">
+                <label for="partnerPhoneInput">No. WhatsApp Mitra</label>
+                <div class="phone-input-wrap">
+                  <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                  <input type="tel" id="partnerPhoneInput" placeholder="Input atau cari nomor..." list="partnerPhones" maxlength="20">
+                </div>
+                <datalist id="partnerPhones"></datalist>
+                <span class="sr-only" id="partnerInfoName"></span>
+                <span class="sr-only" id="partnerPhone"></span>
+              </div>
             </div>
-            <button type="button" class="stepper-btn" data-target="inputEkor" data-step="1" aria-label="Tambah Ekor">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </button>
-          </div>
+          </section>
+
+          <!-- Card 1: Jumlah Karkas (Ekor) -->
+          <section class="surface-card quantity-card">
+            <div class="card-meta-header">
+              <div>
+                <label class="meta-label" for="inputEkor">Jumlah Karkas (Ekor)</label>
+                <p class="quantity-caption">Ayam Broiler Hidup / Segar</p>
+              </div>
+              <span class="quantity-icon">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M8 5c-3 0-5 2-5 5s3 6 6 6h3l3 4a3 3 0 0 0 4-4l-3-3v-3c0-3-3-6-6-6Z"/>
+                  <path d="m15 17 2-2"/>
+                </svg>
+              </span>
+            </div>
+
+            <div class="stepper-box">
+              <button class="stepper-btn" type="button" data-target="inputEkor" data-step="-1" aria-label="Kurangi ekor">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"/>
+                </svg>
+              </button>
+              <div class="stepper-center">
+                <div class="stepper-display">
+                  <input type="number" id="inputEkor" value="3" min="1" step="1" aria-label="Jumlah karkas dalam ekor">
+                  <span>Ekor</span>
+                </div>
+                <p>Estimasi ~1,8 kg / ekor</p>
+              </div>
+              <button class="stepper-btn plus" type="button" data-target="inputEkor" data-step="1" aria-label="Tambah ekor">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14"/>
+                </svg>
+              </button>
+            </div>
+          </section>
+
+          <!-- Card 2: Bobot Timbang Netto -->
+          <section class="surface-card weight-card">
+            <div class="card-meta-header">
+              <label class="meta-label" for="inputKg">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 3h18M3 21h18M5 3c0 6 3 6 7 9-4 3-7 3-7 9M19 3c0 6-3 6-7 9 4 3 7 3 7 9M8 18h8"/>
+                </svg>
+                Bobot Timbang Netto
+              </label>
+              <span class="badge-status-green" title="Timbangan digital siap / stabil">
+                <span class="status-dot"></span>Timbangan Stabil
+              </span>
+            </div>
+
+            <div class="weight-display-row">
+              <div class="weight-val-wrap">
+                <input type="text" id="inputKg" value="5,40" inputmode="decimal" aria-label="Bobot netto dalam kilogram">
+                <span class="weight-unit">Kg</span>
+              </div>
+              <button type="button" class="tara-button" id="btnTara" title="Kosongkan nilai timbangan netto">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"/>
+                </svg>
+                <span>Tara</span>
+              </button>
+            </div>
+
+            <p class="field-help">Ketik bobot sendiri atau pilih berat cepat</p>
+            <div class="pill-preset-grid">
+              <button type="button" class="preset-pill qw-btn" data-kg="0.5">0.5 Kg</button>
+              <button type="button" class="preset-pill qw-btn" data-kg="1">1.0 Kg</button>
+              <button type="button" class="preset-pill qw-btn" data-kg="1.5">1.5 Kg</button>
+              <button type="button" class="preset-pill qw-btn" data-kg="2">2.0 Kg</button>
+            </div>
+          </section>
+
+          <!-- Tombol Lanjut ke Step 2 -->
+          <button type="button" class="btn-primary-action" id="btnNextStep">
+            <span>Lanjut ke Opsi Potong & Transaksi</span>
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14m-7-7 7 7-7 7"/>
+            </svg>
+          </button>
         </div>
 
-        <!-- Bobot Netto Timbangan -->
-        <div class="surface-card">
-          <div class="card-meta-header">
-            <span class="meta-label">Bobot Timbang Netto</span>
-            <span class="badge-status-green">Timbangan Stabil</span>
-          </div>
-          <div class="weight-display-row">
-            <div class="weight-val-wrap">
-              <input type="number" id="inputKg" value="5.40" step="0.1" min="0.1" class="weight-large-input font-numeric">
-              <span class="weight-unit">Kg</span>
+        <!-- Step 2: Opsi Potong & Transaksi -->
+        <div class="screen-flow cashier-step" id="cashierStepTwo" hidden>
+          <section class="surface-card transaction-card">
+            <div class="cut-price-card">
+              <div class="card-meta-header">
+                <h3>Potongan Ayam</h3>
+                <span class="cut-free">Bebas Biaya Potong</span>
+              </div>
+
+              <!-- Chip Grid Potongan -->
+              <div class="cuts-chip-grid">
+                <label class="cut-option">
+                  <input type="radio" name="part" value="utuh">
+                  <span class="cut-chip">Utuh</span>
+                </label>
+                <label class="cut-option">
+                  <input type="radio" name="part" value="potong4" checked>
+                  <span class="cut-chip">4 Potong</span>
+                </label>
+                <label class="cut-option">
+                  <input type="radio" name="part" value="fillet">
+                  <span class="cut-chip">Fillet</span>
+                </label>
+              </div>
+
+              <!-- Custom Potongan Section -->
+              <div class="custom-cut-fields">
+                <span class="mini-eyebrow">CUSTOM</span>
+                <div class="custom-grid">
+                  <label for="customCuts">
+                    <span class="custom-field-label">Jumlah potong</span>
+                    <div class="custom-input-wrap">
+                      <input type="number" id="customCuts" min="1" max="100" step="1" value="4" placeholder="4" aria-label="Jumlah potongan khusus">
+                      <span>Bagian</span>
+                    </div>
+                  </label>
+                  <label for="cutSize">
+                    <span class="custom-field-label">Request</span>
+                    <select id="cutSize">
+                      <option>Dada saja</option>
+                      <option>Paha dada</option>
+                      <option>Ayam utuh</option>
+                      <option>Fillet</option>
+                      <option>Campur</option>
+                    </select>
+                  </label>
+                </div>
+
+                <label class="switch-row">
+                  <span class="switch-label">
+                    <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="6" cy="6" r="3"/>
+                      <circle cx="6" cy="18" r="3"/>
+                      <path d="m8 8 13 13M8 16 21 3"/>
+                    </svg>
+                    Tanpa kulit
+                  </span>
+                  <input id="withoutSkin" type="checkbox" role="switch" checked>
+                  <span class="switch-track"></span>
+                </label>
+              </div>
+
+              <!-- Catatan Tambahan (Opsional) -->
+              <details class="note-details">
+                <summary>Catatan tambahan (opsional)</summary>
+                <input id="inputNote" type="text" class="form-input" maxlength="250" aria-label="Catatan pesanan" placeholder="Contoh: tulang dipisah, ati ampela bungkus terpisah">
+              </details>
+
+              <!-- Harga per Kg -->
+              <div class="price-section">
+                <div class="card-meta-header">
+                  <label for="inputPrice" class="meta-label">Harga per Kg</label>
+                  <span class="price-update">Update: Hari Ini</span>
+                </div>
+                <div class="reference-price">
+                  <div class="ref-desc">
+                    <strong>Standar Pasar Pagi</strong>
+                    <span>Karkas basah segar</span>
+                  </div>
+                  <div class="price-value">
+                    <span class="curr-prefix">Rp</span>
+                    <input id="inputPrice" type="text" inputmode="numeric" value="42.000" aria-label="Harga per kilogram dalam rupiah">
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="weight-steppers-mini">
-              <button type="button" class="stepper-btn-mini" data-target="inputKg" data-step="-0.5">-0.5</button>
-              <button type="button" class="stepper-btn-mini" data-target="inputKg" data-step="0.5">+0.5</button>
+
+            <!-- Total Tagihan -->
+            <div class="summary-top">
+              <div class="summary-left">
+                <span class="summary-title">TOTAL TAGIHAN</span>
+                <span class="accurate-badge">
+                  <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5"/>
+                  </svg>
+                  Pas & Akurat
+                </span>
+              </div>
+              <div class="summary-right">
+                <p class="summary-total-figure" id="subtotalDisplay">Rp 226.800</p>
+                <p class="summary-calc-formula" id="formulaDisplay">5.40 Kg × Rp 42.000</p>
+              </div>
             </div>
-          </div>
-          <div class="pill-preset-grid mt-2">
-            <button type="button" class="preset-pill qw-btn" data-kg="1.5">1.5 Kg</button>
-            <button type="button" class="preset-pill qw-btn" data-kg="1.8">1.8 Kg</button>
-            <button type="button" class="preset-pill qw-btn" data-kg="2.0">2.0 Kg</button>
-            <button type="button" class="preset-pill qw-btn" data-kg="2.5">2.5 Kg</button>
-            <button type="button" class="preset-pill qw-btn" data-kg="5.4">5.4 Kg</button>
-          </div>
-        </div>
 
-        <!-- Tarif / Kg -->
-        <div class="surface-card">
-          <div class="card-meta-header">
-            <span class="meta-label">Harga per Kg</span>
-            <span class="meta-caption">Standar Pasar Pagi</span>
-          </div>
-          <div class="price-input-wrapper">
-            <div class="input-prefix-box">
-              <span>Rp</span>
-              <input type="number" id="inputPrice" value="35000" step="500" class="form-input font-numeric">
+            <!-- Metode Pembayaran: Tunai Lunas vs Catat Bon -->
+            <div class="payment-mode-grid">
+              <button class="pay-select-btn pay-type-btn active" type="button" data-pay="tunai">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="6" width="20" height="13" rx="2"/>
+                  <circle cx="12" cy="12.5" r="3"/>
+                  <path d="M5 3h14M5 10v5m14-5v5"/>
+                </svg>
+                <span>Tunai Lunas</span>
+              </button>
+              <button class="pay-select-btn pay-type-btn" type="button" data-pay="bon">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                <span>Catat Bon<br>(Tempo)</span>
+              </button>
             </div>
-            <div class="pill-preset-grid mt-2">
-              <button type="button" class="preset-pill qp-btn" data-price="34000">34.000</button>
-              <button type="button" class="preset-pill qp-btn active-pill" data-price="35000">35.000</button>
-              <button type="button" class="preset-pill qp-btn" data-price="36000">36.000</button>
-            </div>
-          </div>
-        </div>
 
-        <!-- Pilihan Potongan Karkas -->
-        <div class="surface-card">
-          <div class="card-meta-header">
-            <span class="meta-label">Pilihan Potongan Karkas</span>
-          </div>
-          <div class="cuts-chip-grid">
-            <label class="cut-option">
-              <input type="radio" name="part" value="utuh">
-              <span class="cut-chip">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cut-icon"><path d="M12 2a8 8 0 0 0-8 8v12h16V10a8 8 0 0 0-8-8z"/><path d="M12 11v7"/><circle cx="12" cy="7" r="1.5"/></svg>
-                <span class="cut-name">Utuh Segar</span>
-                <span class="cut-desc">Karkas utuh siap olah</span>
-              </span>
-            </label>
-            <label class="cut-option">
-              <input type="radio" name="part" value="potong4" checked>
-              <span class="cut-chip">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cut-icon"><rect width="18" height="18" x="3" y="3" rx="3"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
-                <span class="cut-name">Potong 4</span>
-                <span class="cut-desc">Belah dada &amp; paha</span>
-              </span>
-            </label>
-            <label class="cut-option">
-              <input type="radio" name="part" value="potong8">
-              <span class="cut-chip">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cut-icon"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/><line x1="18.4" y1="5.6" x2="5.6" y2="18.4"/></svg>
-                <span class="cut-name">Potong 8</span>
-                <span class="cut-desc">Standar warung &amp; lalapan</span>
-              </span>
-            </label>
-            <label class="cut-option">
-              <input type="radio" name="part" value="potong12">
-              <span class="cut-chip">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cut-icon"><rect width="18" height="18" x="3" y="3" rx="3"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="8" x2="21" y2="8"/><line x1="3" y1="13" x2="21" y2="13"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-                <span class="cut-name">Potong 12</span>
-                <span class="cut-desc">Nasi kotak hajatan</span>
-              </span>
-            </label>
-            <label class="cut-option">
-              <input type="radio" name="part" value="fillet">
-              <span class="cut-chip">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cut-icon"><path d="m14 7 3 3-8.5 8.5-4 1 1-4L14 7z"/><path d="M17 4a2.121 2.121 0 0 1 3 3L17 10"/></svg>
-                <span class="cut-name">Fillet</span>
-                <span class="cut-desc">Tanpa tulang &amp; kulit</span>
-              </span>
-            </label>
-          </div>
-          <div class="mt-3">
-            <input type="text" id="inputNote" placeholder="Catatan opsional (e.g. ati ampela dipisah)" class="form-input form-input-subtle">
-          </div>
-        </div>
-
-        <!-- Total Pembayaran & Aksi -->
-        <div class="surface-card summary-action-card">
-          <div class="summary-top">
-            <span class="summary-title">TOTAL TAGIHAN</span>
-            <div class="summary-total-figure font-numeric" id="subtotalDisplay">Rp 189.000</div>
-            <p class="summary-calc-formula" id="formulaDisplay">5.40 Kg &times; Rp 35.000</p>
-          </div>
-
-          <div class="payment-mode-grid mt-3">
-            <button type="button" class="pay-select-btn pay-type-btn active" data-pay="tunai">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/></svg>
-              <span>Tunai Lunas</span>
-            </button>
-            <button type="button" class="pay-select-btn pay-type-btn" data-pay="bon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              <span>Catat Bon</span>
-            </button>
-          </div>
-
-          <div class="action-buttons-stack mt-3">
+            <!-- Tombol Simpan Transaksi -->
             <button type="button" class="btn-primary-action" id="btnSubmitTrx">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
               <span>Simpan Transaksi Kasir</span>
             </button>
-            <button type="button" class="btn-ghost-action" id="btnResetTrx">
-              Kosongkan Formulir
+
+            <!-- Cetak Struk Browser -->
+            <button type="button" class="printer-note" id="btnPrintReceipt">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                <path d="M6 14h12v8H6z"/>
+              </svg>
+              <span>Cetak struk melalui browser (58mm)</span>
             </button>
+          </section>
+
+          <!-- Footer Bar Kasir -->
+          <div class="cashier-footer-bar">
+            <div class="stock-info-row">
+              <span>Stok Karkas Tersisa: <strong>24 Ekor</strong></span>
+              <button type="button" class="link-rekap" onclick="document.querySelector('[data-tab=\'buku-bon\']').click()">Buku Rekap →</button>
+            </div>
+            <div class="form-bottom-actions">
+              <button class="text-button" type="button" id="btnBackStep">← Kembali ke timbangan</button>
+              <button class="text-button muted" type="button" id="btnResetTrx">Kosongkan</button>
+            </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- TAB 2: BUKU BON LANGGANAN -->
+    <!-- ============================================== -->
+    <!-- TAB 2: ANTREAN                                 -->
+    <!-- ============================================== -->
+    <section class="tab-pane" id="antrean">
+      <div class="screen-flow">
+        <section class="surface-card queue-board">
+          <div class="section-heading">
+            <h2>
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+              </svg>
+              Daftar Antrean Aktif
+            </h2>
+            <span class="queue-count" id="queueCount">• 0 Antrean Aktif</span>
+          </div>
+
+          <details class="queue-tools">
+            <summary>Filter antrean</summary>
+            <div class="filter-pills-row" id="queueFilters">
+              <button class="filter-chip active" type="button" data-queue-filter="active">Aktif</button>
+              <button class="filter-chip" type="button" data-queue-filter="done">Sudah diambil</button>
+            </div>
+          </details>
+
+          <div id="queueListContainer" class="queue-list"></div>
+
+          <button id="btnQueuePage" class="btn-primary-action" type="button">
+            <span>Lihat Detail Antrean</span>
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14m-7-7 7 7-7 7"/>
+            </svg>
+          </button>
+        </section>
+
+        <!-- Summary Beban Kerja Subuh -->
+        <section class="queue-summary">
+          <span class="queue-summary-icon">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+            </svg>
+          </span>
+          <div class="queue-summary-text">
+            <span>BEBAN KERJA SUBUH</span>
+            <strong id="queueTotalEkor">Total 0 Karkas Antre</strong>
+          </div>
+          <span class="meta-tag" id="queueWaiting">0 Meja Aktif</span>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- TAB 3: BUKU BON                                -->
+    <!-- ============================================== -->
     <section class="tab-pane" id="buku-bon">
       <div class="screen-flow">
-
-        <!-- Hero Metric Piutang -->
-        <div class="surface-card">
-          <div class="card-meta-header">
-            <span class="meta-label">Total Piutang Aktif</span>
-            <span class="badge-status-red" id="headerDueCount">Perlu Tagih</span>
-          </div>
-          <div class="hero-huge-figure text-danger font-numeric" id="headerTotalDebt">
-            Rp 4.850.000
-          </div>
-          <div class="hero-subline mt-2">
-            <span class="subline-text"><strong id="headerDebtorCount">12</strong> Mitra Warung Langganan Pasar</span>
-          </div>
-        </div>
-
-        <!-- Search Bar -->
-        <div class="search-input-wrap">
-          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input type="text" id="searchBon" placeholder="Cari nama warung, pemilik, nota..." class="search-input">
-        </div>
-
-        <!-- Filter Tabs -->
-        <div class="filter-pills-row" id="bonFilterRow">
-          <button type="button" class="filter-chip active" data-filter="all">Semua (12)</button>
-          <button type="button" class="filter-chip" data-filter="tempo">Jatuh Tempo (4)</button>
-          <button type="button" class="filter-chip" data-filter="kritis">Plafon Kritis (2)</button>
-        </div>
-
-        <!-- List Kartu Bon Mitra -->
-        <div class="debtor-cards-list" id="bonListContainer">
-          <!-- Rendered via JS -->
-        </div>
-
-      </div>
-    </section>
-
-    <!-- TAB 3: PASOKAN SUPPLIER -->
-    <section class="tab-pane" id="pasokan">
-      <div class="screen-flow">
-
-        <!-- Supplier Info Banner -->
-        <div class="surface-card supplier-banner-card">
-          <div class="supplier-header-row">
-            <div>
-              <span class="supplier-eyebrow">Mitra Peternak Utama</span>
-              <h2 class="supplier-title" id="supplySupplierTitle">UD. Cheyloo Farm Kamal</h2>
-              <p class="supplier-caption">Supir: Pak Matrawi &bull; Plat: M 8214 UA</p>
-            </div>
-            <span class="badge-clock">Subuh 04:30 WIB</span>
-          </div>
-        </div>
-
-        <!-- Form Nota Pasokan -->
-        <div class="surface-card">
-          <div class="card-meta-header">
-            <span class="meta-label">Input Nota Pasokan Ayam Masuk</span>
-            <span class="meta-tag">Faktur Masuk</span>
-          </div>
-
-          <div class="form-vertical-stack mt-2">
-            <div>
-              <label class="form-label" for="supplyEkor">Jumlah Ayam (Ekor):</label>
-              <div class="stepper-box">
-                <button type="button" class="stepper-btn" data-target="supplyEkor" data-step="-5">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </button>
-                <div class="stepper-display">
-                  <input type="number" id="supplyEkor" value="180" min="1" class="stepper-input font-numeric">
-                  <span class="stepper-unit">Ekor</span>
-                </div>
-                <button type="button" class="stepper-btn" data-target="supplyEkor" data-step="5">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="mt-3">
-              <label class="form-label" for="supplyKg">Berat Timbang Bersih (Netto Kg):</label>
-              <div class="weight-display-row">
-                <div class="weight-val-wrap">
-                  <input type="number" id="supplyKg" value="300.5" step="0.5" min="1" class="weight-large-input font-numeric">
-                  <span class="weight-unit">Kg</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-3">
-              <label class="form-label" for="supplyPrice">Harga Beli Peternak / Kg:</label>
-              <div class="input-prefix-box">
-                <span>Rp</span>
-                <input type="number" id="supplyPrice" value="23500" step="500" class="form-input font-numeric">
-              </div>
-              <div class="pill-preset-grid mt-2">
-                <button type="button" class="preset-pill qsp-btn" data-price="23000">23.000</button>
-                <button type="button" class="preset-pill qsp-btn active-pill" data-price="23500">23.500</button>
-                <button type="button" class="preset-pill qsp-btn" data-price="24000">24.000</button>
-              </div>
-            </div>
-
-            <div class="mt-3">
-              <label class="form-label" for="supplyPayment">Metode Pelunasan Pengiriman:</label>
-              <select id="supplyPayment" class="form-select">
-                <option value="Lunas Tunai Meja">Lunas Tunai Meja Lapak</option>
-                <option value="Tempo 7 Hari">Tempo 7 Hari Peternak</option>
-              </select>
-            </div>
-
-            <!-- Total Modal Banner -->
-            <div class="supply-cost-banner mt-3">
-              <div class="sc-left">
-                <span class="sc-label">TOTAL TAGIHAN MODAL:</span>
-                <div class="sc-value font-numeric" id="supplyModalTotal">Rp 7.061.750</div>
-              </div>
-              <span class="sc-note">Nota Pasokan #04-188</span>
-            </div>
-
-            <button type="button" class="btn-primary-action mt-3" id="btnSubmitSupply">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Konfirmasi &amp; Masukkan Stok Lapak</span>
+        <section class="surface-card bon-board">
+          <div class="section-heading">
+            <h2>Daftar Rekap Bon Mitra</h2>
+            <span class="meta-tag" id="debtorListCount">0 Aktif</span>
+            <button type="button" id="btnSearchBon" class="search-toggle">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              <span>Cari</span>
             </button>
           </div>
-        </div>
 
-        <!-- Log Pasokan Terakhir -->
-        <div class="surface-card">
-          <div class="card-meta-header">
-            <span class="meta-label">Pasokan 48 Jam Terakhir</span>
+          <div id="bonSearchTools" hidden>
+            <div class="search-input-wrap">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              <input id="searchBon" class="search-input" type="search" placeholder="Nama atau kode mitra..." aria-label="Cari mitra pada buku bon">
+            </div>
+            <div class="filter-pills-row" id="bonFilterRow">
+              <button type="button" class="filter-chip active" data-filter="all">Semua</button>
+              <button type="button" class="filter-chip" data-filter="tempo">Jatuh tempo</button>
+              <button type="button" class="filter-chip" data-filter="kritis">Plafon kritis</button>
+            </div>
           </div>
-          <div class="supplies-list-wrap mt-2" id="suppliesListContainer">
-            <!-- Rendered via JS -->
-          </div>
-        </div>
 
+          <div class="debtor-cards-list" id="bonListContainer"></div>
+
+          <button id="btnShowAllBon" class="view-all-button" type="button" aria-expanded="false">
+            Lihat Mitra Lainnya →
+          </button>
+        </section>
+
+        <!-- Footer Tombol Tambah Bon & Rekap -->
+        <div class="bon-footer">
+          <button type="button" class="btn-primary-action" id="btnAddCustomer">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            <span>+ Tambah Bon Baru</span>
+          </button>
+          <button class="btn-outline" type="button" id="btnBonRekap">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+            </svg>
+            <span>Rekap</span>
+          </button>
+        </div>
       </div>
     </section>
 
-    <!-- TAB 4: REKAP KAS LACI -->
+    <!-- ============================================== -->
+    <!-- TAB 4: PASOKAN (STOK)                          -->
+    <!-- ============================================== -->
+    <section class="tab-pane" id="pasokan">
+      <div class="screen-flow">
+        <!-- Pemasok Karkas Utama Banner Card -->
+        <section class="surface-card supplier-banner-card">
+          <div class="supplier-meta">
+            <span class="supplier-eyebrow">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m3 10 2-7h14l2 7M3 10c0 4 5 4 5 0 0 4 8 4 8 0 0 4 5 4 5 0M5 13v8h14v-8M10 21v-6h4v6"/>
+              </svg>
+              PEMASOK KARKAS UTAMA
+            </span>
+            <span class="badge-clock">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 7v5l3 2"/>
+              </svg>
+              Subuh 04:30 WIB
+            </span>
+          </div>
+
+          <div class="supplier-header-row">
+            <div>
+              <h2 class="supplier-title" id="supplySupplierTitle">UD. Cheyloo Farm Kamal</h2>
+              <p class="supplier-caption">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                Supir: Pak Matrawi <span>•</span> Plat: M 8214 UA
+              </p>
+            </div>
+            <span class="truck-mark">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+                <path d="M15 18H9"/>
+                <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14v10Z"/>
+                <circle cx="7" cy="18" r="2"/>
+                <circle cx="17" cy="18" r="2"/>
+              </svg>
+            </span>
+          </div>
+
+          <span class="supplier-verification">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 6 9 17l-5-5"/>
+            </svg>
+            Terverifikasi Timbang Pabrik
+          </span>
+        </section>
+
+        <!-- Form Timbangan Masuk -->
+        <section class="surface-card supply-form-card">
+          <div class="supply-title-row">
+            <span class="solid-icon">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+              </svg>
+            </span>
+            <div>
+              <h3>Data Timbangan Masuk</h3>
+              <p>Formulir cepat wet-market responsif</p>
+            </div>
+            <button type="button" class="reset-pill" id="btnResetSupply">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"/>
+              </svg>
+              <span>Reset</span>
+            </button>
+          </div>
+
+          <!-- Field 1: Jumlah Ayam Masuk -->
+          <label class="form-label" for="supplyEkor">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 5c-3 0-5 2-5 5s3 6 6 6h3l3 4a3 3 0 0 0 4-4l-3-3v-3c0-3-3-6-6-6Z"/>
+              <path d="m15 17 2-2"/>
+            </svg>
+            Jumlah Ayam Masuk (Ekor):
+          </label>
+          <div class="supply-input-row">
+            <input type="number" id="supplyEkor" value="180" step="1" min="1" aria-label="Jumlah ayam pasokan">
+            <button type="button" class="stepper-btn" data-target="supplyEkor" data-step="-1" aria-label="Kurangi ayam pasokan">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/>
+              </svg>
+            </button>
+            <button type="button" class="stepper-btn" data-target="supplyEkor" data-step="1" aria-label="Tambah ayam pasokan">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+            </button>
+            <span class="supply-unit-text">Ekor</span>
+          </div>
+
+          <!-- Field 2: Berat Timbang Bersih -->
+          <label class="form-label" for="supplyKg">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3h18M3 21h18M5 3c0 6 3 6 7 9-4 3-7 3-7 9M19 3c0 6-3 6-7 9 4 3 7 3 7 9M8 18h8"/>
+            </svg>
+            Berat Timbang Bersih (Kg Netto):
+          </label>
+          <div class="supply-input-row">
+            <input type="number" id="supplyKg" value="300.5" min="0.1" step="0.1" aria-label="Berat netto pasokan">
+            <button type="button" class="weight-add" data-add-supply="0.5">+0.5</button>
+            <button type="button" class="weight-add" data-add-supply="2">+2.0</button>
+            <span class="supply-unit-text">Kg</span>
+          </div>
+
+          <!-- Field 3: Harga Kulakan Peternak -->
+          <label class="form-label" for="supplyPrice">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="6" width="20" height="13" rx="2"/>
+              <circle cx="12" cy="12.5" r="3"/>
+              <path d="M5 3h14M5 10v5m14-5v5"/>
+            </svg>
+            Harga Kulakan Peternak / Kg:
+          </label>
+          <div class="supply-input-row supply-price">
+            <span class="curr-prefix">Rp</span>
+            <input type="number" id="supplyPrice" value="23500" step="500" min="1" aria-label="Harga beli pasokan per kilogram">
+            <span class="pas-pill">Pas</span>
+            <span class="supply-unit-text">/Kg</span>
+          </div>
+
+          <!-- Collapsible: Detail Pembayaran & Total -->
+          <details class="supply-extra">
+            <summary>Detail pembayaran & total modal</summary>
+            <label for="supplyPayment" class="mt-2">Pembayaran pasokan</label>
+            <select id="supplyPayment" class="form-select">
+              <option value="Lunas Tunai Meja">Lunas Tunai Meja Lapak</option>
+              <option value="Tempo 7 Hari">Tempo 7 Hari Peternak</option>
+            </select>
+            <p class="supply-total-preview">Total modal: <strong id="supplyModalTotal">Rp 7.061.750</strong></p>
+          </details>
+
+          <p id="supplyError" class="form-error" role="alert" hidden></p>
+
+          <!-- Tombol Simpan Manifes -->
+          <button type="button" class="btn-primary-action" id="btnSubmitSupply">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+              <path d="M15 18H9"/>
+              <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14v10Z"/>
+              <circle cx="7" cy="18" r="2"/>
+              <circle cx="17" cy="18" r="2"/>
+            </svg>
+            <span>🚛 Simpan Manifes Pasokan Subuh ✓</span>
+          </button>
+        </section>
+
+        <!-- Riwayat Pasokan -->
+        <details class="surface-card history-details">
+          <summary>Riwayat pasokan terdahulu</summary>
+          <div id="suppliesListContainer"></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- TAB 5: REKAP KAS (LAPORAN)                     -->
+    <!-- ============================================== -->
     <section class="tab-pane" id="rekap-kas">
       <div class="screen-flow">
-
-        <!-- Header Rekap Laci -->
-        <div class="surface-card">
-          <div class="card-meta-header">
-            <span class="badge-status-green">Siap Tutup Buku</span>
-            <span class="meta-caption">Shift Pagi (05:00 - 14:00 WIB)</span>
-          </div>
-          <h2 class="section-main-title mt-1">Rekap Uang Kas Laci Meja</h2>
-          <p class="section-sub-desc">Pencocokan fisik uang tunai di laci sebelum lapak tutup siang.</p>
+        <!-- Filter Periode -->
+        <div class="report-filter">
+          <label for="reportPeriod">Periode laporan</label>
+          <select id="reportPeriod">
+            <option value="today">Hari ini</option>
+            <option value="all">Semua catatan</option>
+          </select>
         </div>
 
-        <!-- Rincian Arus Kas Meja -->
-        <div class="surface-card">
-          <div class="card-meta-header">
-            <span class="meta-label">Rincian Arus Kas Laci</span>
-            <span class="meta-caption">3 Pos Transaksi</span>
-          </div>
-
-          <div class="cash-flow-list mt-2">
-            <!-- Pos 1 -->
-            <div class="cash-flow-row">
-              <div class="cf-info">
-                <div class="cf-icon cf-in">+</div>
-                <div>
-                  <strong class="cf-name">(+) Penjualan Tunai Lapak</strong>
-                  <span class="cf-sub">Transaksi eceran langsung</span>
-                </div>
-              </div>
-              <div class="cf-amount text-success font-numeric" id="rekapCashSales">Rp 5.240.000</div>
-            </div>
-
-            <!-- Pos 2 -->
-            <div class="cash-flow-row">
-              <div class="cf-info">
-                <div class="cf-icon cf-in">+</div>
-                <div>
-                  <strong class="cf-name">(+) Setoran Cicilan Bon</strong>
-                  <span class="cf-sub">Pelunasan hutang mitra warung</span>
-                </div>
-              </div>
-              <div class="cf-amount text-success font-numeric" id="rekapCashCicilan">Rp 1.420.000</div>
-            </div>
-
-            <!-- Pos 3 -->
-            <div class="cash-flow-row">
-              <div class="cf-info">
-                <div class="cf-icon cf-out">&minus;</div>
-                <div>
-                  <strong class="cf-name">(&minus;) Modal Pasokan Tunai</strong>
-                  <span class="cf-sub">Diserahkan ke supir peternak</span>
-                </div>
-              </div>
-              <div class="cf-amount text-danger font-numeric" id="rekapModalPasokan">Rp 3.500.000</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Decisive Highlight Box: Uang Fisik Kas Laci -->
-        <div class="drawer-highlight-card">
+        <!-- Card Uang Fisik di Laci Meja -->
+        <section class="drawer-highlight-card">
           <div class="dh-header">
             <div class="dh-title-wrap">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-              <span>UANG FISIK WAJIB DI LACI MEJA</span>
+              <span class="drawer-icon">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="6" width="20" height="13" rx="2"/>
+                  <circle cx="12" cy="12.5" r="3"/>
+                  <path d="M5 3h14M5 10v5m14-5v5"/>
+                </svg>
+              </span>
+              <span>UANG FISIK WAJIB<br>ADA DI LACI MEJA</span>
             </div>
-            <span class="dh-badge">Kas Klop / Sesuai 100%</span>
+            <button class="match-cash" type="button" id="btnMatchCash">
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m16 3 4 4-4 4"/>
+                <path d="M20 7H4"/>
+                <path d="m8 21-4-4 4-4"/>
+                <path d="M4 17h16"/>
+              </svg>
+              <span>💱 Cocokkan Fisik</span>
+            </button>
           </div>
-          <div class="dh-figure font-numeric" id="rekapKasBersihLaci">Rp 3.160.000</div>
-          <p class="dh-formula">Kas Bersih = (Penjualan Tunai + Cicilan) &minus; Modal Tunai</p>
-        </div>
 
-        <!-- Verifikasi Timbangan & Tonase -->
-        <div class="surface-card">
-          <div class="card-meta-header">
-            <span class="meta-label">Verifikasi Timbangan &amp; Karkas</span>
-            <span class="badge-status-green">Tervalidasi</span>
+          <p class="dh-figure" id="rekapKasBersihLaci">Rp 0</p>
+
+          <div class="drawer-reconcile">
+            <span><i class="green-dot"></i>Status Selisih Laci:</span>
+            <button type="button" class="balance-badge" id="cashDifference">Belum dicocokkan</button>
           </div>
-          <div class="tonase-summary-grid mt-2">
-            <div class="tonase-box">
-              <span class="t-caption">Total Daging Terjual:</span>
-              <strong class="t-val font-numeric" id="rekapKgSold">208.4 Kg</strong>
+        </section>
+
+        <!-- Rincian Arus Kas Hari Ini -->
+        <section class="surface-card report-cash-card">
+          <div class="section-heading">
+            <h2>
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+              </svg>
+              Rincian Arus Kas Hari Ini
+            </h2>
+          </div>
+          <span class="meta-tag report-pos-tag">3 Transaksi Utama</span>
+
+          <div class="cash-flow-list">
+            <!-- Row 1: Penjualan Tunai Eceran -->
+            <div class="cash-flow-row">
+              <span class="cf-icon cf-in">↓</span>
+              <div class="cf-info">
+                <strong class="cf-name">(+) Penjualan Tunai Eceran</strong>
+                <span class="cf-sub" id="reportSalesCount">0 transaksi eceran lapak</span>
+              </div>
+              <div class="flow-value">
+                <strong class="cf-amount text-success" id="rekapCashSales">Rp 0</strong>
+                <span class="cf-label">Penerimaan</span>
+              </div>
             </div>
-            <div class="tonase-box">
-              <span class="t-caption">Karkas Terjual:</span>
-              <strong class="t-val font-numeric" id="rekapEkorSold">124 Ekor</strong>
+
+            <!-- Row 2: Setoran Cicilan Bon Mitra -->
+            <div class="cash-flow-row">
+              <span class="cf-icon cf-in">💰</span>
+              <div class="cf-info">
+                <strong class="cf-name">(+) Setoran Cicilan Bon Mitra</strong>
+                <span class="cf-sub" id="reportPaymentNames">Pelunasan bon mitra</span>
+              </div>
+              <div class="flow-value">
+                <strong class="cf-amount text-success" id="rekapCashCicilan">Rp 0</strong>
+                <span class="cf-label" id="reportPayCount">0 Pelanggan</span>
+              </div>
             </div>
-            <div class="tonase-box">
-              <span class="t-caption">Tambahan Bon Hari Ini:</span>
-              <strong class="t-val text-danger font-numeric" id="rekapBonKeluar">Rp 1.650.000</strong>
+
+            <!-- Row 3: Modal Pasokan Tunai (UD. Cheyloo) -->
+            <div class="cash-flow-row outflow">
+              <span class="cf-icon cf-out">↗</span>
+              <div class="cf-info">
+                <strong class="cf-name">(−) Modal Pasokan Tunai (UD. Cheyloo)</strong>
+                <span class="cf-sub">Faktur tunai pasokan ayam</span>
+              </div>
+              <div class="flow-value">
+                <strong class="cf-amount text-danger" id="rekapModalPasokan">Rp 0</strong>
+                <span class="cf-label">Pengeluaran</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="action-buttons-stack">
-          <button type="button" class="btn-primary-action" id="btnExportCsv">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>Download Rekap Kas (CSV / Excel)</span>
-          </button>
-          <button type="button" class="btn-ghost-action" id="btnResetToDefault">
-            Reset Data Transaksi ke Awal
-          </button>
-        </div>
+          <div class="total-cash-in">
+            <span>Total Uang Masuk Hari Ini:</span>
+            <strong id="reportCashIn">Rp 0</strong>
+          </div>
+        </section>
 
+        <!-- Tombol Tutup Kasir & Cetak Rekap -->
+        <button type="button" class="btn-primary-action" id="btnCloseShift">
+          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>Tutup Kasir & Kunci Laci Subuh</span>
+        </button>
+
+        <button type="button" class="btn-print" id="btnPrintReport">
+          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <path d="M6 14h12v8H6z"/>
+          </svg>
+          <span>🖨 Cetak Rekap Kasir (Thermal 58mm)</span>
+        </button>
+
+        <!-- Ekstra: Tonase & Ekspor CSV -->
+        <details class="report-extra">
+          <summary>Ringkasan tonase & ekspor transaksi</summary>
+          <div class="tonase-summary-grid">
+            <div>
+              <span>Daging terjual</span>
+              <strong id="rekapKgSold">0 Kg</strong>
+            </div>
+            <div>
+              <span>Karkas terjual</span>
+              <strong id="rekapEkorSold">0 Ekor</strong>
+            </div>
+            <div>
+              <span>Bon baru</span>
+              <strong id="rekapBonKeluar">Rp 0</strong>
+            </div>
+          </div>
+          <button type="button" class="btn-outline" id="btnExportCsv">Unduh transaksi CSV / Excel</button>
+        </details>
+
+        <!-- Reset Data Contoh -->
+        <details class="data-settings">
+          <summary>Pengaturan data contoh</summary>
+          <p>Reset akan mengembalikan data simulasi perangkat ini ke kondisi awal.</p>
+          <button class="text-button text-danger" type="button" id="btnResetToDefault">Reset data ke kondisi awal</button>
+        </details>
       </div>
     </section>
-
   </main>
 
-  <!-- BOTTOM MOBILE NAVIGATION BAR -->
-  <nav class="bottom-nav-bar" id="mobileTabBar">
-    <button type="button" class="bnav-item active" data-tab="kasir">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect height="14" rx="2" width="20" x="2" y="3"/>
-        <line x1="8" x2="16" y1="21" y2="21"/>
-        <line x1="12" x2="12" y1="17" y2="21"/>
-      </svg>
+  <!-- ============================================== -->
+  <!-- BOTTOM NAVIGATION BAR                          -->
+  <!-- ============================================== -->
+  <nav class="bottom-nav-bar" id="mobileTabBar" aria-label="Menu Utama">
+    <button type="button" class="bnav-item active" data-tab="kasir" aria-current="page">
+      <span class="bnav-icon-wrap">
+        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="6" width="20" height="13" rx="2"/>
+          <circle cx="12" cy="12.5" r="3"/>
+          <path d="M5 3h14M5 10v5m14-5v5"/>
+        </svg>
+        <span class="nav-active-dot"></span>
+      </span>
       <span>Kasir</span>
     </button>
 
-    <button type="button" class="bnav-item" data-tab="buku-bon">
-      <div class="bnav-icon-wrap">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
-          <path d="M6 6h10"/>
-          <path d="M6 10h10"/>
+    <button type="button" class="bnav-item" data-tab="antrean">
+      <span class="bnav-icon-wrap">
+        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
         </svg>
-        <span class="bnav-counter" id="navDebtorBadge">12</span>
-      </div>
+        <span class="nav-active-dot"></span>
+        <span class="nav-badge-dot"></span>
+        <span id="navQueueBadge" class="sr-only"></span>
+      </span>
+      <span>Antrean</span>
+    </button>
+
+    <button type="button" class="bnav-item" data-tab="buku-bon">
+      <span class="bnav-icon-wrap">
+        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        <span class="nav-active-dot"></span>
+        <span class="nav-badge-dot"></span>
+      </span>
       <span>Buku Bon</span>
     </button>
 
     <button type="button" class="bnav-item" data-tab="pasokan">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="12" x2="12" y1="18" y2="12"/>
-        <line x1="9" x2="15" y1="15" y2="15"/>
-      </svg>
-      <span>Pasokan</span>
+      <span class="bnav-icon-wrap">
+        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+        <span class="nav-active-dot"></span>
+        <span class="nav-badge-dot"></span>
+      </span>
+      <span>Stok</span>
     </button>
 
     <button type="button" class="bnav-item" data-tab="rekap-kas">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect height="18" rx="2" width="18" x="3" y="3"/>
-        <line x1="8" x2="16" y1="12" y2="12"/>
-        <line x1="12" x2="12" y1="8" y2="16"/>
-      </svg>
-      <span>Rekap Laci</span>
+      <span class="bnav-icon-wrap">
+        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 20V10"/>
+          <path d="M12 20V4"/>
+          <path d="M6 20v-6"/>
+        </svg>
+        <span class="nav-active-dot"></span>
+      </span>
+      <span>Laporan</span>
     </button>
   </nav>
 
-  <!-- MODAL: SETOR CICILAN BON -->
-  <div class="modal-backdrop" id="paymentModal">
+  <!-- ============================================== -->
+  <!-- MODAL 1: SETOR CICILAN BON                     -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="paymentModal" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
     <div class="modal-sheet">
       <div class="modal-sheet-header">
-        <h3>Setor Cicilan Tunai Bon</h3>
-        <button type="button" class="modal-close-btn" id="btnModalClose">&times;</button>
+        <h3 id="paymentTitle">Setor Cicilan Tunai Bon</h3>
+        <button type="button" class="modal-close-btn" id="btnModalClose" aria-label="Tutup formulir setoran">×</button>
       </div>
 
       <div class="modal-sheet-body">
@@ -536,12 +960,11 @@
 
         <div class="form-group mt-3">
           <label class="form-label" for="modalPayAmount">Nominal Setoran Tunai (Rp):</label>
-          <input type="number" id="modalPayAmount" placeholder="Contoh: 100000" class="form-input form-input-large font-numeric">
+          <input type="number" id="modalPayAmount" placeholder="Contoh: 100000" class="form-input form-input-large font-numeric" min="1" step="1">
+          <p id="paymentError" class="form-error" role="alert" hidden></p>
         </div>
 
-        <div class="quick-preset-container mt-2" id="modalQuickPayOptions">
-          <!-- Rendered via JS -->
-        </div>
+        <div class="quick-preset-container mt-2" id="modalQuickPayOptions"></div>
       </div>
 
       <div class="modal-sheet-footer">
@@ -551,6 +974,66 @@
     </div>
   </div>
 
+  <!-- ============================================== -->
+  <!-- MODAL 2: TAMBAH MITRA & BON AWAL               -->
+  <!-- ============================================== -->
+  <dialog class="customer-modal" id="customerModal" aria-labelledby="customerModalTitle">
+    <form id="customerForm" novalidate>
+      <div class="modal-sheet-header">
+        <div>
+          <span class="mini-eyebrow">MITRA LANGGANAN</span>
+          <h3 id="customerModalTitle">Tambah Mitra &amp; Bon Awal</h3>
+        </div>
+        <button class="modal-close-btn" id="btnCloseCustomer" type="button" aria-label="Tutup">×</button>
+      </div>
+      <label class="form-label" for="newCustomerName">Nama Mitra / Warung</label>
+      <input id="newCustomerName" class="form-input" maxlength="80" placeholder="Contoh: Warung Bu Rina">
+      <label class="form-label mt-3" for="newCustomerPhone">Nomor WhatsApp (opsional)</label>
+      <input id="newCustomerPhone" class="form-input" type="tel" maxlength="20" placeholder="08...">
+      <label class="form-label mt-3" for="newCustomerDebt">Saldo Bon Awal (Rp)</label>
+      <input id="newCustomerDebt" class="form-input" type="number" min="0" step="1" value="0">
+      <label class="form-label mt-3" for="newCustomerLimit">Plafon Bon (Rp)</label>
+      <input id="newCustomerLimit" class="form-input" type="number" min="1" step="1" value="1000000">
+      <p id="customerError" class="form-error" role="alert" hidden></p>
+      <button type="submit" class="btn-primary-action mt-3">Simpan Mitra</button>
+    </form>
+  </dialog>
+
+  <!-- ============================================== -->
+  <!-- MODAL 3: PENGATURAN LAPAK                      -->
+  <!-- ============================================== -->
+  <dialog class="customer-modal" id="lapakModal" aria-labelledby="lapakModalTitle">
+    <div class="modal-sheet-header">
+      <h3 id="lapakModalTitle">Pengaturan Lapak</h3>
+      <button type="button" class="modal-close-btn" data-close-dialog="lapakModal" aria-label="Tutup">×</button>
+    </div>
+    <p class="modal-caption">Status lapak ditampilkan pada semua halaman. Buka atau tutup lapak untuk mengatur jam operasional shift subuh.</p>
+    <button type="button" class="btn-primary-action mt-3" id="btnToggleLapak">Buka Lapak</button>
+  </dialog>
+
+  <!-- ============================================== -->
+  <!-- MODAL 4: COCOKKAN UANG FISIK                   -->
+  <!-- ============================================== -->
+  <dialog class="customer-modal" id="cashModal" aria-labelledby="cashModalTitle">
+    <form id="cashMatchForm">
+      <div class="modal-sheet-header">
+        <h3 id="cashModalTitle">Cocokkan Uang Fisik</h3>
+        <button type="button" class="modal-close-btn" data-close-dialog="cashModal" aria-label="Tutup">×</button>
+      </div>
+      <p class="modal-caption">Hitung uang tunai fisik yang ada di laci meja kasir saat ini, lalu masukkan nominalnya untuk mencocokkan dengan catatan sistem.</p>
+      <label class="form-label" for="cashPhysical">Uang Fisik di Laci (Rp)</label>
+      <input id="cashPhysical" class="form-input font-numeric" type="number" min="0" step="1" required placeholder="Contoh: 3386800">
+      <button type="submit" class="btn-primary-action mt-3">Simpan Pencocokan</button>
+    </form>
+  </dialog>
+
+  <!-- Surface untuk thermal printing -->
+  <div id="printSurface" aria-hidden="true"></div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- Logic Javascript (Tidak Diubah) -->
   <script src="app.js"></script>
 </body>
 </html>
