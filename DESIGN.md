@@ -1,29 +1,48 @@
-# PoultryTrack Design System (DESIGN.md)
+# Sistem desain PoultryTrack
 
-## 1. Visual Theme & Atmosphere
-- **Archetype**: Industrial Field-Worker Terminal POS (wet-market touch workstation).
-- **Environment**: Meja lapak pasar tradisional, percikan air/minyak, jari basah/bersarung tangan, pencahayaan subuh remang.
-- **Tone**: Pragmatis, high-contrast, zero-distraction, authentic hardware tactile feel.
-- **Surface**: Pure monochrome slate-graphite (`#0b0e14`, `#131822`, `#1a2230`), razor-sharp 1px structural borders (`#232d40`), solid physical press states.
+## Arah visual
 
-## 2. Color Palette & Roles (Anti-Rainbow Palette)
-- **Canvas / Background**: `#0b0e14`
-- **Surface Panel**: `#131822`
-- **Elevated Key / Card**: `#1a2230`
-- **Hover / Active State**: `#232f45`
-- **Borders**: `#232d40` (subtle), `#344460` (focused/selected)
-- **Primary Accent (Action / Submit)**: `#10b981` (Muted Industrial Emerald)
-- **Warning / Unpaid Bon**: `#f43f5e` (Crimson - strictly for overdue ledger debt)
-- **Text Primary**: `#f1f5f9` (High contrast readability)
-- **Text Secondary**: `#94a3b8` (Muted metadata)
-- **Text Muted**: `#64748b` (Labels and hints)
+Tampilan mengikuti PDF desain yang diberikan: aplikasi kasir bergerak dengan warna cokelat gelap, latar krem terang, kartu putih, navigasi bawah, dan form kasir dua tahap. Layar 430 piksel menjadi acuan utama; tata letak turut disesuaikan pada 375 dan 320 piksel. Pada desktop, aplikasi tetap ditampilkan sebagai satu kolom dengan lebar maksimum 430 piksel.
 
-## 3. Typography & Numerical Formatting
-- **Display / Body UI**: Native System Sans (`-apple-system`, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto) with natural sentence casing. No decorative uppercase screaming.
-- **Tabular Figures**: `JetBrains Mono`, SFMono-Regular, monospace strictly for weights (`kg`), prices (`Rp`), timestamps, and numeric counters with `font-variant-numeric: tabular-nums`.
+## Palet utama
 
-## 4. Hardware Tactile Touch Ergonomics
-- **Minimum Touch Target**: 48px - 56px height to ensure zero missed taps with wet fingers.
-- **Physical Bevel Effect**: Subtle 1px inner top border highlight (`rgba(255, 255, 255, 0.05)`) mimicking physical membrane keypad buttons.
-- **Micro-haptics & Motion**: `scale(0.97)` active press state, cubic-bezier(0.16, 1, 0.3, 1), 120ms duration. Zero sluggish ease-in animations.
-- **Synthetic Audio**: Low-latency synthetic click generated via Web Audio API oscillator for instant audio confirmation in noisy market conditions.
+| Peran | Nilai |
+| --- | --- |
+| Latar aplikasi | `#F8F8F4` |
+| Kartu utama dan tombol utama | `#351900` |
+| Permukaan kartu | `#FFFFFF` |
+| Permukaan input | `#F1F1ED` |
+| Aksen hangat | `#B87943` |
+| Garis batas | `#ECECE7` |
+| Teks utama | `#1C1917` |
+| Status positif | Hijau lembut |
+| Tunggakan dan pengeluaran | Merah lembut |
+
+Tipografi memakai Plus Jakarta Sans dengan fallback font sistem. Angka menggunakan bentuk tabular agar kolom harga dan nominal tetap rapi. Semua ikon antarmuka berupa SVG; tidak ada emoji.
+
+## Pemetaan layar
+
+| PDF acuan | Implementasi |
+| --- | --- |
+| Kasir Ecer - 1 | Pilihan Eceran Tunai, indikator tahap, jumlah karkas, bobot, Tara, dan tombol lanjut. |
+| Kasir Mitra - 1 | Pilihan Mitra, pemilihan nama, informasi WhatsApp, jumlah, dan bobot. |
+| Kasir Ecer - 2 / Kasir Mitra - 2 | Pilihan potongan, custom, request, kulit, harga, total, pembayaran, simpan, dan cetak. |
+| Antrean 1 / Antrean 2 | Dua kartu per halaman, status proses, tombol perpindahan halaman, dan ringkasan beban kerja. |
+| Buku Bon-1 | Ringkasan piutang, dua kartu awal, pencarian, filter, daftar lengkap, tambah mitra, setoran, dan rekap. |
+| Stok-1 | Informasi pemasok, jumlah masuk, berat, harga, pembayaran, simpan, dan riwayat. |
+| Laporan | Kartu laci kas, arus kas, pencocokan, tutup kasir, cetak, dan ekspor. |
+| Enam PDF layar panjang lainnya | Referensi tambahan susunan kartu dan detail komponen. |
+
+Angka operasional mengikuti catatan aplikasi, sehingga tidak dipaksakan sama dengan angka ilustrasi pada PDF. Beberapa label diperjelas agar sesuai kemampuan aplikasi, seperti Input Manual dan Cetak struk terakhir.
+
+## Komponen dan aksesibilitas
+
+- Tombol jumlah berbentuk kotak membulat; tombol utama memiliki kontras tinggi.
+- Input dan elemen flex diberi batas minimum lebar nol agar tidak melampaui kartu.
+- Grid menggunakan kolom `minmax(0, 1fr)` untuk menghindari overflow.
+- Teks panjang pada nama mitra, nominal, dan rincian antrean dapat membungkus.
+- Penanda fokus keyboard, label input, role status, dan pesan validasi tersedia.
+- Pilihan jenis pelanggan memperbarui aria-selected dan dapat dipindahkan dengan tombol panah.
+- Dialog setoran membatasi fokus dan membuat konten belakang tidak aktif selama dialog terbuka.
+- Animasi dikurangi ketika pengguna mengaktifkan preferensi reduced motion.
+- Cetak bon memakai lebar dokumen normal; struk dan rekap thermal memakai lebar isi 48 mm.

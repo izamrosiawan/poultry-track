@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#2C1810">
+  <meta name="theme-color" content="#351900">
   <meta name="description" content="PoultryTrack - Kasir dan pembukuan lapak ayam modern, antrean potong karkas, buku bon piutang mitra, manifes pasokan, dan rekap laci kasir subuh.">
-  <title>PoultryTrack | Kasir & Pembukuan Lapak Ayam</title>
+  <title>PoultryTrack | Kasir &amp; Pembukuan Lapak Ayam</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -13,14 +13,14 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header Aplikasi -->
+  <!-- APP HEADER (Sticky)                            -->
   <header class="app-header">
     <div class="header-inner">
       <div class="header-branding">
         <span class="app-eyebrow">POULTRYTRACK</span>
         <h1 id="pageTitle">Kasir</h1>
       </div>
-      <button type="button" id="btnNotifications" class="profile-button" aria-label="Pengaturan Lapak & Profil">
+      <button type="button" id="btnNotifications" class="profile-button" aria-label="Pengaturan Lapak &amp; Profil">
         <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
@@ -28,11 +28,12 @@
       </button>
     </div>
   </header>
-
-  <!-- Konten Utama Aplikasi Mobile -->
-  <main class="app-viewport">
-    <!-- Brand Card (Coklat Gelap) -->
+  <!-- MAIN VIEWPORT                                  -->
+  <main class="app-viewport" id="mainContent">
+    <p id="storageWarning" class="form-error storage-warning" role="alert" hidden></p>
+    <!-- BRAND CARD (Dark Brown, semua halaman)          -->
     <section class="brand-card" aria-label="Informasi Lapak">
+      <!-- Lockup: Logo + Nama + Subtitle -->
       <div class="brand-lockup">
         <span class="brand-icon">
           <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -42,10 +43,11 @@
         </span>
         <div class="brand-wordmark">
           <h2>PoultryTrack</h2>
-          <p>Pelaku Usaha Mikro • Pasar Tradisional</p>
+          <p>Pelaku Usaha Mikro &bull; Pasar Tradisional</p>
         </div>
       </div>
 
+      <!-- Status Lapak + Jam -->
       <div class="brand-status">
         <span class="lapak-open" id="lapakStatus">
           <span class="status-dot"></span>
@@ -60,7 +62,7 @@
         </span>
       </div>
 
-      <!-- Segmented Control untuk Kasir (Eceran Tunai vs Mitra Langganan) -->
+      <!-- Segmented Control Kasir (Eceran Tunai vs Mitra Langganan) -->
       <div class="customer-hero">
         <div class="segmented-control" role="tablist" aria-label="Tipe Pelanggan">
           <button type="button" class="segment-btn cust-type-btn active" data-type="eceran" role="tab" aria-selected="true" aria-pressed="true">
@@ -79,7 +81,7 @@
           </button>
         </div>
 
-        <!-- Dropdown Pilih Mitra (Muncul jika Tab Mitra Aktif) -->
+        <!-- Dropdown Pilih Mitra (muncul jika Tab Mitra aktif) -->
         <div class="form-dropdown-group" id="langgananGroup" style="display:none">
           <label for="customerSelect">INPUT NAMA LANGGANAN</label>
           <div class="partner-select-wrap">
@@ -97,19 +99,19 @@
         </div>
       </div>
 
-      <!-- Hero Copy untuk Antrean, Pasokan, dan Laporan -->
+      <!-- Hero Copy: Antrean, Pasokan, Laporan -->
       <div class="hero-copy" id="heroCopy" hidden>
         <div class="hero-divider"></div>
         <div class="hero-title-row">
           <h2 id="heroTitle"></h2>
-          <span class="live-pill" id="heroLiveBadge" hidden>• Live Update</span>
+          <span class="live-pill" id="heroLiveBadge" hidden>Live Update</span>
         </div>
         <span class="hero-log-badge" id="heroLogBadge" hidden>
           <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4"/>
             <path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/>
           </svg>
-          ✦ Log Subuh
+          Log Subuh
         </span>
         <p id="heroDescription"></p>
         <div class="report-hero-badges" id="reportHeroBadges" hidden>
@@ -118,19 +120,19 @@
               <circle cx="12" cy="12" r="9"/>
               <path d="m7 12 3 3 7-7"/>
             </svg>
-            📋 Audit Harian
+            Audit Harian
           </span>
           <span id="shiftStatusBadge">
             <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="4"/>
               <path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/>
             </svg>
-            ⚙ Shift Subuh Selesai
+            Shift Subuh Selesai
           </span>
         </div>
       </div>
 
-      <!-- Hero Metrics untuk Buku Bon -->
+      <!-- Hero Metrics: Buku Bon -->
       <div class="bon-hero-metrics" id="bonHeroMetrics" hidden>
         <div class="hero-divider"></div>
         <div class="card-meta-header">
@@ -150,32 +152,31 @@
             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
             <circle cx="12" cy="7" r="4"/>
           </svg>
-          <span>Tersebar di <strong id="headerDebtorCount">0</strong> <strong>mitra</strong> / warung makan & katering langganan</span>
+          <span>Tersebar di <strong id="headerDebtorCount">0</strong> <strong>mitra</strong> / warung makan &amp; katering langganan</span>
         </p>
         <div class="bon-hero-footer">
-          <span><i class="green-dot"></i>Jatuh Tempo Hari Ini: <strong id="heroDueMitra">0 Mitra</strong></span>
+          <span><i class="green-dot"></i>Bon Terlambat: <strong id="heroDueMitra">0 Mitra</strong></span>
           <button type="button" id="btnPrintBon">
-            Export PDF Rekap <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            Export PDF Rekap
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
           </button>
         </div>
       </div>
       <span id="navDebtorBadge" hidden></span>
     </section>
-
-    <!-- ============================================== -->
     <!-- TAB 1: KASIR                                   -->
-    <!-- ============================================== -->
     <section class="tab-pane active" id="kasir">
       <div class="screen-flow">
+
         <!-- Step Progress Bar -->
-        <div class="cashier-progress" aria-label="Tahapan transaksi">
+        <div class="cashier-progress" role="group" aria-label="Tahapan transaksi">
           <button type="button" class="progress-step active" id="stepOneBtn" aria-current="step">
             <span class="step-num">1</span>
-            <span class="step-text">Timbang & Ekor</span>
+            <span class="step-text">Timbang &amp; Ekor</span>
           </button>
           <button type="button" class="progress-step" id="stepTwoBtn">
             <span class="step-num">2</span>
-            <span class="step-text">Opsi Potong & Transaksi</span>
+            <span class="step-text">Opsi Potong &amp; Transaksi</span>
           </button>
         </div>
 
@@ -183,7 +184,8 @@
 
         <!-- Step 1: Timbang & Ekor -->
         <div class="screen-flow cashier-step" id="cashierStepOne">
-          <!-- Card Info Mitra (Hanya muncul jika Langganan aktif) -->
+
+          <!-- Card Info Mitra (hanya saat Langganan aktif) -->
           <section class="surface-card partner-info" id="partnerInfoCard" hidden>
             <div class="partner-info-inner">
               <div class="card-meta-header">
@@ -224,7 +226,6 @@
                 </svg>
               </span>
             </div>
-
             <div class="stepper-box">
               <button class="stepper-btn" type="button" data-target="inputEkor" data-step="-1" aria-label="Kurangi ekor">
                 <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -255,11 +256,10 @@
                 </svg>
                 Bobot Timbang Netto
               </label>
-              <span class="badge-status-green" title="Timbangan digital siap / stabil">
-                <span class="status-dot"></span>Timbangan Stabil
+              <span class="badge-status-green" title="Bobot diisi manual; belum terhubung ke timbangan digital">
+                <span class="status-dot"></span>Input Manual
               </span>
             </div>
-
             <div class="weight-display-row">
               <div class="weight-val-wrap">
                 <input type="text" id="inputKg" value="5,40" inputmode="decimal" aria-label="Bobot netto dalam kilogram">
@@ -272,19 +272,18 @@
                 <span>Tara</span>
               </button>
             </div>
-
             <p class="field-help">Ketik bobot sendiri atau pilih berat cepat</p>
             <div class="pill-preset-grid">
-              <button type="button" class="preset-pill qw-btn" data-kg="0.5">0.5 Kg</button>
-              <button type="button" class="preset-pill qw-btn" data-kg="1">1.0 Kg</button>
-              <button type="button" class="preset-pill qw-btn" data-kg="1.5">1.5 Kg</button>
-              <button type="button" class="preset-pill qw-btn" data-kg="2">2.0 Kg</button>
+              <button type="button" class="preset-pill qw-btn" data-kg="0.5">0,5 Kg</button>
+              <button type="button" class="preset-pill qw-btn" data-kg="1">1,0 Kg</button>
+              <button type="button" class="preset-pill qw-btn" data-kg="1.5">1,5 Kg</button>
+              <button type="button" class="preset-pill qw-btn" data-kg="2">2,0 Kg</button>
             </div>
           </section>
 
           <!-- Tombol Lanjut ke Step 2 -->
           <button type="button" class="btn-primary-action" id="btnNextStep">
-            <span>Lanjut ke Opsi Potong & Transaksi</span>
+            <span>Lanjut ke Opsi Potong &amp; Transaksi</span>
             <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14m-7-7 7 7-7 7"/>
             </svg>
@@ -294,13 +293,15 @@
         <!-- Step 2: Opsi Potong & Transaksi -->
         <div class="screen-flow cashier-step" id="cashierStepTwo" hidden>
           <section class="surface-card transaction-card">
+
+            <!-- Potongan Ayam -->
             <div class="cut-price-card">
               <div class="card-meta-header">
-                <h3>Potongan Ayam</h3>
+                <h3 class="section-title">Potongan Ayam</h3>
                 <span class="cut-free">Bebas Biaya Potong</span>
               </div>
 
-              <!-- Chip Grid Potongan -->
+              <!-- Chip Selector Potongan -->
               <div class="cuts-chip-grid">
                 <label class="cut-option">
                   <input type="radio" name="part" value="utuh">
@@ -316,14 +317,14 @@
                 </label>
               </div>
 
-              <!-- Custom Potongan Section -->
+              <!-- Custom Potongan -->
               <div class="custom-cut-fields">
                 <span class="mini-eyebrow">CUSTOM</span>
                 <div class="custom-grid">
                   <label for="customCuts">
                     <span class="custom-field-label">Jumlah potong</span>
                     <div class="custom-input-wrap">
-                      <input type="number" id="customCuts" min="1" max="100" step="1" value="4" placeholder="4" aria-label="Jumlah potongan khusus">
+                      <input type="number" id="customCuts" min="1" max="100" step="1" value="" placeholder="4" aria-label="Jumlah potongan khusus">
                       <span>Bagian</span>
                     </div>
                   </label>
@@ -338,7 +339,6 @@
                     </select>
                   </label>
                 </div>
-
                 <label class="switch-row">
                   <span class="switch-label">
                     <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -353,7 +353,7 @@
                 </label>
               </div>
 
-              <!-- Catatan Tambahan (Opsional) -->
+              <!-- Catatan Tambahan -->
               <details class="note-details">
                 <summary>Catatan tambahan (opsional)</summary>
                 <input id="inputNote" type="text" class="form-input" maxlength="250" aria-label="Catatan pesanan" placeholder="Contoh: tulang dipisah, ati ampela bungkus terpisah">
@@ -363,7 +363,7 @@
               <div class="price-section">
                 <div class="card-meta-header">
                   <label for="inputPrice" class="meta-label">Harga per Kg</label>
-                  <span class="price-update">Update: Hari Ini</span>
+                  <span class="price-update">Harga dapat diubah</span>
                 </div>
                 <div class="reference-price">
                   <div class="ref-desc">
@@ -386,16 +386,16 @@
                   <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M20 6 9 17l-5-5"/>
                   </svg>
-                  Pas & Akurat
+                  Pas &amp; Akurat
                 </span>
               </div>
               <div class="summary-right">
                 <p class="summary-total-figure" id="subtotalDisplay">Rp 226.800</p>
-                <p class="summary-calc-formula" id="formulaDisplay">5.40 Kg × Rp 42.000</p>
+                <p class="summary-calc-formula" id="formulaDisplay">5.40 Kg &times; Rp 42.000</p>
               </div>
             </div>
 
-            <!-- Metode Pembayaran: Tunai Lunas vs Catat Bon -->
+            <!-- Metode Pembayaran -->
             <div class="payment-mode-grid">
               <button class="pay-select-btn pay-type-btn active" type="button" data-pay="tunai">
                 <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -422,36 +422,37 @@
               <span>Simpan Transaksi Kasir</span>
             </button>
 
-            <!-- Cetak Struk Browser -->
+            <!-- Struk Printer Note -->
             <button type="button" class="printer-note" id="btnPrintReceipt">
               <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
                 <path d="M6 14h12v8H6z"/>
               </svg>
-              <span>Cetak struk melalui browser (58mm)</span>
+              <span>Cetak struk terakhir (Thermal 58mm)</span>
             </button>
           </section>
 
           <!-- Footer Bar Kasir -->
           <div class="cashier-footer-bar">
             <div class="stock-info-row">
-              <span>Stok Karkas Tersisa: <strong>24 Ekor</strong></span>
-              <button type="button" class="link-rekap" onclick="document.querySelector('[data-tab=\'buku-bon\']').click()">Buku Rekap →</button>
+              <span>Stok tercatat: <strong id="stockRemaining">0 Ekor</strong></span>
+              <button type="button" class="link-rekap" onclick="document.querySelector('[data-tab=\'buku-bon\']').click()">Buku Rekap</button>
             </div>
+            <p class="stock-weight-hint">Saldo bobot: <strong id="stockWeight">0 Kg</strong></p>
             <div class="form-bottom-actions">
-              <button class="text-button" type="button" id="btnBackStep">← Kembali ke timbangan</button>
+              <button class="text-button" type="button" id="btnBackStep">Kembali ke timbangan</button>
               <button class="text-button muted" type="button" id="btnResetTrx">Kosongkan</button>
             </div>
           </div>
         </div>
+
       </div>
     </section>
-
-    <!-- ============================================== -->
     <!-- TAB 2: ANTREAN                                 -->
-    <!-- ============================================== -->
     <section class="tab-pane" id="antrean">
       <div class="screen-flow">
+
+        <!-- Card Daftar Antrean Aktif -->
         <section class="surface-card queue-board">
           <div class="section-heading">
             <h2>
@@ -460,7 +461,7 @@
               </svg>
               Daftar Antrean Aktif
             </h2>
-            <span class="queue-count" id="queueCount">• 0 Antrean Aktif</span>
+            <span class="queue-count badge-dark" id="queueCount">3 Antrean Aktif</span>
           </div>
 
           <details class="queue-tools">
@@ -494,19 +495,18 @@
           </div>
           <span class="meta-tag" id="queueWaiting">0 Meja Aktif</span>
         </section>
+
       </div>
     </section>
-
-    <!-- ============================================== -->
     <!-- TAB 3: BUKU BON                                -->
-    <!-- ============================================== -->
     <section class="tab-pane" id="buku-bon">
       <div class="screen-flow">
+
         <section class="surface-card bon-board">
           <div class="section-heading">
             <h2>Daftar Rekap Bon Mitra</h2>
-            <span class="meta-tag" id="debtorListCount">0 Aktif</span>
-            <button type="button" id="btnSearchBon" class="search-toggle">
+            <span class="meta-tag badge-dark" id="debtorListCount">0 Aktif</span>
+            <button type="button" id="btnSearchBon" class="search-toggle" aria-expanded="false" aria-controls="bonSearchTools">
               <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="11" cy="11" r="8"/>
                 <path d="m21 21-4.35-4.35"/>
@@ -533,11 +533,11 @@
           <div class="debtor-cards-list" id="bonListContainer"></div>
 
           <button id="btnShowAllBon" class="view-all-button" type="button" aria-expanded="false">
-            Lihat Mitra Lainnya →
+            Lihat Mitra Lainnya
           </button>
         </section>
 
-        <!-- Footer Tombol Tambah Bon & Rekap -->
+        <!-- Footer Tambah Bon & Rekap -->
         <div class="bon-footer">
           <button type="button" class="btn-primary-action" id="btnAddCustomer">
             <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -553,14 +553,13 @@
             <span>Rekap</span>
           </button>
         </div>
+
       </div>
     </section>
-
-    <!-- ============================================== -->
     <!-- TAB 4: PASOKAN (STOK)                          -->
-    <!-- ============================================== -->
     <section class="tab-pane" id="pasokan">
       <div class="screen-flow">
+
         <!-- Pemasok Karkas Utama Banner Card -->
         <section class="surface-card supplier-banner-card">
           <div class="supplier-meta">
@@ -587,7 +586,7 @@
                   <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
                   <circle cx="12" cy="7" r="4"/>
                 </svg>
-                Supir: Pak Matrawi <span>•</span> Plat: M 8214 UA
+                Supir: Pak Matrawi <span>&bull;</span> Plat: M 8214 UA
               </p>
             </div>
             <span class="truck-mark">
@@ -605,11 +604,11 @@
             <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M20 6 9 17l-5-5"/>
             </svg>
-            Terverifikasi Timbang Pabrik
+            Pasokan karkas segar
           </span>
         </section>
 
-        <!-- Form Timbangan Masuk -->
+        <!-- Form Data Timbangan Masuk -->
         <section class="surface-card supply-form-card">
           <div class="supply-title-row">
             <span class="solid-icon">
@@ -661,7 +660,7 @@
             Berat Timbang Bersih (Kg Netto):
           </label>
           <div class="supply-input-row">
-            <input type="number" id="supplyKg" value="300.5" min="0.1" step="0.1" aria-label="Berat netto pasokan">
+            <input type="text" inputmode="decimal" id="supplyKg" value="300.5" min="0.1" step="0.1" aria-label="Berat netto pasokan">
             <button type="button" class="weight-add" data-add-supply="0.5">+0.5</button>
             <button type="button" class="weight-add" data-add-supply="2">+2.0</button>
             <span class="supply-unit-text">Kg</span>
@@ -678,14 +677,14 @@
           </label>
           <div class="supply-input-row supply-price">
             <span class="curr-prefix">Rp</span>
-            <input type="number" id="supplyPrice" value="23500" step="500" min="1" aria-label="Harga beli pasokan per kilogram">
+            <input type="text" inputmode="numeric" id="supplyPrice" value="23500" step="500" min="1" aria-label="Harga beli pasokan per kilogram">
             <span class="pas-pill">Pas</span>
             <span class="supply-unit-text">/Kg</span>
           </div>
 
-          <!-- Collapsible: Detail Pembayaran & Total -->
+          <!-- Detail Pembayaran & Total -->
           <details class="supply-extra">
-            <summary>Detail pembayaran & total modal</summary>
+            <summary>Detail pembayaran &amp; total modal</summary>
             <label for="supplyPayment" class="mt-2">Pembayaran pasokan</label>
             <select id="supplyPayment" class="form-select">
               <option value="Lunas Tunai Meja">Lunas Tunai Meja Lapak</option>
@@ -705,7 +704,7 @@
               <circle cx="7" cy="18" r="2"/>
               <circle cx="17" cy="18" r="2"/>
             </svg>
-            <span>🚛 Simpan Manifes Pasokan Subuh ✓</span>
+            <span>Simpan Manifes Pasokan Subuh</span>
           </button>
         </section>
 
@@ -714,14 +713,13 @@
           <summary>Riwayat pasokan terdahulu</summary>
           <div id="suppliesListContainer"></div>
         </details>
+
       </div>
     </section>
-
-    <!-- ============================================== -->
     <!-- TAB 5: REKAP KAS (LAPORAN)                     -->
-    <!-- ============================================== -->
     <section class="tab-pane" id="rekap-kas">
       <div class="screen-flow">
+
         <!-- Filter Periode -->
         <div class="report-filter">
           <label for="reportPeriod">Periode laporan</label>
@@ -742,7 +740,7 @@
                   <path d="M5 3h14M5 10v5m14-5v5"/>
                 </svg>
               </span>
-              <span>UANG FISIK WAJIB<br>ADA DI LACI MEJA</span>
+              <span id="drawerTitle">UANG FISIK WAJIB<br>ADA DI LACI MEJA</span>
             </div>
             <button class="match-cash" type="button" id="btnMatchCash">
               <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -751,7 +749,7 @@
                 <path d="m8 21-4-4 4-4"/>
                 <path d="M4 17h16"/>
               </svg>
-              <span>💱 Cocokkan Fisik</span>
+              <span>Cocokkan Fisik</span>
             </button>
           </div>
 
@@ -771,17 +769,23 @@
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                 <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
               </svg>
-              Rincian Arus Kas Hari Ini
+              <span id="cashFlowTitle">Rincian Arus Kas Hari Ini</span>
             </h2>
           </div>
-          <span class="meta-tag report-pos-tag">3 Transaksi Utama</span>
+          <span class="meta-tag report-pos-tag" id="reportRecordCount">0 Transaksi</span>
 
           <div class="cash-flow-list">
+
             <!-- Row 1: Penjualan Tunai Eceran -->
             <div class="cash-flow-row">
-              <span class="cf-icon cf-in">↓</span>
+              <span class="cf-icon cf-in">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 5v14M5 12h7"/>
+                  <path d="M19 12H12"/>
+                </svg>
+              </span>
               <div class="cf-info">
-                <strong class="cf-name">(+) Penjualan Tunai Eceran</strong>
+                <strong class="cf-name">(+) Penjualan Tunai</strong>
                 <span class="cf-sub" id="reportSalesCount">0 transaksi eceran lapak</span>
               </div>
               <div class="flow-value">
@@ -792,7 +796,13 @@
 
             <!-- Row 2: Setoran Cicilan Bon Mitra -->
             <div class="cash-flow-row">
-              <span class="cf-icon cf-in">💰</span>
+              <span class="cf-icon cf-in">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="6" width="20" height="13" rx="2"/>
+                  <circle cx="12" cy="12.5" r="3"/>
+                  <path d="M5 3h14M5 10v5m14-5v5"/>
+                </svg>
+              </span>
               <div class="cf-info">
                 <strong class="cf-name">(+) Setoran Cicilan Bon Mitra</strong>
                 <span class="cf-sub" id="reportPaymentNames">Pelunasan bon mitra</span>
@@ -803,11 +813,19 @@
               </div>
             </div>
 
-            <!-- Row 3: Modal Pasokan Tunai (UD. Cheyloo) -->
+            <!-- Row 3: Modal Pasokan Tunai -->
             <div class="cash-flow-row outflow">
-              <span class="cf-icon cf-out">↗</span>
+              <span class="cf-icon cf-out">
+                <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+                  <path d="M15 18H9"/>
+                  <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14v10Z"/>
+                  <circle cx="7" cy="18" r="2"/>
+                  <circle cx="17" cy="18" r="2"/>
+                </svg>
+              </span>
               <div class="cf-info">
-                <strong class="cf-name">(−) Modal Pasokan Tunai (UD. Cheyloo)</strong>
+                <strong class="cf-name">(-) Modal Pasokan Tunai (UD. Cheyloo)</strong>
                 <span class="cf-sub">Faktur tunai pasokan ayam</span>
               </div>
               <div class="flow-value">
@@ -815,34 +833,44 @@
                 <span class="cf-label">Pengeluaran</span>
               </div>
             </div>
+
           </div>
 
           <div class="total-cash-in">
-            <span>Total Uang Masuk Hari Ini:</span>
+            <span id="totalCashLabel">Total Uang Masuk Hari Ini:</span>
             <strong id="reportCashIn">Rp 0</strong>
           </div>
         </section>
 
-        <!-- Tombol Tutup Kasir & Cetak Rekap -->
+        <!-- Tutup Kasir & Cetak Rekap -->
         <button type="button" class="btn-primary-action" id="btnCloseShift">
           <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
           </svg>
-          <span>Tutup Kasir & Kunci Laci Subuh</span>
+          <span>Tutup Kasir &amp; Simpan Rekap</span>
         </button>
 
-        <button type="button" class="btn-print" id="btnPrintReport">
+        <button type="button" class="btn-outline btn-print-outline" id="btnPrintReport">
           <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
             <path d="M6 14h12v8H6z"/>
           </svg>
-          <span>🖨 Cetak Rekap Kasir (Thermal 58mm)</span>
+          <span>Cetak Rekap Kasir (Thermal 58mm)</span>
         </button>
 
-        <!-- Ekstra: Tonase & Ekspor CSV -->
+        <!-- Tonase & Ekspor CSV -->
         <details class="report-extra">
-          <summary>Ringkasan tonase & ekspor transaksi</summary>
+          <summary>Ringkasan tonase &amp; ekspor transaksi</summary>
+          <form id="openingCashForm" class="opening-cash-form">
+            <label class="form-label" for="openingCashInput">Saldo awal laci hari ini (Rp)</label>
+            <div class="opening-cash-row">
+              <input id="openingCashInput" class="form-input" type="text" inputmode="numeric" value="0" aria-describedby="openingCashHint">
+              <button class="btn-ghost-action" type="submit">Simpan</button>
+            </div>
+            <p id="openingCashHint" class="field-help">Isi uang awal sebelum transaksi. Saldo laci = saldo awal + tunai + setoran bon - pasokan tunai.</p>
+            <p id="openingCashError" class="form-error" role="alert" hidden></p>
+          </form>
           <div class="tonase-summary-grid">
             <div>
               <span>Daging terjual</span>
@@ -860,20 +888,21 @@
           <button type="button" class="btn-outline" id="btnExportCsv">Unduh transaksi CSV / Excel</button>
         </details>
 
-        <!-- Reset Data Contoh -->
+        <!-- Reset Data -->
         <details class="data-settings">
           <summary>Pengaturan data contoh</summary>
-          <p>Reset akan mengembalikan data simulasi perangkat ini ke kondisi awal.</p>
+          <p>Unduh cadangan untuk menyimpan seluruh transaksi, mitra, antrean, dan pasokan. Reset mengembalikan data simulasi perangkat ini ke kondisi awal.</p>
+          <button type="button" class="btn-outline" id="btnBackupData">Unduh cadangan semua data (JSON)</button>
           <button class="text-button text-danger" type="button" id="btnResetToDefault">Reset data ke kondisi awal</button>
         </details>
+
       </div>
     </section>
-  </main>
 
-  <!-- ============================================== -->
+  </main>
   <!-- BOTTOM NAVIGATION BAR                          -->
-  <!-- ============================================== -->
   <nav class="bottom-nav-bar" id="mobileTabBar" aria-label="Menu Utama">
+
     <button type="button" class="bnav-item active" data-tab="kasir" aria-current="page">
       <span class="bnav-icon-wrap">
         <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -934,18 +963,15 @@
       </span>
       <span>Laporan</span>
     </button>
-  </nav>
 
-  <!-- ============================================== -->
+  </nav>
   <!-- MODAL 1: SETOR CICILAN BON                     -->
-  <!-- ============================================== -->
   <div class="modal-backdrop" id="paymentModal" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
     <div class="modal-sheet">
       <div class="modal-sheet-header">
         <h3 id="paymentTitle">Setor Cicilan Tunai Bon</h3>
-        <button type="button" class="modal-close-btn" id="btnModalClose" aria-label="Tutup formulir setoran">×</button>
+        <button type="button" class="modal-close-btn" id="btnModalClose" aria-label="Tutup formulir setoran">&times;</button>
       </div>
-
       <div class="modal-sheet-body">
         <div class="debtor-detail-banner">
           <div>
@@ -957,26 +983,20 @@
             <div class="db-balance font-numeric" id="modalCurrentDebt">Rp 0</div>
           </div>
         </div>
-
         <div class="form-group mt-3">
           <label class="form-label" for="modalPayAmount">Nominal Setoran Tunai (Rp):</label>
-          <input type="number" id="modalPayAmount" placeholder="Contoh: 100000" class="form-input form-input-large font-numeric" min="1" step="1">
+          <input type="text" inputmode="numeric" id="modalPayAmount" placeholder="Contoh: 100000" class="form-input form-input-large font-numeric" min="1" step="1">
           <p id="paymentError" class="form-error" role="alert" hidden></p>
         </div>
-
         <div class="quick-preset-container mt-2" id="modalQuickPayOptions"></div>
       </div>
-
       <div class="modal-sheet-footer">
         <button type="button" class="btn-ghost-action" id="btnModalCancel">Batal</button>
         <button type="button" class="btn-primary-action" id="btnModalConfirm">Simpan Setoran Tunai</button>
       </div>
     </div>
   </div>
-
-  <!-- ============================================== -->
   <!-- MODAL 2: TAMBAH MITRA & BON AWAL               -->
-  <!-- ============================================== -->
   <dialog class="customer-modal" id="customerModal" aria-labelledby="customerModalTitle">
     <form id="customerForm" novalidate>
       <div class="modal-sheet-header">
@@ -984,45 +1004,40 @@
           <span class="mini-eyebrow">MITRA LANGGANAN</span>
           <h3 id="customerModalTitle">Tambah Mitra &amp; Bon Awal</h3>
         </div>
-        <button class="modal-close-btn" id="btnCloseCustomer" type="button" aria-label="Tutup">×</button>
+        <button class="modal-close-btn" id="btnCloseCustomer" type="button" aria-label="Tutup">&times;</button>
       </div>
       <label class="form-label" for="newCustomerName">Nama Mitra / Warung</label>
       <input id="newCustomerName" class="form-input" maxlength="80" placeholder="Contoh: Warung Bu Rina">
       <label class="form-label mt-3" for="newCustomerPhone">Nomor WhatsApp (opsional)</label>
       <input id="newCustomerPhone" class="form-input" type="tel" maxlength="20" placeholder="08...">
       <label class="form-label mt-3" for="newCustomerDebt">Saldo Bon Awal (Rp)</label>
-      <input id="newCustomerDebt" class="form-input" type="number" min="0" step="1" value="0">
+      <input id="newCustomerDebt" class="form-input" type="text" inputmode="numeric" min="0" step="1" value="0">
       <label class="form-label mt-3" for="newCustomerLimit">Plafon Bon (Rp)</label>
-      <input id="newCustomerLimit" class="form-input" type="number" min="1" step="1" value="1000000">
+      <input id="newCustomerLimit" class="form-input" type="text" inputmode="numeric" min="1" step="1" value="1000000">
       <p id="customerError" class="form-error" role="alert" hidden></p>
       <button type="submit" class="btn-primary-action mt-3">Simpan Mitra</button>
     </form>
   </dialog>
-
-  <!-- ============================================== -->
   <!-- MODAL 3: PENGATURAN LAPAK                      -->
-  <!-- ============================================== -->
   <dialog class="customer-modal" id="lapakModal" aria-labelledby="lapakModalTitle">
     <div class="modal-sheet-header">
       <h3 id="lapakModalTitle">Pengaturan Lapak</h3>
-      <button type="button" class="modal-close-btn" data-close-dialog="lapakModal" aria-label="Tutup">×</button>
+      <button type="button" class="modal-close-btn" data-close-dialog="lapakModal" aria-label="Tutup">&times;</button>
     </div>
     <p class="modal-caption">Status lapak ditampilkan pada semua halaman. Buka atau tutup lapak untuk mengatur jam operasional shift subuh.</p>
     <button type="button" class="btn-primary-action mt-3" id="btnToggleLapak">Buka Lapak</button>
   </dialog>
-
-  <!-- ============================================== -->
   <!-- MODAL 4: COCOKKAN UANG FISIK                   -->
-  <!-- ============================================== -->
   <dialog class="customer-modal" id="cashModal" aria-labelledby="cashModalTitle">
     <form id="cashMatchForm">
       <div class="modal-sheet-header">
         <h3 id="cashModalTitle">Cocokkan Uang Fisik</h3>
-        <button type="button" class="modal-close-btn" data-close-dialog="cashModal" aria-label="Tutup">×</button>
+        <button type="button" class="modal-close-btn" data-close-dialog="cashModal" aria-label="Tutup">&times;</button>
       </div>
       <p class="modal-caption">Hitung uang tunai fisik yang ada di laci meja kasir saat ini, lalu masukkan nominalnya untuk mencocokkan dengan catatan sistem.</p>
       <label class="form-label" for="cashPhysical">Uang Fisik di Laci (Rp)</label>
-      <input id="cashPhysical" class="form-input font-numeric" type="number" min="0" step="1" required placeholder="Contoh: 3386800">
+      <input id="cashPhysical" class="form-input font-numeric" type="text" inputmode="numeric" min="0" step="1" required placeholder="Contoh: 3386800">
+      <p id="cashMatchError" class="form-error" role="alert" hidden></p>
       <button type="submit" class="btn-primary-action mt-3">Simpan Pencocokan</button>
     </form>
   </dialog>
@@ -1033,7 +1048,8 @@
   <!-- Toast Notification -->
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-  <!-- Logic Javascript (Tidak Diubah) -->
+  <!-- Logika aplikasi -->
+  <script src="core.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 const STORAGE_KEY = 'POULTRYTRACK_APP_STATE_V1';
 
 const DEFAULT_STATE = {
-  activeDate: new Date().toISOString().split('T')[0],
+  activeDate: PoultryCore.localDateKey(),
   customers: [
     { id: "AL", name: "AL (Bu Aliyah - Katering/Resto)", phone: "081234567801", initialDebt: 1622000, currentDebt: 1622000, plafon: 2000000, daysLate: 0, status: "aktif", history: [] },
     { id: "War", name: "War (Warung Bu Warsiti - Lalapan)", phone: "081234567802", initialDebt: 560000, currentDebt: 560000, plafon: 1000000, daysLate: 0, status: "aktif", history: [] },
@@ -25,13 +25,17 @@ const DEFAULT_STATE = {
   transactions: [
     { id: "TRX-101", date: "2026-10-05", time: "05:15", customerId: "AL", customerName: "AL (Warung Nasi Padang)", ekor: 15, kg: 28.5, part: "utuh", pricePerKg: 35000, total: 997500, type: "bon", notes: "Bon harian rutin" },
     { id: "TRX-102", date: "2026-10-05", time: "05:40", customerId: "ECR", customerName: "Eceran Tunai", ekor: 3, kg: 5.4, part: "potong4", pricePerKg: 35000, total: 189000, type: "tunai", notes: "Uang pas" },
-    { id: "TRX-103", date: "2026-10-05", time: "06:10", customerId: "Siti", customerName: "Siti (Katering Bu Siti)", ekor: 8, kg: 15.1, part: "potong8", pricePerKg: 34500, total: 520950, type: "bon", notes: "Katering pesanan" }
+    { id: "TRX-103", date: "2026-10-05", time: "06:10", customerId: "S", customerName: "S (Bu Siti - Warung Rames)", ekor: 8, kg: 15.1, part: "potong8", pricePerKg: 34500, total: 520950, type: "bon", notes: "Katering pesanan" }
   ]
 };
 
 let state = null;
 let audioCtx = null;
 let currentBonFilter = 'all';
+let lastStorageValue = null;
+let lastStableState = null;
+let storageBlocked = false;
+let unreadableBackup = '';
 
 function playTouchSound(freq = 750, duration = 0.02) {
   try {
@@ -55,39 +59,73 @@ function playTouchSound(freq = 750, duration = 0.02) {
 }
 
 function formatRupiah(num) {
-  if (isNaN(num)) return "Rp 0";
+  if (!Number.isFinite(Number(num))) return "Rp 0";
   return "Rp " + Math.round(num).toLocaleString('id-ID');
 }
 
 function parseNumber(value) {
-  let text = String(value ?? '').trim();
-  if (text.includes(',')) text = text.replace(/\./g, '').replace(',', '.');
-  const number = Number(text);
-  return Number.isFinite(number) ? number : 0;
+  return PoultryCore.parseNumber(value);
 }
 function parseCurrency(value) {
-  const number = Number(String(value ?? '').replace(/\./g, '').replace(',', '.').trim());
-  return Number.isFinite(number) ? number : 0;
+  return PoultryCore.parseCurrency(value);
 }
 
 function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  try {
+    if (storageBlocked) throw new Error('Penyimpanan belum tersedia. Unduh cadangan sebelum melanjutkan.');
+    const current = localStorage.getItem(STORAGE_KEY);
+    if (current !== lastStorageValue) {
+      if (!current) throw new Error('Data berubah di tab lain. Muat ulang halaman sebelum melanjutkan.');
+      state = PoultryCore.normalizeState(JSON.parse(current));
+      lastStorageValue = current;
+      lastStableState = JSON.stringify(state);
+      throw new Error('Data diperbarui di tab lain. Periksa kembali lalu ulangi tindakan ini.');
+    }
+    const payload = JSON.stringify(state);
+    localStorage.setItem(STORAGE_KEY, payload);
+    lastStorageValue = payload;
+    lastStableState = payload;
+    return true;
+  } catch (error) {
+    if (lastStableState) state = JSON.parse(lastStableState);
+    showStorageError(error.message || 'Data gagal disimpan. Periksa ruang penyimpanan browser.');
+    refreshViews();
+    return false;
+  }
 }
 
 function loadState() {
-  const raw = localStorage.getItem(STORAGE_KEY);
   try {
-    state = raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(DEFAULT_STATE));
-    if (!state || !Array.isArray(state.customers) || !Array.isArray(state.transactions) || !Array.isArray(state.supplies)) throw new Error('Invalid state');
+    lastStorageValue = localStorage.getItem(STORAGE_KEY);
+    unreadableBackup = lastStorageValue || '';
+    state = PoultryCore.normalizeState(lastStorageValue ? JSON.parse(lastStorageValue) : DEFAULT_STATE);
   } catch (error) {
-    state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    storageBlocked = true;
+    state = PoultryCore.normalizeState(DEFAULT_STATE);
+    showStorageError('Data browser tidak dapat dibaca. Data lama tidak ditimpa. Unduh cadangan melalui Pengaturan data, lalu periksa penyimpanan browser.');
   }
-  if (!Array.isArray(state.queue)) {
-    state.queue = state.transactions.filter(t => t.type !== 'cicilan_masuk').map((t, i) => ({
-      ...t, transactionId: t.id, status: i === 0 ? 'processing' : 'waiting'
-    }));
-  }
-  saveState();
+  lastStableState = JSON.stringify(state);
+}
+
+function showStorageError(message) {
+  const banner = document.getElementById('storageWarning');
+  banner.textContent = message;
+  banner.hidden = false;
+}
+
+function refreshViews() {
+  renderQueue();
+  renderBukuBon();
+  renderSupplies();
+  renderRekapKas();
+  renderStock();
+}
+
+function renderStock() {
+  const inventory = PoultryCore.inventory(state);
+  document.getElementById('stockRemaining').textContent = inventory.ekor.toLocaleString('id-ID') + ' Ekor';
+  document.getElementById('stockWeight').textContent = inventory.kg.toLocaleString('id-ID', {maximumFractionDigits: 2}) + ' Kg';
+  document.querySelector('[data-tab="pasokan"] .nav-badge-dot').hidden = inventory.ekor > 10;
 }
 
 function initClock() {
@@ -127,6 +165,7 @@ function initTabs() {
       if (target === 'buku-bon') renderBukuBon();
       if (target === 'pasokan') renderSupplies();
       if (target === 'rekap-kas') renderRekapKas();
+      renderStock();
     });
   });
 }
@@ -155,6 +194,7 @@ function initKasir() {
 
   function populateCustomerSelect() {
     if (!customerSelect) return;
+    const selected = customerSelect.value;
     customerSelect.innerHTML = '<option value="">Cari atau pilih nama pelanggan...</option>';
     state.customers.filter(c => c.id !== 'ECR').forEach(c => {
       const opt = document.createElement('option');
@@ -162,6 +202,7 @@ function initKasir() {
       opt.textContent = c.name;
       customerSelect.appendChild(opt);
     });
+    customerSelect.value = selected;
   }
   populateCustomerSelect();
 
@@ -171,7 +212,10 @@ function initKasir() {
       custTypeBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       selectedCustomerType = btn.dataset.type;
-      custTypeBtns.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      custTypeBtns.forEach(b => {
+        b.setAttribute('aria-pressed', String(b === btn));
+        b.setAttribute('aria-selected', String(b === btn));
+      });
       setError('cashierError', '');
 
       if (selectedCustomerType === 'langganan') {
@@ -208,7 +252,7 @@ function initKasir() {
       const step = parseFloat(btn.dataset.step) || 1;
       const targetEl = document.getElementById(targetId);
       if (targetEl) {
-        let val = parseNumber(targetEl.value);
+        let val = parseNumber(targetEl.value) || 0;
         val = Math.max(parseFloat(targetEl.min) || 0, val + step);
         targetEl.value = step % 1 === 0 ? val : val.toFixed(2);
         targetEl.dispatchEvent(new Event('input', {bubbles: true}));
@@ -248,9 +292,9 @@ function initKasir() {
   });
 
   function recalculateSubtotal() {
-    const kg = parseNumber(kgInput ? kgInput.value : 0);
-    const price = parseCurrency(priceInput ? priceInput.value : 0);
-    const subtotal = kg * price;
+    const kg = parseNumber(kgInput ? kgInput.value : 0) || 0;
+    const price = parseCurrency(priceInput ? priceInput.value : 0) || 0;
+    const subtotal = Math.max(0, Math.round(kg * price));
     quickPrices.forEach(b => b.classList.toggle('active-pill', Number(b.dataset.price) === price));
     quickWeights.forEach(b => b.classList.toggle('active-pill', Number(b.dataset.kg) === kg));
     if (subtotalDisplay) {
@@ -287,14 +331,13 @@ function initKasir() {
   if (btnResetTrx) {
     btnResetTrx.addEventListener('click', () => {
       playTouchSound();
-      if (ekorInput) ekorInput.value = 3;
-      if (kgInput) kgInput.value = "5,40";
-      if (priceInput) priceInput.value = '42.000';
+      if (ekorInput) ekorInput.value = 1;
+      if (kgInput) kgInput.value = '';
       const noteInput = document.getElementById('inputNote');
       if (noteInput) noteInput.value = '';
       selectedCustomerType = 'eceran';
       if (customerSelect) customerSelect.value = '';
-      document.getElementById('customCuts').value = '4';
+      document.getElementById('customCuts').value = '';
       document.getElementById('cutSize').value = 'Dada saja';
       document.getElementById('withoutSkin').checked = true;
       document.querySelector('input[name="part"][value="potong4"]').checked = true;
@@ -305,6 +348,7 @@ function initKasir() {
       custTypeBtns.forEach(b => {
         b.classList.toggle('active', b.dataset.type === 'eceran');
         b.setAttribute('aria-pressed', String(b.dataset.type === 'eceran'));
+        b.setAttribute('aria-selected', String(b.dataset.type === 'eceran'));
       });
       if (langgananGroup) langgananGroup.style.display = 'none';
       if (custBalanceBadge) custBalanceBadge.style.display = 'none';
@@ -316,12 +360,17 @@ function initKasir() {
     btnSubmitTrx.addEventListener('click', () => {
       playTouchSound(1000, 0.08);
 
+      if (!isLapakOpen()) {
+        setError('cashierError', 'Lapak sedang tutup. Buka lapak melalui ikon profil sebelum menyimpan transaksi.');
+        return;
+      }
+
       const ekor = parseNumber(ekorInput ? ekorInput.value : 1);
       const kg = parseNumber(kgInput ? kgInput.value : 0);
       const price = parseCurrency(priceInput ? priceInput.value : 0);
       const total = Math.round(kg * price);
 
-      if (!Number.isInteger(ekor) || ekor < 1 || !Number.isFinite(kg) || kg <= 0 || !Number.isFinite(price) || price <= 0) {
+      if (!Number.isInteger(ekor) || ekor < 1 || !Number.isFinite(kg) || kg <= 0 || !Number.isSafeInteger(price) || price <= 0 || !Number.isSafeInteger(total) || total <= 0) {
         setError('cashierError', 'Masukkan berat dan harga per kilogram yang valid.');
         return;
       }
@@ -339,8 +388,24 @@ function initKasir() {
         const custObj = state.customers.find(c => c.id === customerId);
         if (custObj) {
           customerName = custObj.name;
-          custObj.phone = document.getElementById('partnerPhoneInput').value.trim() || custObj.phone;
+          const phone = document.getElementById('partnerPhoneInput').value.trim();
+          if (phone && !PoultryCore.normalizePhone(phone)) {
+            setError('cashierError', 'Periksa nomor WhatsApp mitra, gunakan 08 atau +62 diikuti nomor yang valid.');
+            showCashierStep(1);
+            return;
+          }
         }
+      }
+
+      const stock = PoultryCore.inventory(state);
+      if (ekor > stock.ekor || kg > stock.kg) {
+        setError('cashierError', 'Stok tercatat tidak mencukupi. Periksa atau tambahkan pasokan pada menu Stok.');
+        return;
+      }
+      const debtor = state.customers.find(c => c.id === customerId);
+      if (selectedPaymentType === 'bon' && debtor?.plafon > 0 && debtor.currentDebt + total > debtor.plafon) {
+        setError('cashierError', `Transaksi melewati plafon bon. Sisa plafon ${formatRupiah(Math.max(0, debtor.plafon - debtor.currentDebt))}. Pilih tunai atau catat setoran terlebih dahulu.`);
+        return;
       }
 
       const checkedPart = document.querySelector('input[name="part"]:checked');
@@ -355,11 +420,11 @@ function initKasir() {
       const notes = [document.getElementById('cutSize').value, document.getElementById('withoutSkin').checked ? 'Tanpa kulit' : 'Dengan kulit', noteInput ? noteInput.value.trim() : ''].filter(Boolean).join(' • ');
 
       const now = new Date();
-      const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+      const timeStr = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit' });
       const dateStr = localDateKey(now);
 
       const newTrx = {
-        id: "TRX-" + Date.now().toString(36),
+        id: newId('TRX'),
         date: dateStr,
         time: timeStr,
         customerId: customerId,
@@ -376,22 +441,30 @@ function initKasir() {
       };
 
       state.transactions.unshift(newTrx);
-      state.queue.unshift({ ...newTrx, transactionId: newTrx.id, status: 'waiting' });
-      renderQueue();
+      state.queue.push({ ...newTrx, transactionId: newTrx.id, status: 'waiting' });
+      if (selectedCustomerType === 'langganan') {
+        const customer = state.customers.find(c => c.id === customerId);
+        customer.phone = document.getElementById('partnerPhoneInput').value.trim() || customer.phone;
+      }
 
       if (selectedPaymentType === 'bon') {
         const cust = state.customers.find(c => c.id === customerId);
         if (cust) {
+          if (cust.currentDebt === 0 || (!cust.dueDate && !cust.daysLate)) {
+            cust.dueDate = new Date(Date.parse(dateStr) + 7 * 86400000).toISOString().slice(0, 10);
+          }
           cust.currentDebt += total;
         }
       }
 
-      saveState();
+      if (!saveState()) return;
+      refreshViews();
       populateCustomerSelect();
       renderBukuBon();
       renderRekapKas();
 
       showToast(`Transaksi ${formatRupiah(total)} disimpan dan masuk antrean potong.`);
+      brieflyDisable(btnSubmitTrx);
 
       if (btnResetTrx) btnResetTrx.click();
     });
@@ -402,7 +475,8 @@ function renderBukuBon() {
   const query = document.getElementById('searchBon').value.toLowerCase().trim();
   const debtors = state.customers.filter(c => c.id !== 'ECR');
   const active = debtors.filter(c => c.currentDebt > 0);
-  const due = active.filter(c => c.daysLate > 0);
+  const due = active.filter(c => PoultryCore.daysLate(c, state.debtAsOf) > 0);
+  document.querySelector('[data-tab="buku-bon"] .nav-badge-dot').hidden = due.length === 0;
   const critical = active.filter(c => c.plafon > 0 && c.currentDebt / c.plafon >= .85);
   document.getElementById('headerTotalDebt').textContent = formatRupiah(active.reduce((a, c) => a + c.currentDebt, 0));
   document.getElementById('headerDebtorCount').textContent = active.length;
@@ -414,7 +488,7 @@ function renderBukuBon() {
     b.textContent = ({all: 'Semua', tempo: 'Jatuh tempo', kritis: 'Plafon kritis'})[b.dataset.filter] + ' (' + counts[b.dataset.filter] + ')';
   });
   const filtered = debtors.filter(c => {
-    if (!c.name.toLowerCase().includes(query) && !c.id.toLowerCase().includes(query)) return false;
+    if (![c.name, c.id, c.phone].some(value => String(value || '').toLowerCase().includes(query))) return false;
     return currentBonFilter === 'tempo' ? due.includes(c) : currentBonFilter === 'kritis' ? critical.includes(c) : true;
   });
   const toggle = document.getElementById('btnShowAllBon');
@@ -429,13 +503,14 @@ function renderBukuBon() {
     return;
   }
   container.innerHTML = visible.map(c => {
-    const ratio = c.plafon > 0 ? Math.round(c.currentDebt / c.plafon * 1000) / 10 : 0;
+    const ratio = (c.plafon > 0 ? Math.round(c.currentDebt / c.plafon * 1000) / 10 : 0).toLocaleString('id-ID');
     const paid = c.currentDebt <= 0;
-    const status = paid ? 'Lunas' : c.daysLate > 0 ? `Lewat ${c.daysLate} hari` : 'Bon berjalan';
-    const phone = (c.phone || '').replace(/\D/g, '').replace(/^0/, '62');
+    const late = PoultryCore.daysLate(c, state.debtAsOf);
+    const status = paid ? 'Lunas' : late > 0 ? `Lewat ${late} hari` : c.dueDate ? 'Tempo ' + new Intl.DateTimeFormat('id-ID', {day: 'numeric', month: 'short', timeZone: 'UTC'}).format(new Date(c.dueDate)) : 'Bon berjalan';
+    const phone = PoultryCore.normalizePhone(c.phone);
     const waText = `Halo ${c.name}, mengingatkan catatan bon lapak ayam sebesar ${formatRupiah(c.currentDebt)}.`;
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(waText)}`;
-    return `<article class="debtor-item-card"><div class="debtor-item-header"><span class="debtor-avatar">${escapeHtml(c.id.slice(0, 3))}</span><div class="debtor-info"><h3 class="debtor-name" title="${escapeHtml(c.name)}">${escapeHtml(c.name)}</h3><p class="debtor-sub">Plafon: ${formatRupiah(c.plafon || 0)}</p><span class="debtor-phone">${uiIcon('phone')}${escapeHtml(c.phone && c.phone !== '-' ? c.phone : 'Belum ada nomor')}</span></div><div><p class="debtor-amount">${formatRupiah(c.currentDebt)}</p><div class="debtor-actions"><a class="btn-card-wa" href="${waUrl}" target="_blank" rel="noopener noreferrer">Kirim WA →</a><button type="button" class="btn-card-pay" data-pay-customer="${escapeHtml(c.id)}" ${paid ? 'disabled' : ''}>Setor</button></div></div></div><div class="debtor-limit"><span>Pemakaian Plafon: <strong>${ratio}%</strong></span><span class="${c.daysLate > 0 ? 'badge-status-red' : 'badge-status-green'}">${status}</span></div></article>`;
+    return `<article class="debtor-item-card"><div class="debtor-item-header"><span class="debtor-avatar">${escapeHtml(c.id.slice(0, 3))}</span><div class="debtor-info"><h3 class="debtor-name" title="${escapeHtml(c.name)}">${escapeHtml(c.name)}</h3><p class="debtor-sub">Plafon: ${formatRupiah(c.plafon || 0)}</p><span class="debtor-phone">${uiIcon('phone')}${escapeHtml(c.phone && c.phone !== '-' ? c.phone : 'Belum ada nomor')}</span></div><div><p class="debtor-amount">${formatRupiah(c.currentDebt)}</p><div class="debtor-actions"><a class="btn-card-wa" ${phone ? `href="${waUrl}" target="_blank" rel="noopener noreferrer"` : 'aria-disabled="true" title="Tambahkan nomor WhatsApp yang valid melalui kasir"'}>Kirim WA →</a><button type="button" class="btn-card-pay" data-pay-customer="${escapeHtml(c.id)}" ${paid ? 'disabled' : ''}>Setor</button></div></div></div><div class="debtor-limit"><span>Pemakaian Plafon: <strong>${ratio}%</strong></span><span class="${late > 0 ? 'badge-status-red' : 'badge-status-green'}">${status}</span></div></article>`;
   }).join('');
 }
 
@@ -455,6 +530,7 @@ function initBonFilters() {
 }
 
 window.openPaymentModal = function(customerId) {
+  if (!isLapakOpen()) { showToast('Buka lapak melalui ikon profil sebelum menerima setoran.'); return; }
   playTouchSound(700);
   const cust = state.customers.find(c => c.id === customerId);
   if (!cust) return;
@@ -472,7 +548,7 @@ window.openPaymentModal = function(customerId) {
 
   if (quickOpts) {
     quickOpts.innerHTML = '';
-    const presets = [50000, 100000, 200000, cust.currentDebt].filter(p => p > 0);
+    const presets = [...new Set([50000, 100000, 200000, cust.currentDebt])].filter(p => p > 0 && p <= cust.currentDebt);
     presets.forEach(p => {
       const b = document.createElement('button');
       b.type = 'button';
@@ -488,6 +564,9 @@ window.openPaymentModal = function(customerId) {
 
   if (modal) {
     modal.classList.add('open');
+    document.querySelector('main').inert = true;
+    document.querySelector('nav').inert = true;
+    document.querySelector('header').inert = true;
     modal.dataset.returnFocus = document.activeElement?.dataset.payCustomer || '';
     setError('paymentError', '');
     amountInput.focus();
@@ -504,6 +583,9 @@ function initModal() {
   function closeModal() {
     if (modal) {
       modal.classList.remove('open');
+      document.querySelector('main').inert = false;
+      document.querySelector('nav').inert = false;
+      document.querySelector('header').inert = false;
       document.querySelector('[data-pay-customer="' + CSS.escape(modal.dataset.returnFocus || '') + '"]')?.focus();
     }
   }
@@ -513,11 +595,12 @@ function initModal() {
 
   if (btnConfirm) {
     btnConfirm.onclick = () => {
+      if (!isLapakOpen()) { setError('paymentError', 'Lapak sedang tutup. Buka lapak sebelum mencatat setoran.'); return; }
       playTouchSound(950);
       const cId = modal ? modal.dataset.customerId : null;
-      const amount = parseNumber(amountInput ? amountInput.value : 0);
+      const amount = parseCurrency(amountInput ? amountInput.value : 0);
 
-      if (!cId || !Number.isFinite(amount) || amount <= 0) {
+      if (!cId || !Number.isSafeInteger(amount) || amount <= 0) {
         setError('paymentError', 'Masukkan nominal setoran yang valid.');
         return;
       }
@@ -531,12 +614,13 @@ function initModal() {
       }
 
       cust.currentDebt = Math.max(0, cust.currentDebt - amount);
+      if (cust.currentDebt === 0) { cust.daysLate = 0; cust.dueDate = null; cust.status = 'lancar'; }
 
       const now = new Date();
       const newTrx = {
-        id: "PAY-" + Date.now().toString(36),
+        id: newId('PAY'),
         date: localDateKey(now),
-        time: now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+        time: now.toLocaleTimeString('en-GB', {timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit'}),
         customerId: cust.id,
         customerName: cust.name,
         ekor: 0,
@@ -549,7 +633,8 @@ function initModal() {
       };
 
       state.transactions.unshift(newTrx);
-      saveState();
+      if (!saveState()) return;
+      brieflyDisable(btnConfirm);
       closeModal();
       renderBukuBon();
       renderRekapKas();
@@ -568,9 +653,9 @@ function initSupplies() {
 
   function updateSupplyTotal() {
     const kg = parseNumber(supplyKg ? supplyKg.value : 0);
-    const price = parseNumber(supplyPrice ? supplyPrice.value : 0);
+    const price = parseCurrency(supplyPrice ? supplyPrice.value : 0);
     if (supplyModalTotal) {
-      supplyModalTotal.innerText = formatRupiah(kg * price);
+      supplyModalTotal.innerText = formatRupiah(Math.round((kg || 0) * (price || 0)));
     }
   }
 
@@ -596,32 +681,37 @@ function initSupplies() {
       playTouchSound(1000);
       const ekor = parseNumber(supplyEkor ? supplyEkor.value : 0);
       const kg = parseNumber(supplyKg ? supplyKg.value : 0);
-      const price = parseNumber(supplyPrice ? supplyPrice.value : 0);
+      const price = parseCurrency(supplyPrice ? supplyPrice.value : 0);
       const paymentInput = document.getElementById('supplyPayment');
       const paymentStatus = paymentInput ? paymentInput.value : 'Lunas Tunai Meja';
 
-      if (!Number.isInteger(ekor) || ekor < 1 || !Number.isFinite(kg) || kg <= 0 || !Number.isFinite(price) || price <= 0) {
+      if (!Number.isInteger(ekor) || ekor < 1 || !Number.isFinite(kg) || kg <= 0 || !Number.isSafeInteger(price) || price <= 0 || !Number.isSafeInteger(Math.round(kg * price))) {
         showToast('Masukkan jumlah ekor, berat, dan harga pasokan yang valid.');
         return;
       }
 
       const now = new Date();
       const newSupply = {
-        id: "SUP-" + Date.now().toString(36),
+        id: newId('SUP'),
         date: localDateKey(now),
         supplier: "UD. Cheyloo Farm Kamal",
         ekor: ekor,
         kg: kg,
         pricePerKg: price,
-        totalModal: kg * price,
+        totalModal: Math.round(kg * price),
         paymentStatus: paymentStatus,
         note: "Pasokan subuh karkas segar"
       };
 
       state.supplies.unshift(newSupply);
-      saveState();
+      if (!saveState()) return;
       renderSupplies();
       renderRekapKas();
+      renderStock();
+      supplyEkor.value = '1';
+      supplyKg.value = '';
+      updateSupplyTotal();
+      brieflyDisable(btnSubmitSupply);
       showToast(`Pasokan ${formatRupiah(newSupply.totalModal)} berhasil dicatat.`);
     };
   }
@@ -643,10 +733,10 @@ function renderSupplies() {
     item.innerHTML = `
       <div>
         <div style="display: flex; align-items: center; gap: 6px;">
-          <strong style="font-size: 13px;">${s.supplier}</strong>
-          <span class="${s.paymentStatus.includes('Lunas') ? 'badge-status-green' : 'badge-status-red'}">${s.paymentStatus}</span>
+          <strong style="font-size: 13px;">${escapeHtml(s.supplier)}</strong>
+          <span class="${s.paymentStatus.includes('Lunas') ? 'badge-status-green' : 'badge-status-red'}">${escapeHtml(s.paymentStatus)}</span>
         </div>
-        <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">${s.date} &bull; ${s.ekor} Ekor / ${s.kg} Kg</p>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">${escapeHtml(s.date)} &bull; ${s.ekor} Ekor / ${s.kg} Kg</p>
       </div>
       <div style="text-align: right;">
         <strong class="font-numeric" style="font-size: 13px;">${formatRupiah(s.totalModal)}</strong>
@@ -658,21 +748,7 @@ function renderSupplies() {
 }
 
 function reportTotals() {
-  const todayOnly = document.getElementById('reportPeriod').value === 'today';
-  const date = localDateKey();
-  const transactions = state.transactions.filter(t => !todayOnly || t.date === date);
-  const supplies = state.supplies.filter(s => !todayOnly || s.date === date);
-  const sum = (list, key) => list.reduce((a, item) => a + Number(item[key] || 0), 0);
-  const sales = transactions.filter(t => t.type === 'tunai');
-  const payments = transactions.filter(t => t.type === 'cicilan_masuk');
-  const bon = transactions.filter(t => t.type === 'bon');
-  const productSales = transactions.filter(t => t.type !== 'cicilan_masuk');
-  const cashSales = sum(sales, 'total');
-  const cashPayments = sum(payments, 'total');
-  const cashSupplies = sum(supplies.filter(s => s.paymentStatus.includes('Lunas') || s.paymentStatus.includes('Tunai')), 'totalModal');
-  return {transactions, supplies, sales, payments, cashSales, cashPayments, cashSupplies,
-    kg: sum(productSales, 'kg'), ekor: sum(productSales, 'ekor'), bon: sum(bon, 'total'),
-    cashIn: cashSales + cashPayments, net: cashSales + cashPayments - cashSupplies};
+  return PoultryCore.reportTotals(state, document.getElementById('reportPeriod').value);
 }
 function renderRekapKas() {
   const totals = reportTotals();
@@ -682,23 +758,33 @@ function renderRekapKas() {
   Object.entries(values).forEach(([id, value]) => document.getElementById(id).textContent = formatRupiah(value));
   document.getElementById('rekapKgSold').textContent = totals.kg.toLocaleString('id-ID', {maximumFractionDigits: 2}) + ' Kg';
   document.getElementById('rekapEkorSold').textContent = totals.ekor + ' Ekor';
-  document.getElementById('reportSalesCount').textContent = totals.sales.length + ' transaksi eceran lapak';
+  document.getElementById('reportSalesCount').textContent = totals.sales.length + ' transaksi tunai';
+  const todayOnly = document.getElementById('reportPeriod').value === 'today';
+  document.getElementById('openingCashForm').hidden = !todayOnly;
+  document.getElementById('openingCashInput').value = totals.openingCash.toLocaleString('id-ID');
+  document.getElementById('drawerTitle').innerHTML = todayOnly ? 'UANG FISIK WAJIB<br>ADA DI LACI MEJA' : 'SALDO ARUS KAS<br>SELURUH CATATAN';
+  document.getElementById('btnMatchCash').disabled = !todayOnly;
+  document.getElementById('cashFlowTitle').textContent = todayOnly ? 'Rincian Arus Kas Hari Ini' : 'Rincian Arus Kas Seluruh Catatan';
+  document.getElementById('totalCashLabel').textContent = todayOnly ? 'Total Uang Masuk Hari Ini:' : 'Total Uang Masuk:';
+  document.getElementById('reportRecordCount').textContent = totals.transactions.length + ' Transaksi';
+  document.getElementById('reportPaymentNames').textContent = totals.payments.length ? totals.payments.length + ' setoran bon diterima' : 'Belum ada setoran pada periode ini';
   document.getElementById('reportPayCount').textContent = new Set(totals.payments.map(t => t.customerId)).size + ' Pelanggan';
   const badge = document.getElementById('cashDifference');
+  badge.disabled = !todayOnly;
   const key = document.getElementById('reportPeriod').value === 'today' ? localDateKey() : 'all';
   const physical = state.cashCounts?.[key];
   badge.classList.remove('is-balanced', 'is-different');
-  if (physical == null) badge.textContent = 'Belum dicocokkan';
+  if (!todayOnly) badge.textContent = 'Pilih Hari ini untuk cocokkan';
+  else if (physical == null) badge.textContent = 'Belum dicocokkan';
   else {
     const difference = physical - totals.net;
-    badge.textContent = difference === 0 ? '✓ Rp 0 (Seimbang / Pas)' : formatRupiah(difference) + ' (Selisih)';
+    badge.textContent = difference === 0 ? 'Rp 0 (Seimbang / Pas)' : formatRupiah(difference) + ' (Selisih)';
     badge.classList.add(difference === 0 ? 'is-balanced' : 'is-different');
   }
 }
 
 function exportTransactions() {
-  const todayOnly = document.getElementById('reportPeriod').value === 'today';
-  const transactions = state.transactions.filter(t => !todayOnly || t.date === localDateKey());
+  const transactions = reportTotals().transactions;
   const rows = [['ID Transaksi','Tanggal','Jam','Kode Mitra','Nama Pelanggan','Ekor','Berat (Kg)','Potongan','Harga/Kg','Total (Rp)','Pembayaran','Catatan']];
   transactions.forEach(t => rows.push([t.id,t.date,t.time,t.customerId,t.customerName,t.ekor,t.kg,t.part,t.pricePerKg,t.total,t.type,t.notes]));
   const cell = v => {
@@ -735,10 +821,16 @@ function initDataTools() {
   const btnResetData = document.getElementById('btnResetToDefault');
   if (btnResetData) {
     btnResetData.onclick = () => {
-      if (confirm("Apakah Anda yakin ingin mereset data transaksi ke kondisi awal?")) {
-        state = JSON.parse(JSON.stringify(DEFAULT_STATE));
-        state.queue = state.transactions.filter(t => t.type !== 'cicilan_masuk').map(t => ({...t, transactionId: t.id, status: 'waiting'}));
-        saveState();
+      if (confirm("Reset menghapus catatan lokal dan mengembalikan data contoh. Unduh cadangan JSON terlebih dahulu. Tetap reset?")) {
+        try {
+          lastStorageValue = localStorage.getItem(STORAGE_KEY);
+          storageBlocked = false;
+        } catch (error) {
+          showStorageError('Penyimpanan browser tidak dapat diakses. Reset dibatalkan.');
+          return;
+        }
+        state = PoultryCore.normalizeState(DEFAULT_STATE);
+        if (!saveState()) return;
         location.reload();
       }
     };
@@ -763,6 +855,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSupplies();
   renderRekapKas();
   renderQueue();
+  renderStock();
+  initResilience();
 });
 
 function escapeHtml(value) {
@@ -770,7 +864,7 @@ function escapeHtml(value) {
 }
 
 function localDateKey(date = new Date()) {
-  return new Intl.DateTimeFormat('en-CA', {timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit'}).format(date);
+  return PoultryCore.localDateKey(date);
 }
 
 let toastTimer;
@@ -867,7 +961,8 @@ function renderQueue() {
   document.getElementById('queueCount').textContent = '• ' + active.length + ' Antrean Aktif';
   document.getElementById('navQueueBadge').textContent = active.length + ' antrean';
   document.getElementById('queueTotalEkor').textContent = 'Total ' + active.reduce((n, q) => n + (q.ekor || 0), 0) + ' Karkas Antre';
-  document.getElementById('queueWaiting').textContent = Math.min(2, active.length) + ' Meja Aktif';
+  document.getElementById('queueWaiting').textContent = active.filter(q => q.status === 'processing').length + ' Pesanan Diproses';
+  document.querySelector('[data-tab="antrean"] .nav-badge-dot').hidden = active.length === 0;
   const pageButton = document.getElementById('btnQueuePage');
   pageButton.hidden = pages <= 1;
   pageButton.innerHTML = (queuePage === pages - 1 ? '← Kembali ke Antrean' : 'Lihat Detail Antrean ' + uiIcon('arrow'));
@@ -876,15 +971,15 @@ function renderQueue() {
     container.innerHTML = '<div class="empty-state"><h3>' + (queueFilter === 'done' ? 'Belum ada pesanan diambil' : 'Antrean sudah selesai') + '</h3><p>Pesanan tampil setelah transaksi disimpan di kasir.</p></div>';
     return;
   }
-  const labels = {waiting: '• Waitlist', processing: '• Processing', ready: '• Siap Diambil', done: '✓ Sudah Diambil'};
+  const labels = {waiting: '• Waitlist', processing: '• Processing', ready: '• Siap Diambil', done: 'Sudah Diambil'};
   const actions = {waiting: 'Mulai potong', processing: 'Tandai siap diambil', ready: 'Tandai sudah diambil'};
   container.innerHTML = visible.map((q, index) => {
     const position = queuePage * 2 + index;
-    const table = q.table || 'Meja ' + String(position % 2 + 1).padStart(2, '0');
+    const table = q.table || (q.status === 'processing' ? 'Sedang dipotong' : q.status === 'ready' ? 'Siap diambil' : q.status === 'done' ? 'Selesai' : 'Menunggu giliran');
     const items = Array.isArray(q.items) && q.items.length ? q.items : [{ekor: q.ekor, kg: q.kg, part: q.part, request: q.request}];
     const rows = items.map(item => `<div class="queue-line">${uiIcon('check')}<span>${Number(item.ekor || 0)} Karkas (${Number(item.kg || 0).toLocaleString('id-ID')} Kg) - ${escapeHtml(partLabel(item.part))}${item.request ? ' (' + escapeHtml(item.request) + ')' : ''}</span></div>`).join('');
     const name = q.type === 'bon' ? 'Mitra: ' + q.customerName : 'Tunai: ' + (q.customerName || 'Pelanggan Eceran');
-    return `<article class="queue-card"><div class="queue-head"><span class="queue-avatar">${position + 1}</span><div><h3>${escapeHtml(name)}</h3></div><strong>${q.ekor} Karkas</strong></div><div class="queue-meta"><span>Order ID: ${escapeHtml(q.id)}</span>${q.priority ? '<span class="priority-badge">ϟ Prioritas Tinggi</span>' : ''}<span class="table-badge">${table}</span></div><div class="queue-spec">${rows}</div>${q.notes ? '<details><summary>Catatan pesanan</summary><p>' + escapeHtml(q.notes) + '</p></details>' : ''}<div class="queue-footer"><span>${uiIcon('clock')}Masuk: ${escapeHtml(q.time)} WIB</span><button class="queue-next ${escapeHtml(q.status)}" type="button" data-queue-next="${escapeHtml(q.transactionId)}" aria-label="${actions[q.status] || 'Pesanan sudah diambil'}" ${q.status === 'done' ? 'disabled' : ''}>${labels[q.status] || labels.waiting}</button></div></article>`;
+    return `<article class="queue-card"><div class="queue-head"><span class="queue-avatar">${position + 1}</span><div><h3>${escapeHtml(name)}</h3></div><strong>${q.ekor} Karkas</strong></div><div class="queue-meta"><span>Order ID: ${escapeHtml(q.id)}</span>${q.priority ? '<span class="priority-badge">Prioritas Tinggi</span>' : ''}<span class="table-badge">${escapeHtml(table)}</span></div><div class="queue-spec">${rows}</div>${q.notes ? '<details><summary>Catatan pesanan</summary><p>' + escapeHtml(q.notes) + '</p></details>' : ''}<div class="queue-footer"><span>${uiIcon('clock')}Masuk: ${escapeHtml(q.time)} WIB</span><button class="queue-next ${escapeHtml(q.status)}" type="button" data-queue-next="${escapeHtml(q.transactionId)}" aria-label="${actions[q.status] || 'Pesanan sudah diambil'}" ${q.status === 'done' ? 'disabled' : ''}>${labels[q.status] || labels.waiting}</button></div></article>`;
   }).join('');
 }
 
@@ -921,15 +1016,21 @@ function initRedesign() {
     if (!button) return;
     const order = state.queue.find(q => q.transactionId === button.dataset.queueNext);
     if (!order) return;
-    order.status = {waiting: 'processing', processing: 'ready', ready: 'done'}[order.status] || 'done';
-    saveState();
+    order.status = PoultryCore.nextQueueStatus(order.status);
+    if (!saveState()) return;
     renderQueue();
     showToast('Status pesanan diperbarui.');
   });
   document.getElementById('customCuts').addEventListener('input', e => {
     if (e.target.value) document.querySelectorAll('input[name="part"]').forEach(r => r.checked = false);
   });
-  document.querySelectorAll('input[name="part"]').forEach(r => r.addEventListener('change', () => document.getElementById('customCuts').value = ''));
+  document.querySelectorAll('input[name="part"]').forEach(r => r.addEventListener('change', () => {
+    document.getElementById('customCuts').value = '';
+    const request = document.getElementById('cutSize');
+    if (r.value === 'utuh') request.value = 'Ayam utuh';
+    else if (r.value === 'fillet') request.value = 'Fillet';
+    else if (['Ayam utuh', 'Fillet'].includes(request.value)) request.value = 'Campur';
+  }));
   const paymentModal = document.getElementById('paymentModal');
   paymentModal.addEventListener('click', e => { if (e.target === paymentModal) document.getElementById('btnModalCancel').click(); });
   document.addEventListener('keydown', e => {
@@ -954,15 +1055,24 @@ function initRedesign() {
     e.preventDefault();
     const name = document.getElementById('newCustomerName').value.trim();
     const phone = document.getElementById('newCustomerPhone').value.trim();
-    const debt = Number(document.getElementById('newCustomerDebt').value);
-    const limit = Number(document.getElementById('newCustomerLimit').value);
-    if (!name || !Number.isFinite(debt) || debt < 0 || !Number.isFinite(limit) || limit <= 0) {
+    const debt = parseCurrency(document.getElementById('newCustomerDebt').value);
+    const limit = parseCurrency(document.getElementById('newCustomerLimit').value);
+    if (!name || !Number.isSafeInteger(debt) || debt < 0 || !Number.isSafeInteger(limit) || limit <= 0) {
       setError('customerError', 'Isi nama, saldo bon awal, dan plafon yang valid.');
       return;
     }
-    const customer = {id: 'M-' + Date.now().toString(36), name, phone, initialDebt: debt, currentDebt: debt, plafon: limit, daysLate: 0, status: 'aktif', history: []};
+    if (phone && !PoultryCore.normalizePhone(phone)) {
+      setError('customerError', 'Nomor WhatsApp tidak valid. Gunakan awalan 08 atau +62.');
+      return;
+    }
+    if (state.customers.some(c => c.id !== 'ECR' && (c.name.trim().toLowerCase() === name.toLowerCase() || (phone && PoultryCore.normalizePhone(c.phone) === PoultryCore.normalizePhone(phone))))) {
+      setError('customerError', 'Nama atau nomor WhatsApp mitra sudah terdaftar.');
+      return;
+    }
+    const dueDate = debt > 0 ? new Date(Date.parse(localDateKey()) + 7 * 86400000).toISOString().slice(0, 10) : null;
+    const customer = {id: newId('M'), name, phone, initialDebt: debt, currentDebt: debt, plafon: limit, daysLate: 0, dueDate, status: 'aktif', history: []};
     state.customers.push(customer);
-    saveState();
+    if (!saveState()) return;
     document.getElementById('customerSelect').appendChild(new Option(name, customer.id));
     customerModal.close();
     renderBukuBon();
@@ -993,7 +1103,7 @@ function updateLapakStatus() {
   document.getElementById('btnToggleLapak').textContent = open ? 'Tutup Lapak' : 'Buka Lapak';
   const closedToday = state.shiftClosedAt && localDateKey(new Date(state.shiftClosedAt)) === localDateKey() && !open;
   document.getElementById('shiftStatusBadge').innerHTML = uiIcon('sun') + (closedToday ? 'Shift Subuh Selesai' : 'Shift Subuh');
-  document.getElementById('btnCloseShift').innerHTML = uiIcon('lock') + '<span>' + (closedToday ? 'Kasir Ditutup • Buka Kembali' : 'Tutup Kasir & Kunci Laci Subuh') + '</span>';
+  document.getElementById('btnCloseShift').innerHTML = uiIcon('lock') + '<span>' + (closedToday ? 'Kasir Ditutup - Buka Kembali' : 'Tutup Kasir & Simpan Rekap') + '</span>';
 }
 
 function runPrint(content, receipt = false) {
@@ -1010,11 +1120,11 @@ function printBonReport() {
 
 function printCashReport() {
   const t = reportTotals();
-  runPrint(`<h1>PoultryTrack</h1><p>Rekap Laci Kasir</p><p>${localDateKey()} | ${document.getElementById('reportPeriod').value === 'today' ? 'Hari ini' : 'Semua catatan'}</p><table><tbody><tr><td>Penjualan tunai</td><td>${formatRupiah(t.cashSales)}</td></tr><tr><td>Setoran bon</td><td>${formatRupiah(t.cashPayments)}</td></tr><tr><td>Modal pasokan tunai</td><td>${formatRupiah(t.cashSupplies)}</td></tr><tr><td>Total kas masuk</td><td>${formatRupiah(t.cashIn)}</td></tr><tr><td>Saldo kas</td><td>${formatRupiah(t.net)}</td></tr></tbody></table><p>Karkas terjual: ${t.ekor} ekor</p><p>Berat terjual: ${t.kg.toFixed(2)} Kg</p><p>Tambahan bon: ${formatRupiah(t.bon)}</p>`, true);
+  runPrint(`<h1>PoultryTrack</h1><p>Rekap Laci Kasir</p><p>${localDateKey()} | ${document.getElementById('reportPeriod').value === 'today' ? 'Hari ini' : 'Semua catatan'}</p><table><tbody><tr><td>Saldo awal laci</td><td>${formatRupiah(t.openingCash)}</td></tr><tr><td>Penjualan tunai</td><td>${formatRupiah(t.cashSales)}</td></tr><tr><td>Setoran bon</td><td>${formatRupiah(t.cashPayments)}</td></tr><tr><td>Modal pasokan tunai</td><td>${formatRupiah(t.cashSupplies)}</td></tr><tr><td>Total kas masuk</td><td>${formatRupiah(t.cashIn)}</td></tr><tr><td>Saldo kas</td><td>${formatRupiah(t.net)}</td></tr></tbody></table><p>Karkas terjual: ${t.ekor} ekor</p><p>Berat terjual: ${t.kg.toFixed(2)} Kg</p><p>Tambahan bon: ${formatRupiah(t.bon)}</p>`, true);
 }
 
 function printLatestReceipt() {
-  const t = state.transactions.find(t => t.type !== 'cicilan_masuk');
+  const t = state.transactions.filter(t => t.type !== 'cicilan_masuk').sort((a, b) => `${b.date} ${b.time}`.localeCompare(`${a.date} ${a.time}`))[0];
   if (!t) { showToast('Belum ada transaksi untuk dicetak.'); return; }
   runPrint(`<h1>PoultryTrack</h1><p>Struk Transaksi</p><p>${escapeHtml(t.id)}<br>${escapeHtml(t.date)} ${escapeHtml(t.time)} WIB</p><p>${escapeHtml(t.customerName)}</p><table><tbody><tr><td>Karkas</td><td>${t.ekor} Ekor</td></tr><tr><td>Berat</td><td>${Number(t.kg).toFixed(2)} Kg</td></tr><tr><td>Potongan</td><td>${escapeHtml(partLabel(t.part))}</td></tr><tr><td>Harga / Kg</td><td>${formatRupiah(t.pricePerKg)}</td></tr></tbody></table><p>${escapeHtml(t.notes || '')}</p><p class="print-total">Total: ${formatRupiah(t.total)}</p><p>${t.type === 'bon' ? 'DICATAT SEBAGAI BON' : 'TUNAI LUNAS'}</p><p>Terima kasih.</p>`, true);
 }
@@ -1028,10 +1138,12 @@ function initFigmaDetails() {
     showToast('Input netto dikosongkan. Masukkan berat baru.');
   };
   document.getElementById('inputKg').addEventListener('blur', e => {
-    e.target.value = parseNumber(e.target.value).toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    const value = parseNumber(e.target.value);
+    if (Number.isFinite(value)) e.target.value = value.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2});
   });
   document.getElementById('inputPrice').addEventListener('blur', e => {
-    e.target.value = parseCurrency(e.target.value).toLocaleString('id-ID');
+    const value = parseCurrency(e.target.value);
+    if (Number.isFinite(value)) e.target.value = value.toLocaleString('id-ID');
   });
   document.getElementById('btnQueuePage').onclick = () => {
     const count = state.queue.filter(q => queueFilter === 'done' ? q.status === 'done' : q.status !== 'done').length;
@@ -1043,6 +1155,7 @@ function initFigmaDetails() {
   document.getElementById('btnSearchBon').onclick = () => {
     const tools = document.getElementById('bonSearchTools');
     tools.hidden = !tools.hidden;
+    document.getElementById('btnSearchBon').setAttribute('aria-expanded', String(!tools.hidden));
     if (!tools.hidden) document.getElementById('searchBon').focus();
   };
   document.getElementById('btnNewPartner').onclick = () => document.getElementById('btnAddCustomer').click();
@@ -1065,7 +1178,7 @@ function initFigmaDetails() {
     refreshPartnerInfo();
   });
   document.getElementById('btnResetSupply').onclick = () => {
-    const values = {supplyEkor: '180', supplyKg: '300.5', supplyPrice: '23500', supplyPayment: 'Lunas Tunai Meja'};
+    const values = {supplyEkor: '1', supplyKg: '', supplyPrice: '23.500', supplyPayment: 'Lunas Tunai Meja'};
     Object.entries(values).forEach(([id, value]) => {
       const input = document.getElementById(id);
       input.value = value;
@@ -1075,7 +1188,7 @@ function initFigmaDetails() {
   };
   document.querySelectorAll('[data-add-supply]').forEach(button => button.onclick = () => {
     const input = document.getElementById('supplyKg');
-    input.value = (parseNumber(input.value) + Number(button.dataset.addSupply)).toFixed(1);
+    input.value = ((parseNumber(input.value) || 0) + Number(button.dataset.addSupply)).toFixed(1);
     input.dispatchEvent(new Event('input', {bubbles: true}));
   });
   document.getElementById('btnPrintBon').onclick = printBonReport;
@@ -1083,7 +1196,7 @@ function initFigmaDetails() {
   document.getElementById('btnPrintReceipt').onclick = printLatestReceipt;
   document.getElementById('btnToggleLapak').onclick = () => {
     state.lapakOpen = !isLapakOpen();
-    saveState();
+    if (!saveState()) return;
     updateLapakStatus();
     document.getElementById('lapakModal').close();
     showToast(state.lapakOpen ? 'Lapak ditandai buka.' : 'Lapak ditandai tutup.');
@@ -1092,6 +1205,7 @@ function initFigmaDetails() {
   const openCashModal = () => {
     const key = document.getElementById('reportPeriod').value === 'today' ? localDateKey() : 'all';
     document.getElementById('cashPhysical').value = state.cashCounts?.[key] ?? '';
+    setError('cashMatchError', '');
     document.getElementById('cashModal').showModal();
     document.getElementById('cashPhysical').focus();
   };
@@ -1103,8 +1217,10 @@ function initFigmaDetails() {
     if (!input.reportValidity()) return;
     const key = document.getElementById('reportPeriod').value === 'today' ? localDateKey() : 'all';
     state.cashCounts = state.cashCounts || {};
-    state.cashCounts[key] = Number(input.value);
-    saveState();
+    const amount = parseCurrency(input.value);
+    if (!Number.isSafeInteger(amount) || amount < 0) { setError('cashMatchError', 'Masukkan uang fisik dalam rupiah yang valid.'); return; }
+    state.cashCounts[key] = amount;
+    if (!saveState()) return;
     document.getElementById('cashModal').close();
     renderRekapKas();
     showToast('Pencocokan uang fisik disimpan.');
@@ -1113,15 +1229,77 @@ function initFigmaDetails() {
     const alreadyClosed = state.shiftClosedAt && localDateKey(new Date(state.shiftClosedAt)) === localDateKey() && !isLapakOpen();
     if (alreadyClosed) state.lapakOpen = true;
     else {
-      const t = reportTotals();
+      const t = PoultryCore.reportTotals(state, 'today');
       state.closings = state.closings || [];
-      state.closings.push({date: localDateKey(), closedAt: new Date().toISOString(), cashSales: t.cashSales, cashPayments: t.cashPayments, cashSupplies: t.cashSupplies, net: t.net});
+      state.closings.push({date: localDateKey(), closedAt: new Date().toISOString(), openingCash: t.openingCash, cashSales: t.cashSales, cashPayments: t.cashPayments, cashSupplies: t.cashSupplies, net: t.net});
       state.lapakOpen = false;
       state.shiftClosedAt = new Date().toISOString();
     }
-    saveState();
+    if (!saveState()) return;
     updateLapakStatus();
     showToast(alreadyClosed ? 'Kasir dibuka kembali.' : 'Rekap disimpan dan lapak ditandai tutup.');
   };
   updateLapakStatus();
+}
+
+function newId(prefix) {
+  const suffix = window.crypto?.randomUUID ? window.crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+  return prefix + '-' + suffix;
+}
+
+function brieflyDisable(button) {
+  button.disabled = true;
+  setTimeout(() => button.disabled = false, 650);
+}
+
+function initResilience() {
+  document.getElementById('openingCashForm').addEventListener('submit', event => {
+    event.preventDefault();
+    const amount = parseCurrency(document.getElementById('openingCashInput').value);
+    if (!Number.isSafeInteger(amount) || amount < 0) {
+      setError('openingCashError', 'Isi saldo awal dengan nominal rupiah yang valid.');
+      return;
+    }
+    state.openingCash ||= {};
+    state.openingCash[localDateKey()] = amount;
+    if (!saveState()) return;
+    setError('openingCashError', '');
+    renderRekapKas();
+    showToast('Saldo awal laci hari ini disimpan.');
+  });
+  document.getElementById('btnBackupData').onclick = () => {
+    const content = unreadableBackup && storageBlocked ? unreadableBackup : JSON.stringify(state, null, 2);
+    const url = URL.createObjectURL(new Blob([content], {type: 'application/json'}));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Cadangan_PoultryTrack_${localDateKey()}.json`;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    showToast('Cadangan seluruh catatan diunduh.');
+  };
+  window.addEventListener('storage', event => {
+    if (event.key !== STORAGE_KEY) return;
+    showStorageError('Data berubah di tab lain. Muat ulang halaman sebelum melanjutkan pencatatan.');
+  });
+  document.querySelectorAll('.cust-type-btn').forEach(button => button.addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    const next = document.querySelector(`.cust-type-btn[data-type="${button.dataset.type === 'eceran' ? 'langganan' : 'eceran'}"]`);
+    next.click();
+    next.focus();
+  }));
+  document.getElementById('modalPayAmount').addEventListener('keydown', event => {
+    if (event.key === 'Enter') { event.preventDefault(); document.getElementById('btnModalConfirm').click(); }
+  });
+  document.querySelectorAll('input[name="part"], #withoutSkin').forEach(input => {
+    input.addEventListener('focus', () => input.parentElement.classList.add('has-keyboard-focus'));
+    input.addEventListener('blur', () => input.parentElement.classList.remove('has-keyboard-focus'));
+  });
+  let date = localDateKey();
+  setInterval(() => {
+    const today = localDateKey();
+    if (today !== date) { date = today; refreshViews(); }
+    updateLapakStatus();
+  }, 30000);
+  window.addEventListener('afterprint', () => document.body.classList.remove('print-receipt'));
 }
