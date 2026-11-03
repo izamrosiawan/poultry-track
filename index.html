@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
   <!-- APP HEADER (Sticky)                            -->
@@ -33,33 +33,35 @@
     <p id="storageWarning" class="form-error storage-warning" role="alert" hidden></p>
     <!-- BRAND CARD (Dark Brown, semua halaman)          -->
     <section class="brand-card" aria-label="Informasi Lapak">
-      <!-- Lockup: Logo + Nama + Subtitle -->
-      <div class="brand-lockup">
-        <span class="brand-icon">
-          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M8 5c-3 0-5 2-5 5s3 6 6 6h3l3 4a3 3 0 0 0 4-4l-3-3v-3c0-3-3-6-6-6Z"/>
-            <path d="m15 17 2-2"/>
-          </svg>
-        </span>
-        <div class="brand-wordmark">
-          <h2>PoultryTrack</h2>
-          <p>Pelaku Usaha Mikro &bull; Pasar Tradisional</p>
+      <div class="brand-top-row">
+        <!-- Lockup: Logo + Nama + Subtitle -->
+        <div class="brand-lockup">
+          <span class="brand-icon">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 5c-3 0-5 2-5 5s3 6 6 6h3l3 4a3 3 0 0 0 4-4l-3-3v-3c0-3-3-6-6-6Z"/>
+              <path d="m15 17 2-2"/>
+            </svg>
+          </span>
+          <div class="brand-wordmark">
+            <h2>PoultryTrack</h2>
+            <p>Pelaku Usaha Mikro &bull; Pasar Tradisional</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Status Lapak + Jam -->
-      <div class="brand-status">
-        <span class="lapak-open" id="lapakStatus">
-          <span class="status-dot"></span>
-          <span id="lapakStatusText">Lapak Tutup</span>
-        </span>
-        <span class="clock-display">
-          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 7v5l3 2"/>
-          </svg>
-          <span id="liveClock">--:--:-- WIB</span>
-        </span>
+        <!-- Status Lapak + Jam -->
+        <div class="brand-status">
+          <span class="lapak-open" id="lapakStatus">
+            <span class="status-dot"></span>
+            <span id="lapakStatusText">Lapak Tutup</span>
+          </span>
+          <span class="clock-display">
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 7v5l3 2"/>
+            </svg>
+            <span id="liveClock">--:--:-- WIB</span>
+          </span>
+        </div>
       </div>
 
       <!-- Segmented Control Kasir (Eceran Tunai vs Mitra Langganan) -->
@@ -900,8 +902,22 @@
     </section>
 
   </main>
-  <!-- BOTTOM NAVIGATION BAR                          -->
+  <!-- NAVIGATION BAR (Mobile: Bottom Nav, Desktop: Left Sidebar) -->
   <nav class="bottom-nav-bar" id="mobileTabBar" aria-label="Menu Utama">
+
+    <!-- Desktop Sidebar Brand (Hidden on Mobile/Tablet) -->
+    <div class="sidebar-brand-lockup">
+      <span class="brand-icon">
+        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 5c-3 0-5 2-5 5s3 6 6 6h3l3 4a3 3 0 0 0 4-4l-3-3v-3c0-3-3-6-6-6Z"/>
+          <path d="m15 17 2-2"/>
+        </svg>
+      </span>
+      <div class="sidebar-brand-text">
+        <strong>PoultryTrack</strong>
+        <small>POS Kasir Lapak</small>
+      </div>
+    </div>
 
     <button type="button" class="bnav-item active" data-tab="kasir" aria-current="page">
       <span class="bnav-icon-wrap">
@@ -963,6 +979,15 @@
       </span>
       <span>Laporan</span>
     </button>
+
+    <!-- Desktop Sidebar Status (Hidden on Mobile/Tablet) -->
+    <div class="sidebar-status-box">
+      <div class="sidebar-status-row">
+        <span class="status-dot"></span>
+        <span class="sidebar-status-label">Shift Subuh</span>
+      </div>
+      <small class="sidebar-version">v1.2.0 &bull; Web POS</small>
+    </div>
 
   </nav>
   <!-- MODAL 1: SETOR CICILAN BON                     -->
