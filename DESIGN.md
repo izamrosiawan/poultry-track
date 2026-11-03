@@ -2,7 +2,7 @@
 
 ## Arah visual
 
-Tampilan mengikuti PDF desain yang diberikan: aplikasi kasir bergerak dengan warna cokelat gelap, latar krem terang, kartu putih, navigasi bawah, dan form kasir dua tahap. Layar 430 piksel menjadi acuan utama; tata letak turut disesuaikan pada 375 dan 320 piksel. Pada desktop, aplikasi tetap ditampilkan sebagai satu kolom dengan lebar maksimum 430 piksel.
+Tampilan mengikuti rancangan visual wet-market: aplikasi kasir modern bernuansa cokelat espresso gelap, latar krem hangat, kartu putih, dan form kasir adaptif. Pada perangkat mobile (320px - 480px), tata letak satu kolom ramah sentuhan dipertahankan. Pada tablet (768px - 1023px), tata letak beradaptasi menjadi grid 2 kolom dengan bottom-dock melayang dan modal dialog terpusat. Pada desktop/laptop (>= 1024px), antarmuka bertransformasi menjadi stasiun kerja POS penuh dengan top-nav bar dan grid multi-kolom yang optimal untuk penggunaan mouse dan keyboard.
 
 ## Palet utama
 
