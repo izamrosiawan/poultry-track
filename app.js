@@ -3,17 +3,17 @@ const STORAGE_KEY = 'POULTRYTRACK_APP_STATE_V1';
 const DEFAULT_STATE = {
   activeDate: PoultryCore.localDateKey(),
   customers: [
-    { id: "AL", name: "AL (Bu Aliyah - Katering/Resto)", phone: "081234567801", initialDebt: 1622000, currentDebt: 1622000, plafon: 2000000, daysLate: 0, status: "aktif", history: [] },
-    { id: "War", name: "War (Warung Bu Warsiti - Lalapan)", phone: "081234567802", initialDebt: 560000, currentDebt: 560000, plafon: 1000000, daysLate: 0, status: "aktif", history: [] },
-    { id: "K", name: "K (Pak Kusno - Depot Bakso)", phone: "081234567803", initialDebt: 400000, currentDebt: 400000, plafon: 800000, daysLate: 0, status: "aktif", history: [] },
-    { id: "J", name: "J (Bu Jamilah - Nasi Barokah)", phone: "081234567804", initialDebt: 340000, currentDebt: 340000, plafon: 600000, daysLate: 0, status: "aktif", history: [] },
-    { id: "M", name: "M (Mas Munir - Penyetan Malam)", phone: "081234567805", initialDebt: 237000, currentDebt: 237000, plafon: 500000, daysLate: 0, status: "aktif", history: [] },
-    { id: "S", name: "S (Bu Siti - Warung Rames)", phone: "081234567806", initialDebt: 380000, currentDebt: 380000, plafon: 800000, daysLate: 0, status: "aktif", history: [] },
-    { id: "R", name: "R (Bu Rahma - Soto Lamongan)", phone: "081234567807", initialDebt: 240000, currentDebt: 240000, plafon: 500000, daysLate: 0, status: "aktif", history: [] },
-    { id: "B", name: "B (Bu Budi - Katering Kotak)", phone: "081234567808", initialDebt: 272000, currentDebt: 272000, plafon: 600000, daysLate: 0, status: "aktif", history: [] },
-    { id: "YA", name: "YA (Bu Yanti - Rumah Makan Padang)", phone: "081234567809", initialDebt: 505000, currentDebt: 505000, plafon: 1000000, daysLate: 2, status: "tempo", history: [] },
-    { id: "ATUL", name: "ATUL (Bu Atul - Warung Serba Ada)", phone: "081234567810", initialDebt: 150000, currentDebt: 150000, plafon: 400000, daysLate: 0, status: "aktif", history: [] },
-    { id: "SPI", name: "SPI (Pak Ismail - Soto Ayam)", phone: "081234567811", initialDebt: 170000, currentDebt: 170000, plafon: 300000, daysLate: 1, status: "tempo", history: [] },
+    { id: "AL", name: "AL (Bu Aliyah - Katering/Resto)", phone: "081234567801", initialDebt: 1150000, currentDebt: 1150000, plafon: 1500000, daysLate: 0, status: "aktif", history: [] },
+    { id: "War", name: "War (Warung Bu Warsiti - Lalapan)", phone: "081234567802", initialDebt: 480000, currentDebt: 480000, plafon: 800000, daysLate: 0, status: "aktif", history: [] },
+    { id: "K", name: "K (Pak Kusno - Depot Bakso)", phone: "081234567803", initialDebt: 350000, currentDebt: 350000, plafon: 600000, daysLate: 0, status: "aktif", history: [] },
+    { id: "J", name: "J (Bu Jamilah - Nasi Barokah)", phone: "081234567804", initialDebt: 300000, currentDebt: 300000, plafon: 500000, daysLate: 0, status: "aktif", history: [] },
+    { id: "M", name: "M (Mas Munir - Penyetan Malam)", phone: "081234567805", initialDebt: 210000, currentDebt: 210000, plafon: 400000, daysLate: 0, status: "aktif", history: [] },
+    { id: "S", name: "S (Bu Siti - Warung Rames)", phone: "081234567806", initialDebt: 320000, currentDebt: 320000, plafon: 600000, daysLate: 0, status: "aktif", history: [] },
+    { id: "R", name: "R (Bu Rahma - Soto Lamongan)", phone: "081234567807", initialDebt: 190000, currentDebt: 190000, plafon: 400000, daysLate: 0, status: "aktif", history: [] },
+    { id: "B", name: "B (Bu Budi - Katering Kotak)", phone: "081234567808", initialDebt: 200000, currentDebt: 200000, plafon: 500000, daysLate: 0, status: "aktif", history: [] },
+    { id: "YA", name: "YA (Bu Yanti - Rumah Makan Padang)", phone: "081234567809", initialDebt: 300000, currentDebt: 300000, plafon: 600000, daysLate: 2, status: "tempo", history: [] },
+    { id: "ATUL", name: "ATUL (Bu Atul - Warung Serba Ada)", phone: "081234567810", initialDebt: 0, currentDebt: 0, plafon: 400000, daysLate: 0, status: "lancar", history: [] },
+    { id: "SPI", name: "SPI (Pak Ismail - Soto Ayam)", phone: "081234567811", initialDebt: 0, currentDebt: 0, plafon: 300000, daysLate: 0, status: "lancar", history: [] },
     { id: "Mic", name: "Mic (Bu Mieke - Langganan Tunai)", phone: "081234567812", initialDebt: 0, currentDebt: 0, plafon: 500000, daysLate: 0, status: "lancar", history: [] },
     { id: "ECR", name: "ECR (Pembeli Pasar - Eceran Meja)", phone: "-", initialDebt: 0, currentDebt: 0, plafon: 0, daysLate: 0, status: "eceran", history: [] }
   ],
@@ -885,14 +885,19 @@ function setError(id, message) {
 }
 
 function updatePageHeader(target) {
-  const titles = {kasir: 'Kasir', antrean: 'Antrean', 'buku-bon': 'Buku Bon', pasokan: 'Stok', 'rekap-kas': 'Laporan', dashboard: 'Dashboard'};
+  const titles = {kasir: 'Kasir', antrean: 'Antrean', 'buku-bon': 'Buku Bon', pasokan: 'Stok', 'rekap-kas': 'Laporan', dashboard: 'Dashboard Analitik'};
   const copy = {
     antrean: ['Antrean Pemotongan Karkas', 'Monitor pesanan potong di juru potong lapak agar tidak salah potong saat jam sibuk subuh.'],
     pasokan: ['Manifest Pasokan Masuk', 'Pencatatan pasokan ayam hidup & karkas segar dari peternak sebelum lapak buka.'],
     'rekap-kas': ['Rekap Laci Kasir Subuh', 'Validasi uang fisik di laci meja dengan sistem sebelum lapak ditutup.'],
-    dashboard: ['Dashboard Eksekutif & Analisis', 'Ringkasan performa 5 bulan, susut karkas, analitik piutang bon, dan visualisasi Pareto mutu.']
+    dashboard: ['Dashboard Analitik Lapak', 'Konsolidasi performa 5 bulan operasional.']
   };
   document.getElementById('pageTitle').textContent = titles[target] || 'Kasir';
+  
+  // Sembunyikan brand-card cokelat raksasa saat di tab Dashboard agar tidak tumpuk & tidak terkesan AI
+  const brandCard = document.querySelector('.brand-card');
+  if (brandCard) brandCard.style.display = (target === 'dashboard') ? 'none' : '';
+
   document.querySelector('.customer-hero').hidden = target !== 'kasir';
   document.getElementById('bonHeroMetrics').hidden = target !== 'buku-bon';
   document.getElementById('heroCopy').hidden = !copy[target];
@@ -1364,40 +1369,40 @@ function renderMonthlySvgChart(data) {
   const chartEl = document.getElementById('monthlyChartSvg');
   if (!chartEl) return;
 
-  const width = 580;
-  const height = 220;
-  const padLeft = 60;
-  const padRight = 20;
-  const padTop = 20;
-  const padBottom = 35;
+  const width = 640;
+  const height = 240;
+  const padLeft = 65;
+  const padRight = 25;
+  const padTop = 30;
+  const padBottom = 40;
   const chartW = width - padLeft - padRight;
   const chartH = height - padTop - padBottom;
 
   const maxVal = 45000000;
   const barGroupWidth = chartW / data.length;
-  const barW = Math.min(28, barGroupWidth * 0.32);
+  const barW = 20;
 
-  let svgContent = `
+  let svg = `
     <defs>
-      <linearGradient id="omzetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <linearGradient id="omzetBarGrad" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#351900" />
-        <stop offset="100%" stop-color="#5a2d0c" />
+        <stop offset="100%" stop-color="#4A2600" />
       </linearGradient>
-      <linearGradient id="profitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <linearGradient id="profitBarGrad" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#D97706" />
         <stop offset="100%" stop-color="#B45309" />
       </linearGradient>
     </defs>
   `;
 
-  // Grid lines
-  const gridSteps = [0, 15000000, 30000000, 45000000];
+  // Grid lines & Y-axis labels
+  const gridSteps = [0, 10000000, 20000000, 30000000, 40000000];
   gridSteps.forEach(val => {
     const y = padTop + chartH - (val / maxVal) * chartH;
-    svgContent += `
+    svg += `
       <line x1="${padLeft}" y1="${y}" x2="${width - padRight}" y2="${y}" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" />
-      <text x="${padLeft - 8}" y="${y + 4}" font-size="10" font-family="'Plus Jakarta Sans', sans-serif" fill="#64748B" text-anchor="end">
-        Rp ${val === 0 ? '0' : (val / 1000000).toFixed(0) + ' Jt'}
+      <text x="${padLeft - 10}" y="${y + 4}" font-size="10" font-family="'Plus Jakarta Sans', sans-serif" fill="#64748B" text-anchor="end" font-weight="600">
+        ${val === 0 ? 'Rp 0' : 'Rp ' + (val / 1000000) + ' Jt'}
       </text>
     `;
   });
@@ -1409,31 +1414,39 @@ function renderMonthlySvgChart(data) {
 
     const omzetH = (d.omzet / maxVal) * chartH;
     const omzetY = padTop + chartH - omzetH;
-    const omzetX = centerX - barW - 2;
+    const omzetX = centerX - barW - 3;
 
     const profitH = (d.profit / maxVal) * chartH;
     const profitY = padTop + chartH - profitH;
-    const profitX = centerX + 2;
+    const profitX = centerX + 3;
 
-    svgContent += `
+    svg += `
       <!-- Omzet Bar -->
-      <rect x="${omzetX}" y="${omzetY}" width="${barW}" height="${omzetH}" rx="3" fill="url(#omzetGrad)" class="chart-bar">
+      <rect x="${omzetX}" y="${omzetY}" width="${barW}" height="${omzetH}" rx="3" fill="url(#omzetBarGrad)">
         <title>${d.month} - Omzet: ${formatRupiah(d.omzet)} (${d.trx} trx)</title>
       </rect>
+      <text x="${omzetX + barW/2}" y="${omzetY - 5}" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" fill="#351900" text-anchor="middle">
+        ${(d.omzet / 1000000).toFixed(1)}Jt
+      </text>
+
       <!-- Profit Bar -->
-      <rect x="${profitX}" y="${profitY}" width="${barW}" height="${profitH}" rx="3" fill="url(#profitGrad)" class="chart-bar">
+      <rect x="${profitX}" y="${profitY}" width="${barW}" height="${profitH}" rx="3" fill="url(#profitBarGrad)">
         <title>${d.month} - Laba Kotor: ${formatRupiah(d.profit)}</title>
       </rect>
+      <text x="${profitX + barW/2}" y="${profitY - 5}" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700" fill="#D97706" text-anchor="middle">
+        ${(d.profit / 1000000).toFixed(1)}Jt
+      </text>
+
       <!-- Month Label -->
-      <text x="${centerX}" y="${height - 12}" font-size="11" font-weight="600" font-family="'Plus Jakarta Sans', sans-serif" fill="#334155" text-anchor="middle">
-        ${d.month.split(' ')[0]}
+      <text x="${centerX}" y="${height - 12}" font-size="11" font-weight="700" font-family="'Plus Jakarta Sans', sans-serif" fill="#334155" text-anchor="middle">
+        ${d.month}
       </text>
     `;
   });
 
-  chartEl.innerHTML = svgContent;
+  chartEl.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  chartEl.innerHTML = svg;
 }
-
 function renderCutMixDistribution() {
   const container = document.getElementById('cutMixContainer');
   if (!container) return;
