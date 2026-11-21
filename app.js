@@ -1358,6 +1358,8 @@ function renderDashboard() {
   // Render Cut Mix Bars
   renderCutMixDistribution();
 
+  // Render Pareto Chart
+  renderParetoSvgChart();
 
   // Render Partner Debt Monitoring
   renderPartnerDebtDashboard(activeCustomers);
