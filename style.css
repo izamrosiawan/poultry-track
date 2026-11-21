@@ -2905,31 +2905,13 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
 
 /* TABLET (min-width: 768px) */
 @media (min-width: 768px) {
-  html {
-    background-color: #E2E8F0;
-    background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
-    background-size: 20px 20px;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-  }
-
   body {
-    max-width: 420px;
-    margin: 24px auto;
-    border-radius: 40px;
-    border: 8px solid #1E293B;
-    box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.3), 0 0 0 1px rgba(0,0,0,0.05);
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: calc(100vh - 48px);
-    max-height: 880px;
+    max-width: 680px;
+    box-shadow: 0 0 36px rgba(53, 25, 0, 0.08);
   }
 
   .bottom-nav-bar {
-    max-width: 404px;
-    border-bottom-left-radius: 32px;
-    border-bottom-right-radius: 32px;
+    max-width: 680px;
   }
 
   .header-inner {
@@ -2967,22 +2949,35 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
     margin: 8px auto 0;
   }
 
-  /* Kasir Tahap 1: 1 Kolom Vertikal Otentik Sesuai Figma Mobile */
+  /* Kasir Tahap 1: 2 Kolom (Jumlah Karkas & Bobot) */
   #cashierStepOne {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    align-items: stretch;
   }
 
-  #cashierStepOne > .quantity-card,
-  #cashierStepOne > .weight-card {
-    width: 100%;
+  #cashierStepOne > #partnerInfoCard {
+    grid-column: 1 / -1;
+  }
+
+  #cashierStepOne > .quantity-card {
+    grid-column: 1;
     margin-bottom: 0;
+    height: 100%;
+  }
+
+  #cashierStepOne > .weight-card {
+    grid-column: 2;
+    margin-bottom: 0;
+    height: 100%;
   }
 
   #cashierStepOne > #btnNextStep {
+    grid-column: 1 / -1;
+    max-width: 380px;
+    margin: 10px auto 0;
     width: 100%;
-    margin-top: 4px;
   }
 
   /* Antrean Grid 2 Kolom */
@@ -3021,11 +3016,12 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
 /* DESKTOP / LAPTOP (min-width: 1024px) */
 @media (min-width: 1024px) {
   body {
-    max-width: 420px;
+    max-width: 840px;
+    box-shadow: 0 0 50px rgba(53, 25, 0, 0.1);
   }
 
   .bottom-nav-bar {
-    max-width: 404px;
+    max-width: 840px;
   }
 
   /* Kasir Tahap 2: 2 Kolom Seimbang */
@@ -3153,24 +3149,20 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
 /* KPI 5 Cards Grid */
 .dash-kpi-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr;
+  gap: 12px;
 }
 
-.dash-kpi-card:last-child {
-  grid-column: 1 / -1;
+@media (min-width: 480px) {
+  .dash-kpi-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
-.dash-kpi-val {
-  font-size: 17px;
-  font-weight: 800;
-  color: #0F172A;
-  margin: 4px 0 2px;
-  letter-spacing: -0.02em;
-}
-
-.dash-kpi-card {
-  padding: 12px 10px;
+@media (min-width: 768px) {
+  .dash-kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .dash-kpi-card {
