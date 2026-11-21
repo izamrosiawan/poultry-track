@@ -17,15 +17,15 @@ const DEFAULT_STATE = {
     { id: "Mic", name: "Mic (Bu Mieke - Langganan Tunai)", phone: "081234567812", initialDebt: 0, currentDebt: 0, plafon: 500000, daysLate: 0, status: "lancar", history: [] },
     { id: "ECR", name: "ECR (Pembeli Pasar - Eceran Meja)", phone: "-", initialDebt: 0, currentDebt: 0, plafon: 0, daysLate: 0, status: "eceran", history: [] }
   ],
-  supplies: [
-    { id: "SUP-188", date: "2026-10-05", supplier: "UD. Cheyloo Farm Kamal", ekor: 180, kg: 300.5, pricePerKg: 23500, totalModal: 7061750, paymentStatus: "Lunas Tunai Meja", note: "Subuh 04:30 WIB • Siap potong" },
-    { id: "SUP-187", date: "2026-10-04", supplier: "UD. Cheyloo Farm Kamal", ekor: 150, kg: 282.0, pricePerKg: 28000, totalModal: 7896000, paymentStatus: "Lunas Tunai Meja", note: "Ayam segar utuh" },
-    { id: "SUP-186", date: "2026-10-03", supplier: "CV. Unggas Jaya", ekor: 80, kg: 148.5, pricePerKg: 28000, totalModal: 4158000, paymentStatus: "Tempo 7 Hari", note: "Kualitas bobot merata" }
+    supplies: [
+    { id: "SUP-151", date: "2026-09-28", supplier: "UD. CHEYLOO FARM", ekor: 17, kg: 39.0, pricePerKg: 25500, totalModal: 994500, paymentStatus: "Lunas Tunai Meja", note: "Subuh 04:30 WIB Siap potong" },
+    { id: "SUP-150", date: "2026-09-27", supplier: "UD. CHEYLOO FARM", ekor: 21, kg: 51.2, pricePerKg: 25500, totalModal: 1305600, paymentStatus: "Lunas Tunai Meja", note: "Ayam segar utuh" },
+    { id: "SUP-149", date: "2026-09-26", supplier: "UD. CHEYLOO FARM", ekor: 26, kg: 58.7, pricePerKg: 25500, totalModal: 1496850, paymentStatus: "Tempo 7 Hari", note: "Pasokan akhir pekan" }
   ],
   transactions: [
-    { id: "TRX-101", date: "2026-10-05", time: "05:15", customerId: "AL", customerName: "AL (Warung Nasi Padang)", ekor: 15, kg: 28.5, part: "utuh", pricePerKg: 35000, total: 997500, type: "bon", notes: "Bon harian rutin" },
-    { id: "TRX-102", date: "2026-10-05", time: "05:40", customerId: "ECR", customerName: "Eceran Tunai", ekor: 3, kg: 5.4, part: "potong4", pricePerKg: 35000, total: 189000, type: "tunai", notes: "Uang pas" },
-    { id: "TRX-103", date: "2026-10-05", time: "06:10", customerId: "S", customerName: "S (Bu Siti - Warung Rames)", ekor: 8, kg: 15.1, part: "potong8", pricePerKg: 34500, total: 520950, type: "bon", notes: "Katering pesanan" }
+    { id: "TRX-101", date: "2026-09-28", time: "05:15", customerId: "AL", customerName: "AL (Bu Aliyah - Katering/Resto)", ekor: 3, kg: 6.2, part: "utuh", pricePerKg: 30500, total: 189100, type: "bon", notes: "Bon harian katering" },
+    { id: "TRX-102", date: "2026-09-28", time: "05:40", customerId: "ECR", customerName: "Eceran Tunai", ekor: 1, kg: 2.1, part: "potong4", pricePerKg: 31500, total: 66150, type: "tunai", notes: "Uang pas meja kasir" },
+    { id: "TRX-103", date: "2026-09-28", time: "06:10", customerId: "S", customerName: "S (Bu Siti - Warung Rames)", ekor: 2, kg: 4.4, part: "potong8", pricePerKg: 30500, total: 134200, type: "bon", notes: "Katering pesanan" }
   ]
 };
 
@@ -165,6 +165,7 @@ function initTabs() {
       if (target === 'buku-bon') renderBukuBon();
       if (target === 'pasokan') renderSupplies();
       if (target === 'rekap-kas') renderRekapKas();
+      if (target === 'dashboard') renderDashboard();
       renderStock();
     });
   });
@@ -884,11 +885,12 @@ function setError(id, message) {
 }
 
 function updatePageHeader(target) {
-  const titles = {kasir: 'Kasir', antrean: 'Antrean', 'buku-bon': 'Buku Bon', pasokan: 'Stok', 'rekap-kas': 'Laporan'};
+  const titles = {kasir: 'Kasir', antrean: 'Antrean', 'buku-bon': 'Buku Bon', pasokan: 'Stok', 'rekap-kas': 'Laporan', dashboard: 'Dashboard'};
   const copy = {
     antrean: ['Antrean Pemotongan Karkas', 'Monitor pesanan potong di juru potong lapak agar tidak salah potong saat jam sibuk subuh.'],
     pasokan: ['Manifest Pasokan Masuk', 'Pencatatan pasokan ayam hidup & karkas segar dari peternak sebelum lapak buka.'],
-    'rekap-kas': ['Rekap Laci Kasir Subuh', 'Validasi uang fisik di laci meja dengan sistem sebelum lapak ditutup.']
+    'rekap-kas': ['Rekap Laci Kasir Subuh', 'Validasi uang fisik di laci meja dengan sistem sebelum lapak ditutup.'],
+    dashboard: ['Dashboard Eksekutif & Analisis', 'Ringkasan performa 5 bulan, susut karkas, analitik piutang bon, dan visualisasi Pareto mutu.']
   };
   document.getElementById('pageTitle').textContent = titles[target] || 'Kasir';
   document.querySelector('.customer-hero').hidden = target !== 'kasir';
@@ -1302,4 +1304,285 @@ function initResilience() {
     updateLapakStatus();
   }, 30000);
   window.addEventListener('afterprint', () => document.body.classList.remove('print-receipt'));
+}
+
+/* ==============================================================
+   DASHBOARD EKSEKUTIF & ANALITIK LAPAK (SLIDE 7 & MUTU MANAJEMEN)
+   ============================================================== */
+function renderDashboard() {
+  const container = document.getElementById('dashboard');
+  if (!container) return;
+
+  // Real data 5 bulan (Mei - Sept 2026)
+  const monthlyData = [
+    { month: 'Mei 2026', omzet: 38150200, cogs: 29525400, profit: 8624800, trx: 326, kg: 1184.2 },
+    { month: 'Jun 2026', omzet: 39420500, cogs: 30510100, profit: 8910400, trx: 338, kg: 1221.5 },
+    { month: 'Jul 2026', omzet: 37840100, cogs: 29312000, profit: 8528100, trx: 322, kg: 1172.8 },
+    { month: 'Agu 2026', omzet: 38890450, cogs: 30114900, profit: 8775550, trx: 331, kg: 1205.4 },
+    { month: 'Sep 2026', omzet: 37906800, cogs: 29390014, profit: 8516786, trx: 321, kg: 1151.0 }
+  ];
+
+  const totalOmzet = 192208050;
+  const totalCogs = 148852414;
+  const totalProfit = 43355636;
+  const totalKg = 5934.9;
+  const totalChickens = 2413;
+  const totalTrx = 1638;
+  const shrinkageRatio = 2.50; // 2.50%
+
+  // Update KPI counters if present
+  const setEl = (id, text) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  };
+
+  setEl('dashTotalOmzet', formatRupiah(totalOmzet));
+  setEl('dashTotalProfit', formatRupiah(totalProfit));
+  setEl('dashTotalKg', totalKg.toLocaleString('id-ID', { minimumFractionDigits: 1 }) + ' Kg');
+  setEl('dashTotalChickens', totalChickens.toLocaleString('id-ID') + ' Ekor');
+  setEl('dashShrinkage', shrinkageRatio.toFixed(2) + '%');
+
+  // Calculate live customer debt from state
+  const activeCustomers = (state && state.customers) ? state.customers.filter(c => c.status !== 'eceran') : [];
+  const totalLiveDebt = activeCustomers.reduce((acc, c) => acc + (c.currentDebt || 0), 0);
+  setEl('dashTotalDebt', formatRupiah(totalLiveDebt));
+
+  // Render SVG Monthly Chart
+  renderMonthlySvgChart(monthlyData);
+
+  // Render Cut Mix Bars
+  renderCutMixDistribution();
+
+  // Render Pareto Chart
+  renderParetoSvgChart();
+
+  // Render Partner Debt Monitoring
+  renderPartnerDebtDashboard(activeCustomers);
+}
+
+function renderMonthlySvgChart(data) {
+  const chartEl = document.getElementById('monthlyChartSvg');
+  if (!chartEl) return;
+
+  const width = 580;
+  const height = 220;
+  const padLeft = 60;
+  const padRight = 20;
+  const padTop = 20;
+  const padBottom = 35;
+  const chartW = width - padLeft - padRight;
+  const chartH = height - padTop - padBottom;
+
+  const maxVal = 45000000;
+  const barGroupWidth = chartW / data.length;
+  const barW = Math.min(28, barGroupWidth * 0.32);
+
+  let svgContent = `
+    <defs>
+      <linearGradient id="omzetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#351900" />
+        <stop offset="100%" stop-color="#5a2d0c" />
+      </linearGradient>
+      <linearGradient id="profitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#D97706" />
+        <stop offset="100%" stop-color="#B45309" />
+      </linearGradient>
+    </defs>
+  `;
+
+  // Grid lines
+  const gridSteps = [0, 15000000, 30000000, 45000000];
+  gridSteps.forEach(val => {
+    const y = padTop + chartH - (val / maxVal) * chartH;
+    svgContent += `
+      <line x1="${padLeft}" y1="${y}" x2="${width - padRight}" y2="${y}" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" />
+      <text x="${padLeft - 8}" y="${y + 4}" font-size="10" font-family="'Plus Jakarta Sans', sans-serif" fill="#64748B" text-anchor="end">
+        Rp ${val === 0 ? '0' : (val / 1000000).toFixed(0) + ' Jt'}
+      </text>
+    `;
+  });
+
+  // Bars
+  data.forEach((d, i) => {
+    const groupX = padLeft + i * barGroupWidth;
+    const centerX = groupX + barGroupWidth / 2;
+
+    const omzetH = (d.omzet / maxVal) * chartH;
+    const omzetY = padTop + chartH - omzetH;
+    const omzetX = centerX - barW - 2;
+
+    const profitH = (d.profit / maxVal) * chartH;
+    const profitY = padTop + chartH - profitH;
+    const profitX = centerX + 2;
+
+    svgContent += `
+      <!-- Omzet Bar -->
+      <rect x="${omzetX}" y="${omzetY}" width="${barW}" height="${omzetH}" rx="3" fill="url(#omzetGrad)" class="chart-bar">
+        <title>${d.month} - Omzet: ${formatRupiah(d.omzet)} (${d.trx} trx)</title>
+      </rect>
+      <!-- Profit Bar -->
+      <rect x="${profitX}" y="${profitY}" width="${barW}" height="${profitH}" rx="3" fill="url(#profitGrad)" class="chart-bar">
+        <title>${d.month} - Laba Kotor: ${formatRupiah(d.profit)}</title>
+      </rect>
+      <!-- Month Label -->
+      <text x="${centerX}" y="${height - 12}" font-size="11" font-weight="600" font-family="'Plus Jakarta Sans', sans-serif" fill="#334155" text-anchor="middle">
+        ${d.month.split(' ')[0]}
+      </text>
+    `;
+  });
+
+  chartEl.innerHTML = svgContent;
+}
+
+function renderCutMixDistribution() {
+  const container = document.getElementById('cutMixContainer');
+  if (!container) return;
+
+  const cuts = [
+    { name: 'Potong 4 Bagian', kg: 2279.0, pct: 38.4, rev: 73801200, note: 'Paling diminati warung lalapan & katering' },
+    { name: 'Potong 8 Bagian', kg: 1851.7, pct: 31.2, rev: 59902400, note: 'Standar warung rames & depot soto' },
+    { name: 'Karkas Utuh Bersih', kg: 1103.9, pct: 18.6, rev: 35704100, note: 'Langganan rumah makan padang & resto' },
+    { name: 'Fillet Dada / Giling', kg: 700.3, pct: 11.8, rev: 22800350, note: 'Premium depot bakso & olahan nugget' }
+  ];
+
+  container.innerHTML = cuts.map(c => `
+    <div class="cut-mix-row">
+      <div class="cut-mix-header">
+        <span class="cut-mix-name">${c.name}</span>
+        <span class="cut-mix-stat font-numeric">${c.kg.toLocaleString('id-ID', {minimumFractionDigits: 1})} Kg (${c.pct.toFixed(1)}%)</span>
+      </div>
+      <div class="cut-mix-bar-bg">
+        <div class="cut-mix-bar-fill" style="width: ${c.pct}%;"></div>
+      </div>
+      <div class="cut-mix-meta">
+        <span>Kontribusi: ${formatRupiah(c.rev)}</span>
+        <span class="text-muted">${c.note}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderParetoSvgChart() {
+  const chartEl = document.getElementById('paretoChartSvg');
+  if (!chartEl) return;
+
+  const issues = [
+    { category: 'Kasir Antrean Subuh', count: 38, pct: 38.0, cum: 38.0, vital: true },
+    { category: 'Bon Kertas Basah/Hilang', count: 29, pct: 29.0, cum: 67.0, vital: true },
+    { category: 'Selisih Timbang Susut', count: 17, pct: 17.0, cum: 84.0, vital: true },
+    { category: 'Salah Potong Karkas', count: 9, pct: 9.0, cum: 93.0, vital: false },
+    { category: 'Salah Catat Cicilan', count: 7, pct: 7.0, cum: 100.0, vital: false }
+  ];
+
+  const width = 580;
+  const height = 240;
+  const padLeft = 45;
+  const padRight = 45;
+  const padTop = 25;
+  const padBottom = 45;
+  const chartW = width - padLeft - padRight;
+  const chartH = height - padTop - padBottom;
+
+  const maxCount = 45;
+  const barW = chartW / issues.length;
+
+  let svg = `
+    <defs>
+      <linearGradient id="vitalBarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#B91C1C" />
+        <stop offset="100%" stop-color="#991B1B" />
+      </linearGradient>
+      <linearGradient id="trivialBarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#94A3B8" />
+        <stop offset="100%" stop-color="#64748B" />
+      </linearGradient>
+    </defs>
+  `;
+
+  // 80% Cutoff threshold line
+  const cutoffY = padTop + chartH - (80 / 100) * chartH;
+  svg += `
+    <line x1="${padLeft}" y1="${cutoffY}" x2="${width - padRight}" y2="${cutoffY}" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4,4" />
+    <text x="${width - padRight + 4}" y="${cutoffY + 4}" font-size="10" font-weight="700" fill="#D97706">80%</text>
+  `;
+
+  // Left Axis (Count) & Right Axis (%)
+  svg += `
+    <line x1="${padLeft}" y1="${padTop}" x2="${padLeft}" y2="${padTop + chartH}" stroke="#CBD5E1" stroke-width="1" />
+    <line x1="${width - padRight}" y1="${padTop}" x2="${width - padRight}" y2="${padTop + chartH}" stroke="#CBD5E1" stroke-width="1" />
+  `;
+
+  let points = [];
+
+  issues.forEach((iss, i) => {
+    const x = padLeft + i * barW;
+    const bWidth = barW * 0.65;
+    const bOffset = (barW - bWidth) / 2;
+    const bH = (iss.count / maxCount) * chartH;
+    const bY = padTop + chartH - bH;
+
+    const lineX = x + barW / 2;
+    const lineY = padTop + chartH - (iss.cum / 100) * chartH;
+    points.push({ x: lineX, y: lineY, cum: iss.cum });
+
+    svg += `
+      <!-- Bar -->
+      <rect x="${x + bOffset}" y="${bY}" width="${bWidth}" height="${bH}" rx="3" fill="${iss.vital ? 'url(#vitalBarGrad)' : 'url(#trivialBarGrad)'}">
+        <title>${iss.category}: ${iss.count} kasus (${iss.pct}%)</title>
+      </rect>
+      <!-- Count label -->
+      <text x="${x + barW / 2}" y="${bY - 4}" font-size="10" font-weight="700" fill="#334155" text-anchor="middle">${iss.count}</text>
+      <!-- X-label -->
+      <text x="${x + barW / 2}" y="${height - 20}" font-size="9" font-family="'Plus Jakarta Sans', sans-serif" fill="#475569" text-anchor="middle">
+        ${iss.category.split(' ')[0]}
+      </text>
+      <text x="${x + barW / 2}" y="${height - 8}" font-size="8.5" font-family="'Plus Jakarta Sans', sans-serif" fill="#64748B" text-anchor="middle">
+        ${iss.category.split(' ').slice(1).join(' ')}
+      </text>
+    `;
+  });
+
+  // Cumulative line
+  let polylineStr = points.map(p => `${p.x},${p.y}`).join(' ');
+  svg += `<polyline points="${polylineStr}" fill="none" stroke="#D97706" stroke-width="2.5" />`;
+
+  points.forEach(p => {
+    svg += `
+      <circle cx="${p.x}" cy="${p.y}" r="4" fill="#FFFFFF" stroke="#D97706" stroke-width="2.5" />
+      <text x="${p.x}" y="${p.y - 7}" font-size="9.5" font-weight="700" fill="#D97706" text-anchor="middle">${p.cum.toFixed(0)}%</text>
+    `;
+  });
+
+  chartEl.innerHTML = svg;
+}
+
+function renderPartnerDebtDashboard(customers) {
+  const container = document.getElementById('dashPartnerList');
+  if (!container) return;
+
+  const valid = customers.filter(c => (c.plafon || 0) > 0);
+  valid.sort((a, b) => (b.currentDebt || 0) - (a.currentDebt || 0));
+
+  container.innerHTML = valid.map(c => {
+    const debt = c.currentDebt || 0;
+    const plafon = c.plafon || 1;
+    const ratio = Math.min(100, Math.round((debt / plafon) * 100));
+    const statusClass = ratio >= 80 ? 'danger' : ratio >= 50 ? 'warning' : 'safe';
+
+    return `
+      <div class="dash-partner-item">
+        <div class="dash-partner-top">
+          <span class="dash-partner-name">${c.name}</span>
+          <span class="dash-partner-debt font-numeric ${statusClass}">${formatRupiah(debt)} <small class="text-muted">/ ${formatRupiah(plafon)}</small></span>
+        </div>
+        <div class="dash-partner-progress-bg">
+          <div class="dash-partner-progress-fill ${statusClass}" style="width: ${ratio}%;"></div>
+        </div>
+        <div class="dash-partner-sub">
+          <span>Plafon terpakai: <strong>${ratio}%</strong></span>
+          <span>Status: <strong class="partner-badge ${statusClass}">${c.daysLate > 0 ? c.daysLate + ' Hari Tempo' : 'Lancar'}</strong></span>
+        </div>
+      </div>
+    `;
+  }).join('');
 }

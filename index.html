@@ -899,6 +899,235 @@
       </div>
     </section>
 
+
+    <!-- ============================================== -->
+    <!-- TAB 6: DASHBOARD EKSEKUTIF & MUTU (SLIDE 7)     -->
+    <!-- ============================================== -->
+    <section class="tab-pane" id="dashboard" aria-label="Dashboard Eksekutif &amp; Analisis Mutu">
+      <div class="dashboard-container">
+
+        <!-- Hero Header Card -->
+        <section class="surface-card dash-hero-card">
+          <div class="dash-hero-lockup">
+            <span class="dash-badge-eyebrow">RINGKASAN EKSEKUTIF &bull; SLIDE 7</span>
+            <h2 class="dash-hero-title">Dashboard Kinerja &amp; Analisis Mutu Lapak</h2>
+            <p class="dash-hero-desc">
+              Konsolidasi data transaksi 5 bulan (Mei &ndash; September 2026), rasio susut karkas pasokan, manajemen plafon piutang mitra, dan kontrol mutu SNI meja basah.
+            </p>
+          </div>
+        </section>
+
+        <!-- KPI 5 Cards Grid -->
+        <div class="dash-kpi-grid">
+
+          <div class="dash-kpi-card">
+            <span class="dash-kpi-label">TOTAL OMZET (5 BULAN)</span>
+            <div class="dash-kpi-val font-numeric" id="dashTotalOmzet">Rp 192.208.050</div>
+            <div class="dash-kpi-sub">
+              <span class="dash-pill-badge pill-success">1.638 Transaksi</span>
+              <span class="text-muted">Rata-rata Rp 1,25 Jt/hari</span>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card">
+            <span class="dash-kpi-label">LABA KOTOR (GROSS PROFIT)</span>
+            <div class="dash-kpi-val font-numeric text-success" id="dashTotalProfit">Rp 43.355.636</div>
+            <div class="dash-kpi-sub">
+              <span class="dash-pill-badge pill-accent">Margin 22,55%</span>
+              <span class="text-muted">COGS Pasokan Rp 148,85 Jt</span>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card">
+            <span class="dash-kpi-label">VOLUME KARKAS TERJUAL</span>
+            <div class="dash-kpi-val font-numeric" id="dashTotalKg">5.934,9 Kg</div>
+            <div class="dash-kpi-sub">
+              <span class="dash-pill-badge pill-neutral" id="dashTotalChickens">2.413 Ekor</span>
+              <span class="text-muted">15,8 ekor/hari (realistis)</span>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card">
+            <span class="dash-kpi-label">RASIO SUSUT PASOKAN</span>
+            <div class="dash-kpi-val font-numeric text-amber" id="dashShrinkage">2,50%</div>
+            <div class="dash-kpi-sub">
+              <span class="dash-pill-badge pill-safe">Sesuai SNI</span>
+              <span class="text-muted">Toleransi susut &lt; 3,0%</span>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card">
+            <span class="dash-kpi-label">PIUTANG BON TERKELOLA</span>
+            <div class="dash-kpi-val font-numeric text-primary" id="dashTotalDebt">Rp 3.526.000</div>
+            <div class="dash-kpi-sub">
+              <span class="dash-pill-badge pill-info">11 Mitra</span>
+              <span class="text-muted">Buku Bon Digital + Plafon</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Section 1: Tren Finansial Bulanan (SVG Chart) -->
+        <section class="surface-card dash-section-card">
+          <div class="section-heading">
+            <h2>
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+              <span>Tren Omzet &amp; Laba Kotor Bulanan (Mei &ndash; Sep 2026)</span>
+            </h2>
+          </div>
+          <p class="dash-section-caption">
+            Stabilitas arus kas lapak broiler dengan volume konsisten 15&ndash;16 ekor/hari. Omzet bulanan stabil di rentang Rp 37,8 Jt &ndash; Rp 39,4 Jt.
+          </p>
+
+          <div class="chart-legend-row">
+            <span class="legend-badge"><span class="legend-dot dot-brown"></span> Omzet Penjualan</span>
+            <span class="legend-badge"><span class="legend-dot dot-amber"></span> Laba Kotor Lapak</span>
+          </div>
+
+          <div class="chart-svg-container" id="monthlyChartWrapper">
+            <svg id="monthlyChartSvg" viewBox="0 0 580 220" preserveAspectRatio="xMidYMid meet" class="responsive-svg-chart"></svg>
+          </div>
+        </section>
+
+        <!-- Section 2: Komposisi Permintaan Potongan Karkas -->
+        <section class="surface-card dash-section-card">
+          <div class="section-heading">
+            <h2>
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 2a10 10 0 0 1 10 10H12V2z"/>
+              </svg>
+              <span>Komposisi Permintaan Potongan Karkas (Product Mix)</span>
+            </h2>
+          </div>
+          <p class="dash-section-caption">
+            Distribusi preferensi pemotongan karkas oleh mitra langganan (warung makan/katering) dan pembeli eceran meja basah.
+          </p>
+
+          <div class="cut-mix-list" id="cutMixContainer">
+            <!-- Injected by JavaScript -->
+          </div>
+        </section>
+
+        <!-- Section 3: Visualisasi Mutu Lapak (Pareto 80/20 & Fishbone) -->
+        <section class="surface-card dash-section-card">
+          <div class="section-heading">
+            <h2>
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+              <span>Visualisasi Mutu: Diagram Pareto 80/20 &amp; Resolusi Masalah</span>
+            </h2>
+          </div>
+          <p class="dash-section-caption">
+            Evaluasi 100 kasus kendala operasional kasir meja basah. Tiga masalah utama (Vital Few, 84%) diselesaikan secara langsung oleh PoultryTrack.
+          </p>
+
+          <div class="pareto-chart-wrap">
+            <div class="chart-legend-row">
+              <span class="legend-badge"><span class="legend-dot dot-red"></span> Frekuensi Kasus (Vital Few &le; 80%)</span>
+              <span class="legend-badge"><span class="legend-dot dot-grey"></span> Masalah Sekunder (Trivial Many)</span>
+              <span class="legend-badge"><span class="legend-dot dot-line"></span> Persentase Kumulatif (%)</span>
+            </div>
+            <div class="chart-svg-container">
+              <svg id="paretoChartSvg" viewBox="0 0 580 240" preserveAspectRatio="xMidYMid meet" class="responsive-svg-chart"></svg>
+            </div>
+          </div>
+
+          <!-- Matriks Fishbone 5M+1E -->
+          <div class="fishbone-matrix-box mt-3">
+            <span class="mini-eyebrow">RINGKASAN SOLUSI FISHBONE 5M+1E</span>
+            <div class="fishbone-grid">
+              <div class="fishbone-item">
+                <strong>Man (Manusia)</strong>
+                <span>Juru potong &amp; kasir terburu-buru subuh diatasi dengan Antrean Digital FIFO transparan.</span>
+              </div>
+              <div class="fishbone-item">
+                <strong>Machine (Peralatan)</strong>
+                <span>Timbangan manual analog digantikan kalkulasi kasir timbangan cepat (&lt; 2 detik).</span>
+              </div>
+              <div class="fishbone-item">
+                <strong>Method (Metode)</strong>
+                <span>Pencatatan nota kertas basah digantikan Buku Bon Digital &amp; Reminder WhatsApp 1-klik.</span>
+              </div>
+              <div class="fishbone-item">
+                <strong>Material (Bahan Baku)</strong>
+                <span>Variasi susut pasokan dikontrol otomatis lewat rekonsiliasi pasokan vs penjualan.</span>
+              </div>
+              <div class="fishbone-item">
+                <strong>Measurement (Pengukuran)</strong>
+                <span>Selisih timbang tara dieliminasi lewat preset tombol Tara 0,3 Kg instan.</span>
+              </div>
+              <div class="fishbone-item">
+                <strong>Environment (Lingkungan)</strong>
+                <span>Meja basah &amp; cipratan air diatasi lewat UI tombol besar 48dp, high contrast, &amp; mode luring.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Monitoring Plafon & Aging Piutang 11 Mitra -->
+        <section class="surface-card dash-section-card">
+          <div class="section-heading">
+            <h2>
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <span>Status Plafon &amp; Piutang Mitra Langganan</span>
+            </h2>
+          </div>
+          <p class="dash-section-caption">
+            Kontrol batas kredit (plafon) dan jatuh tempo 11 mitra katering/warung makan untuk menjaga likuiditas lapak.
+          </p>
+
+          <div class="dash-partner-list" id="dashPartnerList">
+            <!-- Injected by JavaScript -->
+          </div>
+        </section>
+
+        <!-- Section 5: Visualisasi Eksekusi CPM 77 Hari & Indeks EVM -->
+        <section class="surface-card dash-section-card">
+          <div class="section-heading">
+            <h2>
+              <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>Visualisasi Eksekusi Proyek: CPM 77 Hari &amp; Capaian EVM (Slide 5)</span>
+            </h2>
+          </div>
+          <p class="dash-section-caption">
+            Metrik pengendalian waktu dan biaya proyek PoultryTrack sesuai metodologi manajemen proyek modern.
+          </p>
+
+          <div class="cpm-evm-grid">
+            <div class="cpm-card">
+              <span class="cpm-label">JALUR KRITIS (CPM)</span>
+              <div class="cpm-value font-numeric">77 Hari Kerja</div>
+              <p class="cpm-desc">Float = 0 hari. Terdiri dari 18 deliverables penting dari analisis kebutuhan lapak hingga uji coba subuh.</p>
+            </div>
+            <div class="evm-card">
+              <span class="cpm-label">KINERJA JADWAL (SPI)</span>
+              <div class="cpm-value font-numeric text-amber">0,94</div>
+              <p class="cpm-desc">Earned Value (EV) Rp 14,1 Jt vs Planned Value (PV) Rp 15,0 Jt. Deviasi terkendali pada sprint penyempurnaan.</p>
+            </div>
+            <div class="evm-card">
+              <span class="cpm-label">KINERJA BIAYA (CPI)</span>
+              <div class="cpm-value font-numeric text-success">0,95</div>
+              <p class="cpm-desc">Actual Cost (AC) Rp 14,8 Jt. Efisiensi anggaran terjaga tanpa pembengkakan modal.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </section>
+
   </main>
   <!-- BOTTOM NAVIGATION BAR                          -->
   <nav class="bottom-nav-bar" id="mobileTabBar" aria-label="Menu Utama">
@@ -962,6 +1191,18 @@
         <span class="nav-active-dot"></span>
       </span>
       <span>Laporan</span>
+    </button>
+
+    <button type="button" class="bnav-item" data-tab="dashboard">
+      <span class="bnav-icon-wrap">
+        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="21" x2="9" y2="9"/>
+        </svg>
+        <span class="nav-active-dot"></span>
+      </span>
+      <span>Dashboard</span>
     </button>
 
   </nav>
