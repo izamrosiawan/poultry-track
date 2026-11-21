@@ -3013,15 +3013,172 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
   }
 }
 
-/* DESKTOP / LAPTOP (min-width: 1024px) */
+/* DESKTOP / LAPTOP (min-width: 1024px) - Clean Professional Dashboard Layout */
 @media (min-width: 1024px) {
-  body {
-    max-width: 840px;
-    box-shadow: 0 0 50px rgba(53, 25, 0, 0.1);
+  html {
+    background-color: #F4F5F7;
   }
 
+  body {
+    max-width: 100%;
+    margin: 0;
+    padding-left: 240px; /* Space for fixed desktop sidebar */
+    background: #F8F9FA;
+    box-shadow: none;
+    min-height: 100vh;
+  }
+
+  /* Fixed Desktop Sidebar */
   .bottom-nav-bar {
-    max-width: 840px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 240px;
+    max-width: 240px;
+    height: 100vh;
+    transform: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 24px 16px;
+    gap: 8px;
+    background: #FFFFFF;
+    border-top: none;
+    border-right: 1px solid #E2E8F0;
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.04);
+    z-index: 50;
+  }
+
+  /* Sidebar Branding Header */
+  .bottom-nav-bar::before {
+    content: 'POULTRYTRACK';
+    display: block;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #351900;
+    padding: 0 12px 20px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #F1F5F9;
+  }
+
+  .bnav-item {
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 10px;
+    color: #64748B;
+    transition: all 0.15s ease-in-out;
+  }
+
+  .bnav-item:hover {
+    background: #F8FAFC;
+    color: #0F172A;
+  }
+
+  .bnav-item.active {
+    background: #351900;
+    color: #FFFFFF;
+  }
+
+  .bnav-item.active .nav-active-dot {
+    display: none;
+  }
+
+  .bnav-icon-wrap {
+    width: 22px;
+    height: 22px;
+  }
+
+  .bnav-item .ui-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* App Header in Desktop */
+  .app-header {
+    position: sticky;
+    top: 0;
+    max-width: 100%;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    z-index: 30;
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    height: 68px;
+  }
+
+  /* Main Viewport Container in Desktop */
+  .app-viewport {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 32px 60px;
+  }
+
+  /* Brand Card in Desktop */
+  .brand-card {
+    padding: 22px 26px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+  }
+
+  /* Segmented control on desktop */
+  .segmented-control {
+    max-width: 420px;
+    margin: 0;
+  }
+
+  /* Step 1 Kasir Grid 2 Kolom */
+  #cashierStepOne {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  #cashierStepOne > #btnNextStep {
+    grid-column: 1 / -1;
+    max-width: 320px;
+    margin: 16px auto 0;
+  }
+
+  /* Antrean Grid 3 Kolom */
+  .queue-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  /* Buku Bon Grid 3 Kolom */
+  .debtor-cards-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  /* Dashboard KPI 5 Kolom Sejajar Elegan */
+  .dash-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 14px;
+  }
+
+  .dash-kpi-card {
+    padding: 16px 14px;
+  }
+
+  .dash-kpi-val {
+    font-size: 19px;
   }
 
   /* Kasir Tahap 2: 2 Kolom Seimbang */
