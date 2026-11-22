@@ -123,8 +123,12 @@ function refreshViews() {
 
 function renderStock() {
   const inventory = PoultryCore.inventory(state);
-  document.getElementById('stockRemaining').textContent = inventory.ekor.toLocaleString('id-ID') + ' Ekor';
-  document.getElementById('stockWeight').textContent = inventory.kg.toLocaleString('id-ID', {maximumFractionDigits: 2}) + ' Kg';
+  const stockCount = inventory.ekor.toLocaleString('id-ID') + ' Ekor';
+  const stockWeight = inventory.kg.toLocaleString('id-ID', {maximumFractionDigits: 2}) + ' Kg';
+  document.getElementById('stockRemaining').textContent = stockCount;
+  document.getElementById('stockWeight').textContent = stockWeight;
+  document.getElementById('cashierStockCount').textContent = stockCount;
+  document.getElementById('cashierStockWeight').textContent = stockWeight;
   document.querySelector('[data-tab="pasokan"] .nav-badge-dot').hidden = inventory.ekor > 10;
 }
 
@@ -503,7 +507,7 @@ function renderBukuBon() {
     container.innerHTML = '<div class="empty-state"><h3>Tidak ada mitra yang cocok</h3><p>Coba nama lain atau ubah filter pencarian.</p></div>';
     return;
   }
-  container.innerHTML = visible.map(c => {
+  const rows = visible.map(c => {
     const ratio = (c.plafon > 0 ? Math.round(c.currentDebt / c.plafon * 1000) / 10 : 0).toLocaleString('id-ID');
     const paid = c.currentDebt <= 0;
     const late = PoultryCore.daysLate(c, state.debtAsOf);
@@ -511,8 +515,41 @@ function renderBukuBon() {
     const phone = PoultryCore.normalizePhone(c.phone);
     const waText = `Halo ${c.name}, mengingatkan catatan bon lapak ayam sebesar ${formatRupiah(c.currentDebt)}.`;
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(waText)}`;
-    return `<article class="debtor-item-card"><div class="debtor-item-header"><span class="debtor-avatar">${escapeHtml(c.id.slice(0, 3))}</span><div class="debtor-info"><h3 class="debtor-name" title="${escapeHtml(c.name)}">${escapeHtml(c.name)}</h3><p class="debtor-sub">Plafon: ${formatRupiah(c.plafon || 0)}</p><span class="debtor-phone">${uiIcon('phone')}${escapeHtml(c.phone && c.phone !== '-' ? c.phone : 'Belum ada nomor')}</span></div><div><p class="debtor-amount">${formatRupiah(c.currentDebt)}</p><div class="debtor-actions"><a class="btn-card-wa" ${phone ? `href="${waUrl}" target="_blank" rel="noopener noreferrer"` : 'aria-disabled="true" title="Tambahkan nomor WhatsApp yang valid melalui kasir"'}>Kirim WA →</a><button type="button" class="btn-card-pay" data-pay-customer="${escapeHtml(c.id)}" ${paid ? 'disabled' : ''}>Setor</button></div></div></div><div class="debtor-limit"><span>Pemakaian Plafon: <strong>${ratio}%</strong></span><span class="${late > 0 ? 'badge-status-red' : 'badge-status-green'}">${status}</span></div></article>`;
+    return `
+      <tr role="row">
+        <th scope="row" role="rowheader">
+          <div class="debtor-item-header">
+            <span class="debtor-avatar" aria-hidden="true">${escapeHtml(c.id.slice(0, 3))}</span>
+            <div class="debtor-info">
+              <span class="debtor-name">${escapeHtml(c.name)}</span>
+              <span class="debtor-phone">${uiIcon('phone')}${escapeHtml(c.phone && c.phone !== '-' ? c.phone : 'Belum ada nomor')}</span>
+            </div>
+          </div>
+        </th>
+        <td role="cell"><span class="bon-mobile-label" aria-hidden="true">Sisa bon</span><strong class="debtor-amount">${formatRupiah(c.currentDebt)}</strong></td>
+        <td role="cell"><span class="bon-mobile-label" aria-hidden="true">Plafon</span><span>${formatRupiah(c.plafon || 0)}</span><span class="debtor-sub">${ratio}% dipakai</span></td>
+        <td role="cell"><span class="bon-mobile-label" aria-hidden="true">Status</span><span class="${late > 0 ? 'badge-status-red' : 'badge-status-green'}">${status}</span></td>
+        <td role="cell">
+          <div class="debtor-actions">
+            <a class="btn-card-wa" ${phone ? `href="${waUrl}" target="_blank" rel="noopener noreferrer"` : 'aria-disabled="true" title="Tambahkan nomor WhatsApp yang valid melalui kasir"'}>Kirim WA →</a>
+            <button type="button" class="btn-card-pay" data-pay-customer="${escapeHtml(c.id)}" ${paid ? 'disabled' : ''}>Setor</button>
+          </div>
+        </td>
+      </tr>`;
   }).join('');
+  container.innerHTML = `
+    <table class="bon-table" role="table" aria-label="Daftar rekap bon mitra">
+      <thead role="rowgroup">
+        <tr role="row">
+          <th scope="col" role="columnheader">Mitra</th>
+          <th scope="col" role="columnheader">Sisa bon</th>
+          <th scope="col" role="columnheader">Plafon</th>
+          <th scope="col" role="columnheader">Status</th>
+          <th scope="col" role="columnheader">Tindakan</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">${rows}</tbody>
+    </table>`;
 }
 
 function initBonFilters() {
@@ -1003,6 +1040,7 @@ function initRedesign() {
     button.dataset.expanded = button.dataset.expanded === 'true' ? 'false' : 'true';
     renderBukuBon();
   };
+  document.getElementById('btnCashierStock').onclick = () => document.querySelector('[data-tab="pasokan"]').click();
   document.getElementById('btnNotifications').onclick = () => document.getElementById('lapakModal').showModal();
   document.getElementById('reportPeriod').onchange = renderRekapKas;
   document.getElementById('btnPrintReport').onclick = printCashReport;

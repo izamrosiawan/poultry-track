@@ -218,6 +218,8 @@ summary:focus-visible {
   box-shadow: 0 2px 4px rgba(53,25,0,.12);
 }
 
+.brand-identity { display: contents; }
+
 /* Brand Lockup */
 .brand-lockup {
   display: flex;
@@ -1769,23 +1771,59 @@ summary:focus-visible {
 
 .search-input::-webkit-search-cancel-button { -webkit-appearance: none; }
 
-/* Debtor Cards (rendered by JS) */
+/* Buku Bon */
 .debtor-cards-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   margin-bottom: 12px;
   min-height: 10px;
 }
 
-.debtor-item-card {
-  border: 1.5px solid var(--border-light);
-  border-radius: 14px;
-  padding: 12px 14px;
-  background: var(--bg-surface);
-  display: flex;
-  flex-direction: column;
+.bon-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bon-table thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+
+.bon-table tbody {
+  display: grid;
   gap: 10px;
+}
+
+.bon-table tbody tr {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-input);
+  padding: 14px;
+}
+
+.bon-table tbody th {
+  text-align: left;
+  font-weight: inherit;
+  grid-column: 1 / -1;
+}
+
+.bon-table td {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.bon-table td:last-child {
+  align-self: end;
+}
+
+.bon-mobile-label,
+.bon-table .debtor-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--text-secondary);
 }
 
 .debtor-item-header {
@@ -1879,19 +1917,6 @@ summary:focus-visible {
 }
 
 .btn-card-pay:hover { background: var(--bg-dark-hover); }
-
-.debtor-limit {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border-light);
-  font-size: 11.5px;
-  color: var(--text-secondary);
-}
-
-.debtor-limit strong { font-weight: 700; color: var(--text-primary); }
 
 /* View All Button */
 .view-all-button {
@@ -2881,7 +2906,6 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
   .preset-pill { font-size: 10px; padding-inline: 10px; }
   .section-heading h2 { font-size: 12px; }
   .debtor-item-header { flex-wrap: wrap; }
-  .debtor-item-header > div:last-child { margin-left: auto; }
   .dh-header { flex-wrap: wrap; }
   .cf-icon { width: 26px; height: 26px; }
   .cf-name { font-size: 10px; }
@@ -2957,23 +2981,23 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
     align-items: stretch;
   }
 
-  #cashierStepOne > #partnerInfoCard {
+  #cashierStepOne #partnerInfoCard {
     grid-column: 1 / -1;
   }
 
-  #cashierStepOne > .quantity-card {
+  #cashierStepOne .quantity-card {
     grid-column: 1;
     margin-bottom: 0;
     height: 100%;
   }
 
-  #cashierStepOne > .weight-card {
+  #cashierStepOne .weight-card {
     grid-column: 2;
     margin-bottom: 0;
     height: 100%;
   }
 
-  #cashierStepOne > #btnNextStep {
+  #cashierStepOne #btnNextStep {
     grid-column: 1 / -1;
     max-width: 380px;
     margin: 10px auto 0;
@@ -2987,11 +3011,8 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
     gap: 12px;
   }
 
-  /* Buku Bon Grid 2 Kolom */
-  .debtor-cards-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 12px;
+  .bon-table tbody {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   /* Modal Dialog */
@@ -3014,54 +3035,25 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
 }
 
 /* DESKTOP / LAPTOP (min-width: 1024px) - Clean Professional Dashboard Layout */
-@media (min-width: 1024px) {
-  html {
-    background-color: #F8F9FA;
+@media screen and (min-width: 1024px) {
+  :root {
+    --bg-app: #F9F9F6;
+    --bg-dark: #311601;
+    --bg-dark-hover: #492A11;
+    --bg-subtle: #EFEDEB;
+    --input-bg: #F8F9F9;
+    --brand-accent-subtle: #F4F2EF;
+    --border-light: #EAE6E0;
+    background: var(--bg-app);
   }
 
   body {
     width: auto !important;
     max-width: none !important;
     margin: 0 !important;
-    padding-left: 240px !important; /* Space for fixed desktop sidebar */
-    background: #F8F9FA !important;
+    background: var(--bg-app) !important;
     box-shadow: none !important;
     min-height: 100vh;
-  }
-
-  /* Fixed Desktop Sidebar */
-  .bottom-nav-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 240px;
-    max-width: 240px;
-    height: 100vh;
-    transform: none;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    padding: 24px 16px;
-    gap: 8px;
-    background: #FFFFFF;
-    border-top: none;
-    border-right: 1px solid #E2E8F0;
-    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.04);
-    z-index: 50;
-  }
-
-  /* Sidebar Branding Header */
-  .bottom-nav-bar::before {
-    content: 'POULTRYTRACK';
-    display: block;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: #351900;
-    padding: 0 12px 20px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid #F1F5F9;
   }
 
   .bnav-item {
@@ -3074,18 +3066,18 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
     font-size: 13.5px;
     font-weight: 600;
     border-radius: 10px;
-    color: #64748B;
+    color: var(--text-secondary);
     transition: all 0.15s ease-in-out;
   }
 
   .bnav-item:hover {
-    background: #F8FAFC;
-    color: #0F172A;
+    background: var(--brand-accent-subtle);
+    color: var(--bg-dark);
   }
 
   .bnav-item.active {
-    background: #351900;
-    color: #FFFFFF;
+    background: var(--bg-dark);
+    color: var(--text-on-dark);
   }
 
   .bnav-item.active .nav-active-dot {
@@ -3102,8 +3094,16 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
     height: 20px;
   }
 
-  /* App Header in Desktop */
   .app-header {
+    background: var(--bg-surface);
+  }
+
+  .header-inner {
+    height: 64px;
+    padding-inline: clamp(20px, 2.5vw, 36px);
+  }
+
+  .app-eyebrow {
     display: none;
   }
 
@@ -3112,7 +3112,7 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
     width: 100%;
     max-width: none;
     margin: 0;
-    padding: 24px 36px 60px;
+    padding: 24px clamp(20px, 2.5vw, 36px) 60px;
     box-sizing: border-box;
   }
 
@@ -3144,16 +3144,26 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px 24px;
     width: 100%;
     box-sizing: border-box;
-    padding: 18px 28px;
+    padding: 18px clamp(18px, 2vw, 28px);
     border-radius: 16px;
     margin-bottom: 24px;
     box-shadow: 0 4px 20px rgba(53, 25, 0, 0.08);
   }
 
+  .brand-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+  }
+
   .brand-lockup {
-    gap: 16px;
+    gap: 12px;
     margin-bottom: 0;
     flex-shrink: 0;
   }
@@ -3180,8 +3190,8 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
 
   .brand-status {
     margin: 0;
-    gap: 16px;
-    font-size: 13.5px;
+    gap: 8px;
+    font-size: 13px;
   }
 
   .lapak-open {
@@ -3199,7 +3209,8 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 8px 16px;
     margin: 0;
     padding: 0;
   }
@@ -3232,7 +3243,8 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    gap: 24px;
+    flex-wrap: wrap;
+    gap: 10px 24px;
     margin: 0;
     padding: 0;
   }
@@ -3271,13 +3283,15 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
   .customer-hero {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+    flex-wrap: wrap;
+    min-width: 0;
     margin: 0;
   }
 
   .segmented-control {
     width: auto;
-    min-width: 340px;
+    max-width: 100%;
     margin: 0;
     padding: 5px;
   }
@@ -3289,47 +3303,14 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
   }
 
   .cashier-progress {
-    max-width: 520px;
-    margin: 0 auto 24px;
+    max-width: none;
+    width: 100%;
+    margin: 0 0 8px;
   }
 
   .progress-step {
     padding: 10px 20px;
     font-size: 13px;
-  }
-
-  /* Step 1 Kasir Grid: Full Width 2 Kolom Seimbang */
-  #cashierStepOne {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    align-items: stretch;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-  }
-
-  #cashierStepOne > #partnerInfoCard {
-    grid-column: 1 / -1;
-  }
-
-  #cashierStepOne > .quantity-card {
-    grid-column: 1;
-    margin-bottom: 0;
-    height: 100%;
-    padding: 32px 36px;
-    border-radius: 18px;
-    box-sizing: border-box;
-  }
-
-  #cashierStepOne > .weight-card {
-    grid-column: 2;
-    margin-bottom: 0;
-    height: 100%;
-    padding: 32px 36px;
-    border-radius: 18px;
-    box-sizing: border-box;
   }
 
   .meta-label {
@@ -3376,12 +3357,12 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
   }
 
   .weight-val-wrap {
-    padding: 14px 24px;
+    padding: 14px clamp(4px, 1vw, 16px);
     border-radius: 14px;
   }
 
   .weight-val-wrap input {
-    font-size: 42px;
+    font-size: clamp(28px, 3vw, 42px);
     width: 140px;
   }
 
@@ -3407,60 +3388,6 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
     border-radius: 10px;
   }
 
-  #cashierStepOne > #btnNextStep {
-    grid-column: 1 / -1;
-    max-width: 100% !important;
-    margin: 24px 0 0 !important;
-    width: 100% !important;
-    height: 56px;
-    font-size: 16px;
-    border-radius: 14px;
-  }
-
-  /* Kasir Step Two Card: Spacious 2 Columns */
-  #cashierStepTwo {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0;
-    box-sizing: border-box;
-  }
-
-  .transaction-card {
-    display: grid !important;
-    grid-template-columns: 1.15fr 1fr !important;
-    column-gap: 28px !important;
-    row-gap: 20px !important;
-    align-items: start !important;
-    padding: 32px 36px !important;
-    border-radius: 18px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  .cut-price-card {
-    grid-column: 1 !important;
-    grid-row: 1 / span 5 !important;
-    border-right: 1px solid var(--border-light) !important;
-    padding-right: 28px !important;
-  }
-
-  .summary-top {
-    grid-column: 2 !important;
-    margin-top: 0 !important;
-  }
-
-  .payment-mode-grid {
-    grid-column: 2 !important;
-  }
-
-  #btnSubmitTrx {
-    grid-column: 2 !important;
-  }
-
-  #btnPrintReceipt {
-    grid-column: 2 !important;
-  }
-
   .cashier-footer-bar {
     grid-column: 1 / -1 !important;
     width: 100% !important;
@@ -3476,37 +3403,10 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
   /* Antrean Grid Full Width: 3-4 Kolom Responsif */
   .queue-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)) !important;
     gap: 20px;
     width: 100%;
     box-sizing: border-box;
-  }
-
-  /* Buku Bon Grid Full Width: 3-4 Kolom Responsif */
-  .debtor-cards-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
-    gap: 20px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Pasokan Screen Flow Full Width */
-  #pasokan .screen-flow {
-    display: grid;
-    grid-template-columns: 1fr 1.35fr;
-    gap: 24px;
-    align-items: start;
-    width: 100%;
-  }
-
-  /* Rekap Kas Screen Flow Full Width */
-  #rekap-kas .screen-flow {
-    display: grid;
-    grid-template-columns: 1fr 1.35fr;
-    gap: 24px;
-    align-items: start;
-    width: 100%;
   }
 
   /* Dashboard Container & Grid KPI */
@@ -3519,7 +3419,7 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
 
   .dash-kpi-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr) !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 174px), 1fr)) !important;
     gap: 18px;
   }
 
@@ -3530,48 +3430,7 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
 
   .dash-kpi-val {
     font-size: 21px;
-    white-space: nowrap;
-  }
-
-  /* Kasir Tahap 2: 2 Kolom Seimbang */
-  .transaction-card {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    column-gap: 22px;
-    row-gap: 14px;
-    align-items: start;
-    padding: 20px;
-  }
-
-  .cut-price-card {
-    grid-column: 1;
-    grid-row: 1 / span 5;
-    border-right: 1px solid var(--border-light);
-    padding-right: 22px;
-  }
-
-  .summary-top {
-    grid-column: 2;
-    margin-top: 0;
-  }
-
-  .payment-mode-grid {
-    grid-column: 2;
-  }
-
-  #btnSubmitTrx {
-    grid-column: 2;
-  }
-
-  #btnPrintReceipt {
-    grid-column: 2;
-  }
-
-  .cashier-footer-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
+    overflow-wrap: anywhere;
   }
 
   .cashier-footer-bar .form-bottom-actions {
@@ -3583,7 +3442,7 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
   /* Pasokan Layout 2 Kolom */
   #pasokan .screen-flow {
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
     gap: 16px;
     align-items: start;
   }
@@ -3595,7 +3454,7 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
   /* Rekap Kas Layout 2 Kolom */
   #rekap-kas .screen-flow {
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
     gap: 16px;
     align-items: start;
   }
@@ -3605,6 +3464,49 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
   .report-cash-card { grid-column: 2; grid-row: 2 / span 3; }
   #btnCloseShift, #btnPrintReport { grid-column: 1; }
   .report-extra, .data-settings { grid-column: 1 / -1; }
+
+  .progress-step {
+    min-height: 44px;
+    border-radius: var(--radius-btn);
+  }
+
+  .stepper-box,
+  .weight-display-row {
+    background: var(--input-bg);
+  }
+
+  .summary-top {
+    padding: 16px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-btn);
+    background: var(--brand-accent-subtle);
+  }
+
+  .queue-summary {
+    background: var(--bg-subtle);
+  }
+
+  .queue-board,
+  .bon-board,
+  .supply-form-card,
+  .report-cash-card {
+    padding: clamp(18px, 2vw, 28px);
+  }
+
+  .queue-card {
+    height: 100%;
+    min-width: 0;
+  }
+
+  .queue-head,
+  .dh-header {
+    flex-wrap: wrap;
+  }
+
+  .drawer-highlight-card {
+    background: #F2EEE4;
+    border: 1px solid var(--border-light);
+  }
 }
 
 
@@ -4081,4 +3983,329 @@ body:has(.modal-backdrop.open), body:has(dialog[open]) { overflow: hidden; }
   border: 1px solid #F1F5F9;
   border-radius: 8px;
   padding: 12px 8px;
+}
+
+@media screen and (min-width: 1024px) {
+  .dash-header-bar {
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .dash-view-title,
+  .dash-section-card .section-heading h2 {
+    color: var(--bg-dark);
+  }
+
+  .dash-view-sub,
+  .dash-kpi-label {
+    color: var(--text-secondary);
+  }
+
+  .dash-kpi-card,
+  .dash-section-card {
+    border-color: var(--border-light);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .dash-kpi-val {
+    color: var(--bg-dark);
+  }
+
+  .dash-kpi-val.text-success {
+    color: var(--color-success-text);
+  }
+
+  .tag-period,
+  .chart-svg-container,
+  .dash-partner-item,
+  .fishbone-matrix-box,
+  .cpm-card,
+  .evm-card {
+    background: var(--brand-accent-subtle);
+    border-color: var(--border-light);
+    border-radius: var(--radius-input);
+  }
+}
+
+.cashier-measurements,
+.cashier-step-actions,
+.cashier-payment-panel {
+  display: contents;
+}
+
+.cashier-stock-panel {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .app-header {
+    z-index: 51;
+  }
+
+  .header-inner,
+  .app-viewport {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+  }
+
+  .bottom-nav-bar {
+    position: sticky;
+    top: 65px;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 58px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 20px;
+    gap: clamp(4px, 1vw, 16px);
+    border-bottom: 1px solid var(--border-light);
+    background: var(--bg-surface);
+    border-top: 0;
+    transform: none;
+    box-shadow: var(--shadow-card);
+    z-index: 50;
+  }
+
+  .bnav-item {
+    min-height: 42px;
+    padding: 8px clamp(12px, 1.35vw, 22px);
+    white-space: nowrap;
+  }
+
+  .cashier-progress,
+  .tab-pane,
+  .form-error {
+    scroll-margin-top: 140px;
+  }
+
+  .cashier-progress {
+    margin-bottom: 0;
+  }
+
+  #cashierStepOne,
+  #cashierStepTwo .transaction-card {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(270px, 2fr);
+    align-items: start;
+    gap: 18px;
+  }
+
+  #cashierStepTwo .transaction-card {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .cashier-measurements,
+  .cashier-step-actions,
+  .cashier-payment-panel {
+    display: grid;
+    min-width: 0;
+    gap: 14px;
+  }
+
+  .cashier-step-actions,
+  .cashier-payment-panel,
+  .queue-summary {
+    position: sticky;
+    top: 140px;
+  }
+
+  .cashier-measurements > .partner-info {
+    grid-column: 1 / -1;
+  }
+
+  #cashierStepTwo .cut-price-card,
+  .cashier-payment-panel {
+    min-width: 0;
+    padding: 22px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .cashier-payment-panel :is(.summary-top, .printer-note, #btnSubmitTrx) {
+    margin: 0;
+  }
+
+  .cashier-payment-panel .summary-top {
+    display: grid;
+    justify-content: stretch;
+    gap: 6px;
+  }
+
+  .cashier-payment-panel .summary-right {
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  .cashier-payment-panel .summary-left {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .cashier-measurements :is(.quantity-card, .weight-card) {
+    margin: 0;
+    padding: 22px;
+  }
+
+  .cashier-measurements :is(.stepper-box, .weight-display-row) {
+    margin-top: 12px;
+  }
+
+  .cashier-stock-panel {
+    display: grid;
+    gap: 14px;
+    background: var(--brand-accent-subtle);
+    color: var(--bg-dark);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-card);
+    padding: 22px;
+  }
+
+  .cashier-stock-panel h3 {
+    font-size: 16px;
+  }
+
+  .cashier-stock-values {
+    display: grid;
+    gap: 12px;
+  }
+
+  .cashier-stock-values > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    column-gap: 8px;
+    border-top: 1px solid var(--border-light);
+    padding-top: 10px;
+  }
+
+  .cashier-stock-values dt {
+    color: var(--text-secondary);
+  }
+
+  .cashier-stock-values dd {
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .cashier-stock-link {
+    justify-self: start;
+    padding: 8px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-btn);
+    color: var(--bg-dark);
+    background: var(--bg-surface);
+    font-weight: 700;
+  }
+
+  .cashier-stock-link:hover {
+    border-color: var(--border-focus);
+  }
+
+  #btnNextStep {
+    min-height: 54px;
+  }
+
+  #antrean .screen-flow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(245px, 0.33fr);
+    align-items: start;
+    gap: 18px;
+  }
+
+  .dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 18px;
+  }
+
+  .dashboard-container > :is(.dash-header-bar, .dash-kpi-grid, .dash-section-card:first-of-type, .dash-section-card:last-of-type) {
+    grid-column: 1 / -1;
+  }
+
+  .bon-table thead {
+    position: static;
+    width: auto;
+    height: auto;
+    clip-path: none;
+    overflow: visible;
+    background: var(--bg-subtle);
+  }
+
+  .bon-table tbody {
+    display: table-row-group;
+  }
+
+  .bon-table tbody tr {
+    display: table-row;
+    border: 0;
+  }
+
+  .bon-table :is(th, td) {
+    padding: 13px 12px;
+    border-bottom: 1px solid var(--border-light);
+    text-align: left;
+  }
+
+  .bon-table .debtor-item-header {
+    align-items: center;
+  }
+
+  .bon-table :is(th:nth-child(2), td:nth-child(2), th:last-child) {
+    text-align: right;
+  }
+
+  .bon-table .debtor-amount {
+    margin: 0;
+  }
+
+  .bon-mobile-label {
+    display: none;
+  }
+
+  #rekap-kas .screen-flow {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+}
+
+@media screen and (min-width: 1240px) {
+  .cashier-measurements {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cashier-measurements .stepper-box {
+    gap: 8px;
+    padding-inline: 10px;
+  }
+
+  .cashier-measurements .stepper-btn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .cashier-measurements .weight-val-wrap {
+    padding-inline: 4px;
+  }
+
+  .cashier-measurements .weight-display-row {
+    gap: 6px;
+  }
+
+  .cashier-measurements .tara-button {
+    padding-inline: 10px;
+  }
 }

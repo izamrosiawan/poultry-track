@@ -2,7 +2,7 @@
 
 ## Arah visual
 
-Tampilan mengikuti rancangan visual wet-market: aplikasi kasir modern bernuansa cokelat espresso gelap, latar krem hangat, kartu putih, dan form kasir adaptif. Pada perangkat mobile (320px - 480px), tata letak satu kolom ramah sentuhan dipertahankan. Pada tablet (768px - 1023px), tata letak beradaptasi menjadi grid 2 kolom dengan bottom-dock melayang dan modal dialog terpusat. Pada desktop/laptop (>= 1024px), antarmuka bertransformasi menjadi stasiun kerja POS penuh dengan top-nav bar dan grid multi-kolom yang optimal untuk penggunaan mouse dan keyboard.
+Tampilan mengikuti rancangan visual wet-market: aplikasi kasir modern bernuansa cokelat espresso gelap, latar krem hangat, kartu putih, dan form kasir adaptif. Pada perangkat mobile (320px - 480px), tata letak satu kolom ramah sentuhan dipertahankan. Pada tablet (768px - 1023px), tata letak beradaptasi menjadi grid 2 kolom dengan bottom-dock melayang dan modal dialog terpusat. Pada desktop/laptop (mulai 1024px), navigasi menyatu dengan header dalam dua baris. Kasir memakai susunan 60/40 pada kedua tahap. Panel kanan menampilkan stok dan tombol lanjut saat penimbangan, lalu total tagihan, metode pembayaran, dan aksi simpan saat pembayaran. Antrean menempatkan ringkasan di samping daftar, Buku Bon menyajikan catatan sebagai tabel, dan Laporan menempatkan saldo laci di samping rincian arus kas.
 
 ## Palet utama
 
