@@ -1,0 +1,217 @@
+.pt-scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 120;
+  background: var(--brand-accent, #B87943);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+.app-header { transition: box-shadow 200ms ease; }
+.app-header.is-scrolled { box-shadow: 0 6px 18px rgba(53, 25, 0, .10); }
+
+.pt-ripple-host { position: relative; overflow: hidden; }
+.pt-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .22;
+  pointer-events: none;
+  transform: scale(0);
+}
+
+.pt-avg {
+  transition: color 180ms ease;
+}
+.pt-avg[data-level="low"],
+.pt-avg[data-level="high"] { color: #B4453A; font-weight: 600; }
+
+.pt-meter {
+  display: block;
+  width: 100%;
+  max-width: 96px;
+  height: 4px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: var(--border-light, #ECECE7);
+  overflow: hidden;
+}
+.pt-meter > i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--brand-accent, #B87943);
+  transition: width 500ms cubic-bezier(.2, .7, .2, 1), background 200ms ease;
+}
+.pt-meter[data-hot="true"] > i { background: #C0392B; }
+
+.pt-mark {
+  background: rgba(184, 121, 67, .28);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+.pt-track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 12px;
+}
+.pt-track > span {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--border-light, #ECECE7);
+  transition: background 300ms ease;
+}
+.pt-track > span.on { background: var(--brand-accent, #B87943); }
+.pt-track > span.now { background: var(--bg-dark, #351900); }
+.pt-track-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  margin-top: 5px;
+  font-size: 10.5px;
+  color: var(--text-secondary, #6B6560);
+}
+.pt-track-label b { color: var(--text-primary, #1C1917); font-weight: 700; }
+
+.progress-step.is-done .step-num { background: var(--bg-dark, #351900); color: #fff; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .bnav-item,
+  .btn-primary-action,
+  .btn-card-pay,
+  .btn-card-wa,
+  .queue-next,
+  .preset-pill,
+  .stepper-btn,
+  .tara-button,
+  .pay-select-btn,
+  .segment-btn,
+  .cut-chip,
+  .progress-step,
+  .chart-month,
+  .link-rekap,
+  .inline-new-partner,
+  .text-button {
+    transition: transform 140ms ease, scale 140ms ease, translate 140ms ease,
+      background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  button:not(:disabled):active,
+  .cut-option:active .cut-chip { scale: .96; }
+
+  .btn-primary-action:not(:disabled):hover { translate: 0 -2px; box-shadow: 0 10px 22px rgba(53, 25, 0, .22); }
+  .btn-primary-action:not(:disabled):active { translate: 0 0; box-shadow: none; }
+  .bnav-item:not(.active):hover { translate: 0 -2px; }
+  .preset-pill:hover,
+  .queue-next:not(:disabled):hover,
+  .btn-card-pay:not(:disabled):hover,
+  .btn-card-wa:hover { translate: 0 -1px; }
+  .stepper-btn:hover { translate: 0 -1px; }
+  .stepper-btn.plus:hover { box-shadow: 0 6px 14px rgba(53, 25, 0, .25); }
+  .tara-button:hover svg { rotate: 180deg; }
+  .tara-button svg { transition: rotate 380ms cubic-bezier(.3, .7, .2, 1); }
+  .bnav-item.active .ui-icon { animation: pt-pop 360ms cubic-bezier(.3, 1.6, .5, 1); }
+
+  .surface-card,
+  .queue-card,
+  .dash-kpi-card,
+  .drawer-highlight-card,
+  .dash-disclosure {
+    transition: box-shadow 220ms ease, border-color 200ms ease;
+  }
+  .surface-card:hover,
+  .queue-card:hover,
+  .dash-kpi-card:hover,
+  .drawer-highlight-card:hover {
+    box-shadow: 0 14px 30px rgba(53, 25, 0, .10);
+  }
+  .surface-card:focus-within,
+  .queue-card:focus-within {
+    box-shadow: 0 0 0 2px rgba(184, 121, 67, .35), 0 14px 30px rgba(53, 25, 0, .08);
+  }
+  #langgananGroup[style*="block"],
+  #custBalanceBadge[style*="block"],
+  #partnerInfoCard:not([hidden]) { animation: pt-rise 320ms cubic-bezier(.2, .7, .2, 1) both; }
+
+  tbody tr { transition: background-color 160ms ease; }
+  tbody tr:hover { background-color: rgba(184, 121, 67, .08); }
+  .debtor-avatar { transition: scale 200ms ease; }
+  tbody tr:hover .debtor-avatar { scale: 1.1; }
+
+  .pt-reveal { animation: pt-rise 420ms cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--pt-i, 0) * 55ms); }
+  #pageTitle.pt-title { animation: pt-title 300ms ease both; }
+
+  body.pt-ready #cashierStepOne:not([hidden]) { animation: pt-from-left 320ms cubic-bezier(.2, .7, .2, 1) both; }
+  body.pt-ready #cashierStepTwo:not([hidden]) { animation: pt-from-right 320ms cubic-bezier(.2, .7, .2, 1) both; }
+  .cashier-progress .progress-step.active .step-num { animation: pt-pop 320ms cubic-bezier(.3, 1.6, .5, 1); }
+
+  .pt-bump { animation: pt-bump 420ms ease; }
+  .pt-flash { animation: pt-flash 900ms ease; }
+  .pt-shake { animation: pt-shake 360ms ease; }
+  #cashierError:not([hidden]),
+  #storageWarning:not([hidden]) { animation: pt-shake 360ms ease; }
+
+  .lapak-open.is-open .status-dot { animation: pt-pulse 1.8s ease-out infinite; }
+  .nav-badge-dot:not([hidden]) { animation: pt-pulse 2s ease-out infinite; }
+
+  .toast.pt-live { animation: pt-toast-in 260ms cubic-bezier(.2, .9, .3, 1.2) both; }
+  .toast.pt-live::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 3px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--brand-accent, #B87943);
+    transform-origin: left;
+    animation: pt-toast-timer 4200ms linear both;
+  }
+  .toast { overflow: hidden; }
+
+  dialog[open] { animation: pt-dialog-in 220ms cubic-bezier(.2, .8, .3, 1) both; }
+  dialog[open]::backdrop { animation: pt-fade 200ms ease both; }
+  .modal-backdrop.open { animation: pt-fade 200ms ease both; }
+  .modal-backdrop.open .modal-sheet { animation: pt-dialog-in 240ms cubic-bezier(.2, .8, .3, 1) both; }
+
+  .pt-grow .chart-bar { animation: pt-bar-grow 650ms cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--pt-i, 0) * 70ms); transform-origin: bottom; }
+  .pt-grow .cut-share > span { animation: pt-bar-x 700ms cubic-bezier(.2, .8, .2, 1) both; transform-origin: left; }
+  .chart-month:hover .chart-bar { filter: brightness(1.08); }
+  .chart-month:hover { translate: 0 -2px; }
+
+  details > summary { transition: color 160ms ease; }
+  details[open] > :not(summary) { animation: pt-rise 260ms ease both; }
+
+  .pt-ripple.run { animation: pt-ripple 560ms ease-out forwards; }
+}
+
+@keyframes pt-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes pt-title { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes pt-from-right { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes pt-from-left { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+@keyframes pt-pop { 0% { transform: scale(.7); } 100% { transform: scale(1); } }
+@keyframes pt-bump { 0% { transform: scale(1); } 35% { transform: scale(1.06); color: var(--brand-accent, #B87943); } 100% { transform: scale(1); } }
+@keyframes pt-flash { 0% { box-shadow: 0 0 0 0 rgba(184, 121, 67, .55); } 100% { box-shadow: 0 0 0 14px rgba(184, 121, 67, 0); } }
+@keyframes pt-shake { 0%, 100% { translate: 0 0; } 20% { translate: -6px 0; } 40% { translate: 5px 0; } 60% { translate: -3px 0; } 80% { translate: 2px 0; } }
+@keyframes pt-pulse { 0% { box-shadow: 0 0 0 0 rgba(184, 121, 67, .6); } 70% { box-shadow: 0 0 0 7px rgba(184, 121, 67, 0); } 100% { box-shadow: 0 0 0 0 rgba(184, 121, 67, 0); } }
+@keyframes pt-toast-in { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: 0 0; } }
+@keyframes pt-toast-timer { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@keyframes pt-dialog-in { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes pt-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pt-bar-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes pt-bar-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes pt-ripple { to { transform: scale(2.6); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-scroll-progress { display: none; }
+  .pt-ripple { display: none; }
+}
+
+@media print {
+  .pt-scroll-progress, .pt-track, .pt-track-label, .pt-ripple { display: none !important; }
+}

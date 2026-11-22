@@ -27,6 +27,7 @@ Website tidak memerlukan npm, proses build, atau instalasi Python. Untuk penggun
 | Bagian | File / folder |
 | --- | --- |
 | Antarmuka | `index.html`, `style.css`, `app.js`, `core.js`, `manifest.json` |
+| Lapisan interaksi | `interactive.css`, `interactive.js`, `supply-panel.css`, `supply-panel.js` |
 | Data referensi | `data.json`, `data/poultry_transactions.csv`, `data/supplier_manifests.csv` |
 | Analisis | `notebook.ipynb`, `src/poultry_engine.py`, `images/`, `sql/` |
 | Pengujian | `tests/core.test.cjs`, `tests/storage.test.cjs`, `tests/test_poultry.py` |

@@ -499,7 +499,7 @@ function renderBukuBon() {
   const toggle = document.getElementById('btnShowAllBon');
   const showAll = toggle.dataset.expanded === 'true' || query || currentBonFilter !== 'all';
   toggle.hidden = Boolean(query) || currentBonFilter !== 'all' || filtered.length <= 2;
-  toggle.textContent = showAll ? 'Tampilkan Lebih Sedikit ↑' : `Lihat ${Math.max(0, filtered.length - 2)} Mitra Lainnya →`;
+  toggle.textContent = showAll ? 'Ringkas daftar ↑' : `Lihat ${Math.max(0, filtered.length - 2)} Mitra Lainnya →`;
   toggle.setAttribute('aria-expanded', String(Boolean(showAll)));
   const visible = showAll ? filtered : filtered.slice(0, 2);
   const container = document.getElementById('bonListContainer');
@@ -559,8 +559,10 @@ function initBonFilters() {
   chips.forEach(chip => {
     chip.addEventListener('click', () => {
       playTouchSound();
-      chips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
+      chips.forEach(c => {
+        c.classList.toggle('active', c === chip);
+        c.setAttribute('aria-pressed', String(c === chip));
+      });
       currentBonFilter = chip.dataset.filter || 'all';
       renderBukuBon();
     });
@@ -800,23 +802,23 @@ function renderRekapKas() {
   const todayOnly = document.getElementById('reportPeriod').value === 'today';
   document.getElementById('openingCashForm').hidden = !todayOnly;
   document.getElementById('openingCashInput').value = totals.openingCash.toLocaleString('id-ID');
-  document.getElementById('drawerTitle').innerHTML = todayOnly ? 'UANG FISIK WAJIB<br>ADA DI LACI MEJA' : 'SALDO ARUS KAS<br>SELURUH CATATAN';
+  document.getElementById('drawerTitle').textContent = todayOnly ? 'Saldo laci' : 'Saldo kas total';
   document.getElementById('btnMatchCash').disabled = !todayOnly;
-  document.getElementById('cashFlowTitle').textContent = todayOnly ? 'Rincian Arus Kas Hari Ini' : 'Rincian Arus Kas Seluruh Catatan';
-  document.getElementById('totalCashLabel').textContent = todayOnly ? 'Total Uang Masuk Hari Ini:' : 'Total Uang Masuk:';
+  document.getElementById('cashFlowTitle').textContent = todayOnly ? 'Arus kas hari ini' : 'Arus kas total';
+  document.getElementById('totalCashLabel').textContent = 'Total uang masuk';
   document.getElementById('reportRecordCount').textContent = totals.transactions.length + ' Transaksi';
-  document.getElementById('reportPaymentNames').textContent = totals.payments.length ? totals.payments.length + ' setoran bon diterima' : 'Belum ada setoran pada periode ini';
+  document.getElementById('reportPaymentNames').textContent = totals.payments.length + ' setoran';
   document.getElementById('reportPayCount').textContent = new Set(totals.payments.map(t => t.customerId)).size + ' Pelanggan';
   const badge = document.getElementById('cashDifference');
   badge.disabled = !todayOnly;
   const key = document.getElementById('reportPeriod').value === 'today' ? localDateKey() : 'all';
   const physical = state.cashCounts?.[key];
   badge.classList.remove('is-balanced', 'is-different');
-  if (!todayOnly) badge.textContent = 'Pilih Hari ini untuk cocokkan';
+  if (!todayOnly) badge.textContent = 'Khusus hari ini';
   else if (physical == null) badge.textContent = 'Belum dicocokkan';
   else {
     const difference = physical - totals.net;
-    badge.textContent = difference === 0 ? 'Rp 0 (Seimbang / Pas)' : formatRupiah(difference) + ' (Selisih)';
+    badge.textContent = difference === 0 ? 'Seimbang' : formatRupiah(difference);
     badge.classList.add(difference === 0 ? 'is-balanced' : 'is-different');
   }
 }
@@ -889,6 +891,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initRedesign();
   initFigmaDetails();
+  initDetailDialog();
+  initDashboard();
   renderBukuBon();
   renderSupplies();
   renderRekapKas();
@@ -923,28 +927,11 @@ function setError(id, message) {
 
 function updatePageHeader(target) {
   const titles = {kasir: 'Kasir', antrean: 'Antrean', 'buku-bon': 'Buku Bon', pasokan: 'Stok', 'rekap-kas': 'Laporan', dashboard: 'Dashboard Analitik'};
-  const copy = {
-    antrean: ['Antrean Pemotongan Karkas', 'Monitor pesanan potong di juru potong lapak agar tidak salah potong saat jam sibuk subuh.'],
-    pasokan: ['Manifest Pasokan Masuk', 'Pencatatan pasokan ayam hidup & karkas segar dari peternak sebelum lapak buka.'],
-    'rekap-kas': ['Rekap Laci Kasir Subuh', 'Validasi uang fisik di laci meja dengan sistem sebelum lapak ditutup.'],
-    dashboard: ['Dashboard Analitik Lapak', 'Konsolidasi performa 5 bulan operasional.']
-  };
   document.getElementById('pageTitle').textContent = titles[target] || 'Kasir';
-  
-  // Sembunyikan brand-card cokelat raksasa saat di tab Dashboard agar tidak tumpuk & tidak terkesan AI
-  const brandCard = document.querySelector('.brand-card');
-  if (brandCard) brandCard.style.display = (target === 'dashboard') ? 'none' : '';
-
+  document.querySelector('.brand-card').hidden = target === 'dashboard';
   document.querySelector('.customer-hero').hidden = target !== 'kasir';
   document.getElementById('bonHeroMetrics').hidden = target !== 'buku-bon';
-  document.getElementById('heroCopy').hidden = !copy[target];
-  document.getElementById('heroLiveBadge').hidden = target !== 'antrean';
-  document.getElementById('heroLogBadge').hidden = target !== 'pasokan';
-  document.getElementById('reportHeroBadges').hidden = target !== 'rekap-kas';
-  if (copy[target]) {
-    document.getElementById('heroTitle').textContent = copy[target][0];
-    document.getElementById('heroDescription').textContent = copy[target][1];
-  }
+  document.getElementById('heroCopy').hidden = target !== 'rekap-kas';
   updateLapakStatus();
 }
 
@@ -1002,20 +989,20 @@ function renderQueue() {
   const pages = Math.max(1, Math.ceil(filtered.length / 2));
   queuePage = Math.min(queuePage, pages - 1);
   const visible = filtered.slice(queuePage * 2, queuePage * 2 + 2);
-  document.getElementById('queueCount').textContent = '• ' + active.length + ' Antrean Aktif';
+  document.getElementById('queueCount').textContent = active.length + ' aktif';
   document.getElementById('navQueueBadge').textContent = active.length + ' antrean';
-  document.getElementById('queueTotalEkor').textContent = 'Total ' + active.reduce((n, q) => n + (q.ekor || 0), 0) + ' Karkas Antre';
-  document.getElementById('queueWaiting').textContent = active.filter(q => q.status === 'processing').length + ' Pesanan Diproses';
+  document.getElementById('queueTotalEkor').textContent = active.reduce((n, q) => n + (q.ekor || 0), 0) + ' karkas';
+  document.getElementById('queueWaiting').textContent = active.filter(q => q.status === 'processing').length + ' diproses';
   document.querySelector('[data-tab="antrean"] .nav-badge-dot').hidden = active.length === 0;
   const pageButton = document.getElementById('btnQueuePage');
   pageButton.hidden = pages <= 1;
-  pageButton.innerHTML = (queuePage === pages - 1 ? '← Kembali ke Antrean' : 'Lihat Detail Antrean ' + uiIcon('arrow'));
+  pageButton.innerHTML = (queuePage === pages - 1 ? '← Halaman awal' : 'Berikutnya ' + uiIcon('arrow'));
   const container = document.getElementById('queueListContainer');
   if (!visible.length) {
     container.innerHTML = '<div class="empty-state"><h3>' + (queueFilter === 'done' ? 'Belum ada pesanan diambil' : 'Antrean sudah selesai') + '</h3><p>Pesanan tampil setelah transaksi disimpan di kasir.</p></div>';
     return;
   }
-  const labels = {waiting: '• Waitlist', processing: '• Processing', ready: '• Siap Diambil', done: 'Sudah Diambil'};
+  const labels = {waiting: 'Mulai potong', processing: 'Tandai siap', ready: 'Tandai diambil', done: 'Sudah diambil'};
   const actions = {waiting: 'Mulai potong', processing: 'Tandai siap diambil', ready: 'Tandai sudah diambil'};
   container.innerHTML = visible.map((q, index) => {
     const position = queuePage * 2 + index;
@@ -1040,7 +1027,7 @@ function initRedesign() {
     button.dataset.expanded = button.dataset.expanded === 'true' ? 'false' : 'true';
     renderBukuBon();
   };
-  document.getElementById('btnCashierStock').onclick = () => document.querySelector('[data-tab="pasokan"]').click();
+  document.getElementById('btnCashierStock').onclick = openStockDetail;
   document.getElementById('btnNotifications').onclick = () => document.getElementById('lapakModal').showModal();
   document.getElementById('reportPeriod').onchange = renderRekapKas;
   document.getElementById('btnPrintReport').onclick = printCashReport;
@@ -1053,7 +1040,10 @@ function initRedesign() {
     if (!button) return;
     queueFilter = button.dataset.queueFilter;
     queuePage = 0;
-    document.querySelectorAll('[data-queue-filter]').forEach(b => b.classList.toggle('active', b === button));
+    document.querySelectorAll('[data-queue-filter]').forEach(b => {
+      b.classList.toggle('active', b === button);
+      b.setAttribute('aria-pressed', String(b === button));
+    });
     renderQueue();
   });
   document.getElementById('queueListContainer').addEventListener('click', e => {
@@ -1147,8 +1137,8 @@ function updateLapakStatus() {
   document.getElementById('lapakStatusText').textContent = open ? 'Lapak Buka' : 'Lapak Tutup';
   document.getElementById('btnToggleLapak').textContent = open ? 'Tutup Lapak' : 'Buka Lapak';
   const closedToday = state.shiftClosedAt && localDateKey(new Date(state.shiftClosedAt)) === localDateKey() && !open;
-  document.getElementById('shiftStatusBadge').innerHTML = uiIcon('sun') + (closedToday ? 'Shift Subuh Selesai' : 'Shift Subuh');
-  document.getElementById('btnCloseShift').innerHTML = uiIcon('lock') + '<span>' + (closedToday ? 'Kasir Ditutup - Buka Kembali' : 'Tutup Kasir & Simpan Rekap') + '</span>';
+  document.getElementById('shiftStatusBadge').innerHTML = uiIcon('sun') + (closedToday ? 'Shift selesai' : 'Shift subuh');
+  document.getElementById('btnCloseShift').innerHTML = uiIcon('lock') + '<span>' + (closedToday ? 'Buka kasir' : 'Tutup kasir') + '</span>';
 }
 
 function runPrint(content, receipt = false) {
@@ -1196,12 +1186,6 @@ function initFigmaDetails() {
     queuePage = (queuePage + 1) % pages;
     renderQueue();
     document.getElementById('antrean').scrollIntoView({behavior: 'smooth', block: 'start'});
-  };
-  document.getElementById('btnSearchBon').onclick = () => {
-    const tools = document.getElementById('bonSearchTools');
-    tools.hidden = !tools.hidden;
-    document.getElementById('btnSearchBon').setAttribute('aria-expanded', String(!tools.hidden));
-    if (!tools.hidden) document.getElementById('searchBon').focus();
   };
   document.getElementById('btnNewPartner').onclick = () => document.getElementById('btnAddCustomer').click();
   document.getElementById('partnerPhoneInput').addEventListener('change', e => {
@@ -1349,289 +1333,262 @@ function initResilience() {
   window.addEventListener('afterprint', () => document.body.classList.remove('print-receipt'));
 }
 
-/* ==============================================================
-   DASHBOARD EKSEKUTIF & ANALITIK LAPAK (SLIDE 7 & MUTU MANAJEMEN)
-   ============================================================== */
-function renderDashboard() {
-  const container = document.getElementById('dashboard');
-  if (!container) return;
+const monthlySales = [
+  { month: 'Mei', name: 'Mei', omzet: 38150200, profit: 8624800, trx: 326, kg: 1184.2 },
+  { month: 'Jun', name: 'Juni', omzet: 39420500, profit: 8910400, trx: 338, kg: 1221.5 },
+  { month: 'Jul', name: 'Juli', omzet: 37840100, profit: 8528100, trx: 322, kg: 1172.8 },
+  { month: 'Agu', name: 'Agustus', omzet: 38890450, profit: 8775550, trx: 331, kg: 1205.4 },
+  { month: 'Sep', name: 'September', omzet: 37906800, profit: 8516786, trx: 321, kg: 1151.0 }
+];
 
-  // Real data 5 bulan (Mei - Sept 2026)
-  const monthlyData = [
-    { month: 'Mei 2026', omzet: 38150200, cogs: 29525400, profit: 8624800, trx: 326, kg: 1184.2 },
-    { month: 'Jun 2026', omzet: 39420500, cogs: 30510100, profit: 8910400, trx: 338, kg: 1221.5 },
-    { month: 'Jul 2026', omzet: 37840100, cogs: 29312000, profit: 8528100, trx: 322, kg: 1172.8 },
-    { month: 'Agu 2026', omzet: 38890450, cogs: 30114900, profit: 8775550, trx: 331, kg: 1205.4 },
-    { month: 'Sep 2026', omzet: 37906800, cogs: 29390014, profit: 8516786, trx: 321, kg: 1151.0 }
-  ];
+const dashboardNumber = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 1 });
+const dashboardPercent = new Intl.NumberFormat('id-ID', {
+  style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2
+});
+const monthValueFormat = {
+  omzet: value => 'Rp ' + dashboardNumber.format(value / 1e6) + ' jt',
+  profit: value => 'Rp ' + dashboardNumber.format(value / 1e6) + ' jt',
+  trx: value => dashboardNumber.format(value)
+};
+const monthAccessibleFormat = {
+  omzet: value => 'omzet ' + formatRupiah(value),
+  profit: value => 'laba kotor ' + formatRupiah(value),
+  trx: value => dashboardNumber.format(value) + ' transaksi'
+};
 
-  const totalOmzet = 192208050;
-  const totalCogs = 148852414;
-  const totalProfit = 43355636;
-  const totalKg = 5934.9;
-  const totalChickens = 2413;
-  const totalTrx = 1638;
-  const shrinkageRatio = 2.50; // 2.50%
+const projectMetrics = [
+  {
+    id: 'cpm', name: 'Jalur kritis (CPM)', label: 'Durasi', value: '77 hari kerja',
+    rows: [['Kelonggaran waktu', '0 hari'], ['Hasil kerja', '18']]
+  },
+  {
+    id: 'spi', name: 'Jadwal (SPI)', label: 'Indeks kinerja jadwal', value: '0,94',
+    rows: [['Nilai pekerjaan (EV)', 'Rp 14,1 jt'], ['Nilai rencana (PV)', 'Rp 15,0 jt']]
+  },
+  {
+    id: 'cpi', name: 'Biaya (CPI)', label: 'Indeks kinerja biaya', value: '0,95',
+    rows: [['Nilai pekerjaan (EV)', 'Rp 14,1 jt'], ['Biaya aktual (AC)', 'Rp 14,8 jt']]
+  }
+];
 
-  // Update KPI counters if present
-  const setEl = (id, text) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = text;
+function openDetail({section, title, label, value, rows, month = false, stock = false}) {
+  const dialog = document.getElementById('detailDialog');
+  document.getElementById('detailSection').textContent = section;
+  document.getElementById('detailTitle').textContent = title;
+  document.getElementById('detailLabel').textContent = label;
+  document.getElementById('detailValue').textContent = value;
+  document.getElementById('detailRows').innerHTML = rows.map(([key, text]) =>
+    `<div><dt>${escapeHtml(key)}</dt><dd>${escapeHtml(text)}</dd></div>`
+  ).join('');
+  document.getElementById('detailPager').hidden = !month;
+  document.getElementById('detailStockAction').hidden = !stock;
+  if (!dialog.open) dialog.showModal();
+}
+
+function openStockDetail() {
+  const stock = PoultryCore.inventory(state);
+  const weight = value => value.toLocaleString('id-ID', {maximumFractionDigits: 2}) + ' kg';
+  const quantity = (ekor, kg) => ekor.toLocaleString('id-ID') + ' ekor · ' + weight(kg);
+  const ekor = parseNumber(document.getElementById('inputEkor').value);
+  const kg = parseNumber(document.getElementById('inputKg').value);
+  const rows = [['Berat tersedia', weight(stock.kg)]];
+  if (Number.isInteger(ekor) && ekor > 0 && Number.isFinite(kg) && kg > 0) {
+    rows.push(['Pesanan ini', quantity(ekor, kg)]);
+    if (ekor > stock.ekor || kg > stock.kg) {
+      const shortages = [];
+      if (ekor > stock.ekor) shortages.push((ekor - stock.ekor).toLocaleString('id-ID') + ' ekor');
+      if (kg > stock.kg) shortages.push(weight(kg - stock.kg));
+      rows.push(['Kekurangan', shortages.join(' · ')]);
+    } else {
+      rows.push(['Sisa setelah pesanan', quantity(stock.ekor - ekor, stock.kg - kg)]);
+    }
+  }
+  openDetail({
+    section: 'Kasir', title: 'Stok pesanan', label: 'Jumlah tersedia',
+    value: stock.ekor.toLocaleString('id-ID') + ' ekor', rows, stock: true
+  });
+}
+
+function initDetailDialog() {
+  const dialog = document.getElementById('detailDialog');
+  let pressedBackdrop = false;
+  dialog.addEventListener('pointerdown', event => { pressedBackdrop = event.target === dialog; });
+  dialog.addEventListener('click', event => {
+    if (pressedBackdrop && event.target === dialog) dialog.close();
+    pressedBackdrop = false;
+  });
+  document.getElementById('detailOpenStock').onclick = () => {
+    dialog.close();
+    const tab = document.querySelector('[data-tab="pasokan"]');
+    tab.click();
+    tab.focus({preventScroll: true});
   };
+}
 
-  setEl('dashTotalOmzet', formatRupiah(totalOmzet));
-  setEl('dashTotalProfit', formatRupiah(totalProfit));
-  setEl('dashTotalKg', totalKg.toLocaleString('id-ID', { minimumFractionDigits: 1 }) + ' Kg');
-  setEl('dashTotalChickens', totalChickens.toLocaleString('id-ID') + ' Ekor');
-  setEl('dashShrinkage', shrinkageRatio.toFixed(2) + '%');
+function monthlyFigures(item) {
+  return {
+    omzet: ['Omzet', formatRupiah(item.omzet)],
+    profit: ['Laba kotor', formatRupiah(item.profit)],
+    trx: ['Transaksi', dashboardNumber.format(item.trx)],
+    kg: ['Volume', dashboardNumber.format(item.kg) + ' kg']
+  };
+}
 
-  // Calculate live customer debt from state
-  const activeCustomers = (state && state.customers) ? state.customers.filter(c => c.status !== 'eceran') : [];
-  const totalLiveDebt = activeCustomers.reduce((acc, c) => acc + (c.currentDebt || 0), 0);
-  setEl('dashTotalDebt', formatRupiah(totalLiveDebt));
+function updateMonthlyChart(metric, selectedMonth) {
+  const chart = document.getElementById('monthlyChart');
+  const controls = document.getElementById('chartMetrics');
+  const maxValue = Math.max(...monthlySales.map(month => month[metric]));
 
-  // Render SVG Monthly Chart
-  renderMonthlySvgChart(monthlyData);
+  controls.querySelectorAll('button').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.metric === metric));
+  });
 
-  // Render Cut Mix Bars
+  chart.querySelectorAll('button').forEach((button, index) => {
+    const item = monthlySales[index];
+    const value = item[metric];
+    button.style.setProperty('--bar-height', (value / maxValue * 100) + '%');
+    button.setAttribute('aria-pressed', String(index === selectedMonth));
+    button.setAttribute('aria-label', item.month + ': ' + monthAccessibleFormat[metric](value));
+    button.querySelector('.chart-value').textContent = monthValueFormat[metric](value);
+  });
+  const month = monthlySales[selectedMonth];
+  const figures = monthlyFigures(month);
+  document.getElementById('monthDetailTitle').textContent = month.month + ' 2026';
+  document.getElementById('monthRevenue').textContent = figures.omzet[1];
+  document.getElementById('monthProfit').textContent = figures.profit[1];
+  document.getElementById('monthTransactions').textContent = figures.trx[1];
+  document.getElementById('monthVolume').textContent = figures.kg[1];
+}
+
+function initDashboard() {
+  const chart = document.getElementById('monthlyChart');
+  const controls = document.getElementById('chartMetrics');
+  let metric = 'omzet';
+  let selectedMonth = monthlySales.length - 1;
+  chart.innerHTML = monthlySales.map(({month}, index) => `
+    <button type="button" class="chart-month" data-month="${index}" aria-haspopup="dialog" aria-controls="detailDialog" aria-pressed="false">
+      <span aria-hidden="true" class="chart-value"></span>
+      <span aria-hidden="true" class="chart-track"><span class="chart-bar"></span></span>
+      <span aria-hidden="true" class="chart-month-label">${month}</span>
+    </button>
+  `).join('');
+
+  const previous = document.getElementById('detailPrevious');
+  const next = document.getElementById('detailNext');
+  function showMonth(index) {
+    if (index < 0 || index >= monthlySales.length) return;
+    selectedMonth = index;
+    const item = monthlySales[index];
+    const metrics = monthlyFigures(item);
+    const [label, value] = metrics[metric];
+    const rows = Object.entries(metrics).filter(([key]) => key !== metric).map(([, row]) => row);
+    updateMonthlyChart(metric, selectedMonth);
+    const focusedButton = document.activeElement;
+    previous.disabled = index === 0;
+    next.disabled = index === monthlySales.length - 1;
+    openDetail({section: 'Tren bulanan', title: item.name + ' 2026', label, value, rows, month: true});
+    if (focusedButton === previous && previous.disabled) next.focus();
+    if (focusedButton === next && next.disabled) previous.focus();
+  }
+  previous.onclick = () => showMonth(selectedMonth - 1);
+  next.onclick = () => showMonth(selectedMonth + 1);
+  const projects = document.getElementById('projectMetrics');
+  projects.innerHTML = projectMetrics.map(project => `
+    <div class="project-metric">
+      <button type="button" data-project="${project.id}" aria-haspopup="dialog" aria-controls="detailDialog">
+        <span>${project.name}</span><strong class="font-numeric">${project.value}</strong>
+      </button>
+    </div>`
+  ).join('');
+  projects.addEventListener('click', event => {
+    const button = event.target.closest('[data-project]');
+    if (!button) return;
+    const project = projectMetrics.find(item => item.id === button.dataset.project);
+    if (project) openDetail({section: 'Kinerja proyek', title: project.name, label: project.label, value: project.value, rows: project.rows});
+  });
+  controls.addEventListener('click', event => {
+    const button = event.target.closest('button[data-metric]');
+    if (!button) return;
+    metric = button.dataset.metric;
+    updateMonthlyChart(metric, selectedMonth);
+  });
+  chart.addEventListener('click', event => {
+    const button = event.target.closest('button[data-month]');
+    if (!button) return;
+    showMonth(Number(button.dataset.month));
+  });
+  document.getElementById('btnDashBon').addEventListener('click', () => {
+    const tab = document.querySelector('[data-tab="buku-bon"]');
+    tab.click();
+    tab.focus({ preventScroll: true });
+  });
+
+  updateMonthlyChart(metric, selectedMonth);
   renderCutMixDistribution();
-
-
-  // Render Partner Debt Monitoring
-  renderPartnerDebtDashboard(activeCustomers);
+  renderDashboard();
 }
 
-function renderMonthlySvgChart(data) {
-  const chartEl = document.getElementById('monthlyChartSvg');
-  if (!chartEl) return;
+function renderDashboard() {
+  const total = metric => monthlySales.reduce((sum, month) => sum + month[metric], 0);
+  const customers = state.customers.filter(customer => customer.id !== 'ECR' && customer.currentDebt > 0);
 
-  const width = 640;
-  const height = 240;
-  const padLeft = 65;
-  const padRight = 25;
-  const padTop = 30;
-  const padBottom = 40;
-  const chartW = width - padLeft - padRight;
-  const chartH = height - padTop - padBottom;
-
-  const maxVal = 45000000;
-  const barGroupWidth = chartW / data.length;
-  const barW = 20;
-
-  let svg = `
-    <defs>
-      <linearGradient id="omzetBarGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#351900" />
-        <stop offset="100%" stop-color="#4A2600" />
-      </linearGradient>
-      <linearGradient id="profitBarGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#D97706" />
-        <stop offset="100%" stop-color="#B45309" />
-      </linearGradient>
-    </defs>
-  `;
-
-  // Grid lines & Y-axis labels
-  const gridSteps = [0, 10000000, 20000000, 30000000, 40000000];
-  gridSteps.forEach(val => {
-    const y = padTop + chartH - (val / maxVal) * chartH;
-    svg += `
-      <line x1="${padLeft}" y1="${y}" x2="${width - padRight}" y2="${y}" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" />
-      <text x="${padLeft - 10}" y="${y + 4}" font-size="10" font-family="'Plus Jakarta Sans', sans-serif" fill="#64748B" text-anchor="end" font-weight="600">
-        ${val === 0 ? 'Rp 0' : 'Rp ' + (val / 1000000) + ' Jt'}
-      </text>
-    `;
-  });
-
-  // Bars
-  data.forEach((d, i) => {
-    const groupX = padLeft + i * barGroupWidth;
-    const centerX = groupX + barGroupWidth / 2;
-
-    const omzetH = (d.omzet / maxVal) * chartH;
-    const omzetY = padTop + chartH - omzetH;
-    const omzetX = centerX - barW - 3;
-
-    const profitH = (d.profit / maxVal) * chartH;
-    const profitY = padTop + chartH - profitH;
-    const profitX = centerX + 3;
-
-    svg += `
-      <!-- Omzet Bar -->
-      <rect x="${omzetX}" y="${omzetY}" width="${barW}" height="${omzetH}" rx="3" fill="url(#omzetBarGrad)">
-        <title>${d.month} - Omzet: ${formatRupiah(d.omzet)} (${d.trx} trx)</title>
-      </rect>
-      <text x="${omzetX + barW/2}" y="${omzetY - 5}" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" fill="#351900" text-anchor="middle">
-        ${(d.omzet / 1000000).toFixed(1)}Jt
-      </text>
-
-      <!-- Profit Bar -->
-      <rect x="${profitX}" y="${profitY}" width="${barW}" height="${profitH}" rx="3" fill="url(#profitBarGrad)">
-        <title>${d.month} - Laba Kotor: ${formatRupiah(d.profit)}</title>
-      </rect>
-      <text x="${profitX + barW/2}" y="${profitY - 5}" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700" fill="#D97706" text-anchor="middle">
-        ${(d.profit / 1000000).toFixed(1)}Jt
-      </text>
-
-      <!-- Month Label -->
-      <text x="${centerX}" y="${height - 12}" font-size="11" font-weight="700" font-family="'Plus Jakarta Sans', sans-serif" fill="#334155" text-anchor="middle">
-        ${d.month}
-      </text>
-    `;
-  });
-
-  chartEl.setAttribute('viewBox', `0 0 ${width} ${height}`);
-  chartEl.innerHTML = svg;
+  document.getElementById('dashTotalOmzet').textContent = formatRupiah(total('omzet'));
+  document.getElementById('dashTotalProfit').textContent = formatRupiah(total('profit'));
+  document.getElementById('dashTotalTrx').textContent = dashboardNumber.format(total('trx')) + ' transaksi';
+  document.getElementById('dashMargin').textContent = 'Margin ' + dashboardPercent.format(total('profit') / total('omzet'));
+  document.getElementById('dashTotalKg').textContent = dashboardNumber.format(total('kg')) + ' kg';
+  document.getElementById('dashTotalChickens').textContent = dashboardNumber.format(2413) + ' ekor';
+  document.getElementById('dashShrinkage').textContent = dashboardPercent.format(0.025);
+  document.getElementById('dashTotalDebt').textContent = formatRupiah(
+    customers.reduce((sum, customer) => sum + customer.currentDebt, 0)
+  );
+  document.getElementById('dashDebtorCount').textContent = customers.length + ' mitra';
+  renderPartnerDebtDashboard(customers);
 }
+
 function renderCutMixDistribution() {
-  const container = document.getElementById('cutMixContainer');
-  if (!container) return;
-
   const cuts = [
-    { name: 'Potong 4 Bagian', kg: 2279.0, pct: 38.4, rev: 73801200, note: 'Paling diminati warung lalapan & katering' },
-    { name: 'Potong 8 Bagian', kg: 1851.7, pct: 31.2, rev: 59902400, note: 'Standar warung rames & depot soto' },
-    { name: 'Karkas Utuh Bersih', kg: 1103.9, pct: 18.6, rev: 35704100, note: 'Langganan rumah makan padang & resto' },
-    { name: 'Fillet Dada / Giling', kg: 700.3, pct: 11.8, rev: 22800350, note: 'Premium depot bakso & olahan nugget' }
+    { name: 'Potong 4', kg: 2279.0, pct: 38.4, rev: 73801200 },
+    { name: 'Potong 8', kg: 1851.7, pct: 31.2, rev: 59902400 },
+    { name: 'Utuh', kg: 1103.9, pct: 18.6, rev: 35704100 },
+    { name: 'Fillet / giling', kg: 700.3, pct: 11.8, rev: 22800350 }
   ];
-
-  container.innerHTML = cuts.map(c => `
-    <div class="cut-mix-row">
-      <div class="cut-mix-header">
-        <span class="cut-mix-name">${c.name}</span>
-        <span class="cut-mix-stat font-numeric">${c.kg.toLocaleString('id-ID', {minimumFractionDigits: 1})} Kg (${c.pct.toFixed(1)}%)</span>
-      </div>
-      <div class="cut-mix-bar-bg">
-        <div class="cut-mix-bar-fill" style="width: ${c.pct}%;"></div>
-      </div>
-      <div class="cut-mix-meta">
-        <span>Kontribusi: ${formatRupiah(c.rev)}</span>
-        <span class="text-muted">${c.note}</span>
-      </div>
-    </div>
+  document.getElementById('cutMixContainer').innerHTML = cuts.map(cut => `
+    <details class="dash-disclosure">
+      <summary><span>${cut.name}</span><strong>${dashboardNumber.format(cut.pct)}%</strong></summary>
+      <div class="cut-share" aria-hidden="true"><span style="width: ${cut.pct}%"></span></div>
+      <dl>
+        <div><dt>Volume</dt><dd>${dashboardNumber.format(cut.kg)} kg</dd></div>
+        <div><dt>Omzet</dt><dd>${formatRupiah(cut.rev)}</dd></div>
+      </dl>
+    </details>
   `).join('');
 }
 
-function renderParetoSvgChart() {
-  const chartEl = document.getElementById('paretoChartSvg');
-  if (!chartEl) return;
-
-  const issues = [
-    { category: 'Kasir Antrean Subuh', count: 38, pct: 38.0, cum: 38.0, vital: true },
-    { category: 'Bon Kertas Basah/Hilang', count: 29, pct: 29.0, cum: 67.0, vital: true },
-    { category: 'Selisih Timbang Susut', count: 17, pct: 17.0, cum: 84.0, vital: true },
-    { category: 'Salah Potong Karkas', count: 9, pct: 9.0, cum: 93.0, vital: false },
-    { category: 'Salah Catat Cicilan', count: 7, pct: 7.0, cum: 100.0, vital: false }
-  ];
-
-  const width = 580;
-  const height = 240;
-  const padLeft = 45;
-  const padRight = 45;
-  const padTop = 25;
-  const padBottom = 45;
-  const chartW = width - padLeft - padRight;
-  const chartH = height - padTop - padBottom;
-
-  const maxCount = 45;
-  const barW = chartW / issues.length;
-
-  let svg = `
-    <defs>
-      <linearGradient id="vitalBarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#B91C1C" />
-        <stop offset="100%" stop-color="#991B1B" />
-      </linearGradient>
-      <linearGradient id="trivialBarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#94A3B8" />
-        <stop offset="100%" stop-color="#64748B" />
-      </linearGradient>
-    </defs>
-  `;
-
-  // 80% Cutoff threshold line
-  const cutoffY = padTop + chartH - (80 / 100) * chartH;
-  svg += `
-    <line x1="${padLeft}" y1="${cutoffY}" x2="${width - padRight}" y2="${cutoffY}" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4,4" />
-    <text x="${width - padRight + 4}" y="${cutoffY + 4}" font-size="10" font-weight="700" fill="#D97706">80%</text>
-  `;
-
-  // Left Axis (Count) & Right Axis (%)
-  svg += `
-    <line x1="${padLeft}" y1="${padTop}" x2="${padLeft}" y2="${padTop + chartH}" stroke="#CBD5E1" stroke-width="1" />
-    <line x1="${width - padRight}" y1="${padTop}" x2="${width - padRight}" y2="${padTop + chartH}" stroke="#CBD5E1" stroke-width="1" />
-  `;
-
-  let points = [];
-
-  issues.forEach((iss, i) => {
-    const x = padLeft + i * barW;
-    const bWidth = barW * 0.65;
-    const bOffset = (barW - bWidth) / 2;
-    const bH = (iss.count / maxCount) * chartH;
-    const bY = padTop + chartH - bH;
-
-    const lineX = x + barW / 2;
-    const lineY = padTop + chartH - (iss.cum / 100) * chartH;
-    points.push({ x: lineX, y: lineY, cum: iss.cum });
-
-    svg += `
-      <!-- Bar -->
-      <rect x="${x + bOffset}" y="${bY}" width="${bWidth}" height="${bH}" rx="3" fill="${iss.vital ? 'url(#vitalBarGrad)' : 'url(#trivialBarGrad)'}">
-        <title>${iss.category}: ${iss.count} kasus (${iss.pct}%)</title>
-      </rect>
-      <!-- Count label -->
-      <text x="${x + barW / 2}" y="${bY - 4}" font-size="10" font-weight="700" fill="#334155" text-anchor="middle">${iss.count}</text>
-      <!-- X-label -->
-      <text x="${x + barW / 2}" y="${height - 20}" font-size="9" font-family="'Plus Jakarta Sans', sans-serif" fill="#475569" text-anchor="middle">
-        ${iss.category.split(' ')[0]}
-      </text>
-      <text x="${x + barW / 2}" y="${height - 8}" font-size="8.5" font-family="'Plus Jakarta Sans', sans-serif" fill="#64748B" text-anchor="middle">
-        ${iss.category.split(' ').slice(1).join(' ')}
-      </text>
-    `;
-  });
-
-  // Cumulative line
-  let polylineStr = points.map(p => `${p.x},${p.y}`).join(' ');
-  svg += `<polyline points="${polylineStr}" fill="none" stroke="#D97706" stroke-width="2.5" />`;
-
-  points.forEach(p => {
-    svg += `
-      <circle cx="${p.x}" cy="${p.y}" r="4" fill="#FFFFFF" stroke="#D97706" stroke-width="2.5" />
-      <text x="${p.x}" y="${p.y - 7}" font-size="9.5" font-weight="700" fill="#D97706" text-anchor="middle">${p.cum.toFixed(0)}%</text>
-    `;
-  });
-
-  chartEl.innerHTML = svg;
-}
-
 function renderPartnerDebtDashboard(customers) {
-  const container = document.getElementById('dashPartnerList');
-  if (!container) return;
+  const list = document.getElementById('dashPartnerList');
+  const sorted = [...customers].sort((a, b) => b.currentDebt - a.currentDebt);
+  if (!sorted.length) {
+    list.textContent = 'Tidak ada piutang aktif.';
+    return;
+  }
 
-  const valid = customers.filter(c => (c.plafon || 0) > 0);
-  valid.sort((a, b) => (b.currentDebt || 0) - (a.currentDebt || 0));
-
-  container.innerHTML = valid.map(c => {
-    const debt = c.currentDebt || 0;
-    const plafon = c.plafon || 1;
-    const ratio = Math.min(100, Math.round((debt / plafon) * 100));
-    const statusClass = ratio >= 80 ? 'danger' : ratio >= 50 ? 'warning' : 'safe';
-
+  const row = customer => {
+    const late = PoultryCore.daysLate(customer, state.debtAsOf);
+    const status = late > 0 ? 'Terlambat ' + late + ' hari' : 'Berjalan';
     return `
-      <div class="dash-partner-item">
-        <div class="dash-partner-top">
-          <span class="dash-partner-name">${c.name}</span>
-          <span class="dash-partner-debt font-numeric ${statusClass}">${formatRupiah(debt)} <small class="text-muted">/ ${formatRupiah(plafon)}</small></span>
-        </div>
-        <div class="dash-partner-progress-bg">
-          <div class="dash-partner-progress-fill ${statusClass}" style="width: ${ratio}%;"></div>
-        </div>
-        <div class="dash-partner-sub">
-          <span>Plafon terpakai: <strong>${ratio}%</strong></span>
-          <span>Status: <strong class="partner-badge ${statusClass}">${c.daysLate > 0 ? c.daysLate + ' Hari Tempo' : 'Lancar'}</strong></span>
-        </div>
-      </div>
-    `;
-  }).join('');
+      <details class="dash-disclosure">
+        <summary><span>${escapeHtml(customer.name)}</span><strong>${formatRupiah(customer.currentDebt)}</strong></summary>
+        <dl>
+          <div><dt>Plafon</dt><dd>${formatRupiah(customer.plafon || 0)}</dd></div>
+          <div><dt>Status</dt><dd>${status}</dd></div>
+        </dl>
+      </details>`;
+  };
+  const extra = sorted.slice(3);
+  list.innerHTML = sorted.slice(0, 3).map(row).join('') + (extra.length ? `
+    <details class="dash-disclosure dash-more">
+      <summary><span>${extra.length} mitra lainnya</span></summary>
+      <div class="dash-disclosure-list">${extra.map(row).join('')}</div>
+    </details>` : '');
 }
